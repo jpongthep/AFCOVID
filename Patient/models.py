@@ -59,7 +59,7 @@ class Patient(models.Model):
                             verbose_name = 'ที่ทำงาน/สังกัด',
                             blank = True, 
                             null = True,)
-    Airforce = BooleanField(
+    IsAirforce = BooleanField(
                                     default = False, 
                                     verbose_name= "ขรก.ทอ.",
                                     blank = True, 
