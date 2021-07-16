@@ -59,6 +59,11 @@ class Patient(models.Model):
                             verbose_name = 'ที่ทำงาน/สังกัด',
                             blank = True, 
                             null = True,)
+    Airforce = BooleanField(
+                                    default = False, 
+                                    verbose_name= "ขรก.ทอ.",
+                                    blank = True, 
+                                    null = True,)
     DatePositive  = models.DateField(
                                     blank = True, 
                                     null = True,
