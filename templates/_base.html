@@ -55,7 +55,7 @@
                     </li>
 
                     <li>
-                        <a href="main-form.html">
+                        <a href="{% url 'Patient:List' %}">
                             <i class="fa fa-address-card-o" aria-hidden="true"></i> ผู้ป่วย
                         </a>
                     </li>
@@ -94,8 +94,8 @@
                         </div>
 
                         <div class="dropdown dib">
-                            <div class="header-icon" data-toggle="dropdown">
-                                <i class="ti-settings"></i>
+                            <div class="header-icon" >
+                                <a href = "/admin"><i class="ti-settings"></i></a>
                             </div>
                         </div>
 

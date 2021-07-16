@@ -1,0 +1,37 @@
+{% extends '_base.html' %}
+{% load static %}
+{% load thaidate %}
+
+{% block title %}แก้ไขผู้ป่วย{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="my-3 p-3 bg-body rounded shadow-sm">
+        <h4 class="text-uppercase">รายชื่อผู้ป่วย</h4>
+        <p>
+            <small> {% now "SHORT_DATE_FORMAT" %} <span id="clock"></span></small>
+        </p>
+    </div>
+    <div class="my-3 p-3 bg-body rounded shadow-sm">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Update">
+        </form>
+    </div>
+
+    
+
+
+</div>
+
+
+{% endblock %}
+
+{% block script %}
+    <script>
+
+        
+    </script>
+{% endblock %}

@@ -24,7 +24,9 @@ def home(request):
     return render(request,'_base.html')
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name = 'admin'),
 
+    
+    path('pt/', include('Patient.urls')),
     path('', home, name="home"),
 ]+ static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
