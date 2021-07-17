@@ -55,7 +55,7 @@
                     </li>
 
                     <li>
-                        <a href="main-form.html">
+                        <a href="{% url 'Patient:List' %}">
                             <i class="fa fa-address-card-o" aria-hidden="true"></i> ผู้ป่วย
                         </a>
                     </li>
@@ -94,14 +94,14 @@
                         </div>
 
                         <div class="dropdown dib">
-                            <div class="header-icon" data-toggle="dropdown">
-                                <i class="ti-settings"></i>
+                            <div class="header-icon" >
+                                <a href = "/admin"><i class="ti-settings"></i></a>
                             </div>
                         </div>
 
                         <div class="dropdown dib">
                             <div class="header-icon" data-toggle="dropdown">
-                                <i class="ti-power-off"></i>
+                                <a href = "{% url 'logout' %}"><i class="ti-power-off"></i></a>
                             </div>
                         </div>
 
@@ -113,9 +113,10 @@
 
 
     <div class="content-wrap">
-        {% block content %}
+        
         <div class="main">
             <div class="container-fluid">
+                {% block content %}
                 <div class="row">
                     <div class="col-lg-8 p-r-0 title-margin-right">
                         <div class="page-header">
@@ -431,11 +432,14 @@
                         </div>
                     </div>
                 </section>
+                {% endblock %}
             </div>
         </div>
-        {% endblock %}
+        
     </div>
 
+    
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <!-- jquery vendor -->
     <script src="{% static 'assets/js/lib/jquery.min.js' %}"></script>
     <script src="{% static 'assets/js/lib/jquery.nanoscroller.min.js' %}"></script>

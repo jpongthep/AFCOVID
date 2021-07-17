@@ -17,9 +17,14 @@ class Unit(models.Model):
 class User(AbstractUser):
     class Meta:        
         permissions = (
-            ("User_ศปม_ทอ", "User ศปม.ทอ."),
-            ("User_ศปม_นขต", "User ศปม.นขต."),
-            ("User_Callcenter", "User CallCenter"),            
+            ("User_AF_CMO", "User AF CMO"),
+            ("User_Unit_CMO", "User Unit CMO"),
+            ("User_PMD", "User PMD"),        
+            ("User_CRC", "User CRC"),        
+            # ศูนย์ปฏิบัติการพลเรือน-ทหารศูนย์บรรเทาสาธารณภัย
+            # Civilian-Military Operations Center Disaster Relief Center
+            # Preventive Medicine Division
+            # ศูนย์ประสานผู้ป่วย COVID -19  ทอ. (RTAF COVID-19 Response Center : CRC)
         )
     CHOICE_Rank = (
         ( 30101 ,  'พล.อ.อ.*' ) ,

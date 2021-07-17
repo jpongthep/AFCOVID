@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.db import models
 
 from django.db.models.fields import BooleanField
@@ -60,6 +62,11 @@ class Patient(models.Model):
                             verbose_name = 'ที่ทำงาน/สังกัด',
                             blank = True, 
                             null = True,)
+    IsAirforce = BooleanField(
+                                    default = False, 
+                                    verbose_name= "ขรก.ทอ.",
+                                    blank = True, 
+                                    null = True,)
     DatePositive  = models.DateField(
                                     blank = True, 
                                     null = True,
@@ -82,7 +89,7 @@ class Patient(models.Model):
                                     upload_to='Corona3/', 
                                     null = True, 
                                     blank = True)
-    EmergencyMobileMobile  = models.CharField(
+    EmergencyMobile  = models.CharField(
                                             max_length = 20,
                                             blank = True, 
                                             null = True,
@@ -98,7 +105,7 @@ class Patient(models.Model):
                                     default = False, 
                                     verbose_name= "กวป.ยืนยันผู้ติดเชื้อ",
                                     blank = True, 
-                                    null = True,)
+                                    null = True)
     Comment  = models.TextField(
                                 default = None, 
                                 verbose_name = "คำอธิบาย",
@@ -115,6 +122,14 @@ class Patient(models.Model):
             return LastestStatus[0].get_Status_display()
         else:
             return "-"
+    
+    @property
+    def LestestStatus(self):
+        LastestStatus = StatusLog.objects.filter(Patient = self).order_by('-Date')
+        if LastestStatus.exists():
+            return LastestStatus[0].Date
+        else:
+            return ""
 
     
     @property
@@ -124,6 +139,19 @@ class Patient(models.Model):
             return LastestTreatment[0].get_Treatment_display()
         else:
             return "-"
+    
+    @property
+    def LestestTreatment(self):
+        LastestTreatment = TreatmentLog.objects.filter(Patient = self).order_by('-Date')
+        if LastestTreatment.exists():
+            return LastestTreatment[0].Date
+        else:
+            return ""
+
+    @property
+    def Age(self):
+        today = date.today()
+        return today.year - self.BirthDay.year
     
 
 class StatusLog(models.Model):
