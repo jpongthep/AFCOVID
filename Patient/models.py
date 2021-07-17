@@ -150,8 +150,11 @@ class Patient(models.Model):
 
     @property
     def Age(self):
-        today = date.today()
-        return today.year - self.BirthDay.year
+        if self.BirthDay:
+            today = date.today()
+            return today.year - self.BirthDay.year
+        else:
+            return 0
     
 
 class StatusLog(models.Model):
