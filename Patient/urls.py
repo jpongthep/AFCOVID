@@ -6,7 +6,7 @@ from Patient.viewsHD import (PatientAddNewView,
                              UpdatePatientData)
 
 
-app_name = 'Patient'
+app_name = "Patient"
 
 urlpatterns = [
    

@@ -38,7 +38,8 @@
         <div class="nano">
             <div class="nano-content">
                 <ul>
-                    <div class="logo"><a href="index.html">
+                    <div class="logo">
+                        <a href="index.html">
                             <img class="pic" src="{% static 'assets/images/RTAF.png' %}" alt="" /><span>AFCOVID</span>
                             <style>
                                 .pic {
@@ -49,13 +50,14 @@
                                 }
                             </style>
 
-                        </a></div>
-                    
+                        </a>
+                    </div>
+
                     <li><a class="sidebar-sub-toggle"><i class="fa fa-signal" aria-hidden="true"></i> Dashboard </a>
                     </li>
 
                     <li>
-                        <a href="{% url 'Patient:List' %}">
+                        <a href="{% url ' Patient:List ' %}">
                             <i class="fa fa-address-card-o" aria-hidden="true"></i> ผู้ป่วย
                         </a>
                     </li>
@@ -67,7 +69,7 @@
                             ผู้มีความเสี่ยง </a></li>
 
                     <li><a href="app-event-calender.html"><i class="fa fa-book" aria-hidden="true"></i>
-                            คู่มือการใช้ </a></li>                            
+                            คู่มือการใช้ </a></li>
 
                 </ul>
             </div>
@@ -94,14 +96,14 @@
                         </div>
 
                         <div class="dropdown dib">
-                            <div class="header-icon" >
-                                <a href = "/admin"><i class="ti-settings"></i></a>
+                            <div class="header-icon">
+                                <a href="/admin"><i class="ti-settings"></i></a>
                             </div>
                         </div>
 
                         <div class="dropdown dib">
                             <div class="header-icon" data-toggle="dropdown">
-                                <a href = "{% url 'logout' %}"><i class="ti-power-off"></i></a>
+                                <a href="{% url 'logout' %}"><i class="ti-power-off"></i></a>
                             </div>
                         </div>
 
@@ -113,7 +115,7 @@
 
 
     <div class="content-wrap">
-        
+
         <div class="main">
             <div class="container-fluid">
                 {% block content %}
@@ -144,8 +146,7 @@
                         <div class="col-lg-3">
                             <div class="card">
                                 <div class="stat-widget-one">
-                                    <div class="stat-icon dib"><i class="fa fa-arrow-right color-danger" aria-hidden="true"
-                                            ></i>
+                                    <div class="stat-icon dib"><i class="fa fa-arrow-right color-danger" aria-hidden="true"></i>
                                     </div>
                                     <div class="stat-content dib">
                                         <div class="stat-text">ผู้ป่วย</div>
@@ -158,8 +159,7 @@
                         <div class="col-lg-3">
                             <div class="card">
                                 <div class="stat-widget-one">
-                                    <div class="stat-icon dib"><i
-                                            class="fa fa-file-text  color-warning  border-warning"></i>
+                                    <div class="stat-icon dib"><i class="fa fa-file-text  color-warning  border-warning"></i>
                                     </div>
                                     <div class="stat-content dib">
                                         <div class="stat-text"> <a href="Form-report.html">ผู้ติดเชื้อ (รอคัดกรอง)</a>
@@ -173,8 +173,7 @@
                         <div class="col-lg-3">
                             <div class="card">
                                 <div class="stat-widget-one">
-                                    <div class="stat-icon dib"><i class="fa fa-clock-o "
-                                            aria-hidden="true"></i>
+                                    <div class="stat-icon dib"><i class="fa fa-clock-o " aria-hidden="true"></i>
                                     </div>
                                     <div class="stat-content dib">
                                         <div class="stat-text"><a href="Form-pending.html">ผู้ใกล้ชิด (รอดูอาการ)</a> </div>
@@ -186,8 +185,7 @@
                         <div class="col-lg-3">
                             <div class="card">
                                 <div class="stat-widget-one">
-                                    <div class="stat-icon dib"><i class="fa fa-check color-success border-success"
-                                            aria-hidden="true"></i></div>
+                                    <div class="stat-icon dib"><i class="fa fa-check color-success border-success" aria-hidden="true"></i></div>
                                     <div class="stat-content dib">
                                         <div class="stat-text"><a href="Form-scroe-view.html">รักษาหาย</a></div>
                                         <div class="stat-digit">7</div>
@@ -201,48 +199,47 @@
                     <style>
                         @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css);
                         @import url(https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.3/css/mdb.min.css);
-
                         .hm-gradient {
                             background-image: linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%);
                         }
-
+                        
                         .darken-grey-text {
                             color: #2E2E2E;
                         }
-
+                        
                         .input-group.md-form.form-sm.form-2 input {
                             border: 1px solid #bdbdbd;
                             border-top-left-radius: 0.25rem;
                             border-bottom-left-radius: 0.25rem;
                         }
-
+                        
                         .input-group.md-form.form-sm.form-2 input.purple-border {
                             border: 1px solid #9e9e9e;
                         }
-
+                        
                         .input-group.md-form.form-sm.form-2 input[type=text]:focus:not([readonly]).purple-border {
                             border: 1px solid #ba68c8;
                             box-shadow: none;
                         }
-
+                        
                         .form-2 .input-group-addon {
                             border: 1px solid #ba68c8;
                         }
-
+                        
                         .danger-text {
                             color: #ff3547;
                         }
-
+                        
                         .success-text {
                             color: #00C851;
                         }
-
+                        
                         .table-bordered.red-border,
                         .table-bordered.red-border th,
                         .table-bordered.red-border td {
                             border: 1px solid #ff3547 !important;
                         }
-
+                        
                         .table.table-bordered th {
                             text-align: center;
                         }
@@ -268,7 +265,7 @@
                                 </div>
                                 <!-- Grid row -->
                                 <!--Table-->
-                                <table class="table table-hover table-responsive mb-0" style = "width:100%;">
+                                <table class="table table-hover table-responsive mb-0" style="width:100%;">
                                     <!--Table head-->
                                     <thead>
                                         <tr>
@@ -291,84 +288,84 @@
                                         <tr>
                                             <th scope="row">1</th>
                                             <th class="th-lg" style="text-align: center;">พ.อ.ต.นามสมมุติ รักสะอาด</td>
-                                            <th class="th-lg" style="text-align: center;">จนท.ปซ.ผบซ.กบสซ.ศซว.ทอ.</td>
-                                            <th class="th-lg" style="text-align: center;">บ้านเดี่ยว</td>
-                                            <th class="th-lg" style="text-align: center;">ท่าดินแดง</td>
-                                            <th class="th-lg" style="text-align: center;">25/6/2564</td>
-                                            <td><button type="button" class="btn btn-outline-danger btn-sm"
-                                                    style="padding-left: 7px;">ยังไม่ได้ประเมิน</button></td>
-                                            <td> <a href="Form-pending.html">
-                                                    <button type="submit" class="btn btn-sm "><i class="fa fa-eye"
+                                                <th class="th-lg" style="text-align: center;">จนท.ปซ.ผบซ.กบสซ.ศซว.ทอ.</td>
+                                                    <th class="th-lg" style="text-align: center;">บ้านเดี่ยว</td>
+                                                        <th class="th-lg" style="text-align: center;">ท่าดินแดง</td>
+                                                            <th class="th-lg" style="text-align: center;">25/6/2564</td>
+                                                                <td><button type="button" class="btn btn-outline-danger btn-sm" style="padding-left: 7px;">ยังไม่ได้ประเมิน</button></td>
+                                                                <td>
+                                                                    <a href="Form-pending.html">
+                                                                        <button type="submit" class="btn btn-sm "><i class="fa fa-eye"
                                                             aria-hidden="true" style="color: black;"></i>&nbsp; <span
                                                             style="color:black;">View</span> </button>
-                                                </a></td>
+                                                                    </a>
+                                                                </td>
                                         </tr>
                                         <tr>
                                             <th scope="row">2</th>
                                             <th class="th-lg" style="text-align: center;">พ.อ.ต.นามสมมุติ รักสะอาด</td>
-                                            <th class="th-lg" style="text-align: center;">จนท.ปซ.ผบซ.กบสซ.ศซว.ทอ.</td>
-                                            <th class="th-lg" style="text-align: center;">บ้านเดี่ยว</td>
-                                            <th class="th-lg" style="text-align: center;">ท่าดินแดง</td>
-                                            <th class="th-lg" style="text-align: center;">25/6/2564</td>
-                                            <td><a href="Form-scroe-view.html"><button type="button"
+                                                <th class="th-lg" style="text-align: center;">จนท.ปซ.ผบซ.กบสซ.ศซว.ทอ.</td>
+                                                    <th class="th-lg" style="text-align: center;">บ้านเดี่ยว</td>
+                                                        <th class="th-lg" style="text-align: center;">ท่าดินแดง</td>
+                                                            <th class="th-lg" style="text-align: center;">25/6/2564</td>
+                                                                <td><a href="Form-scroe-view.html"><button type="button"
                                                         class="btn btn-outline-success btn-sm ">ประเมินแล้ว</button></a>
-                                            </td>
-                                            <td><a href="Form-scroe-view.html"><button type="submit" class="btn btn-sm "><i class="fa fa-eye"
+                                                                </td>
+                                                                <td><a href="Form-scroe-view.html"><button type="submit" class="btn btn-sm "><i class="fa fa-eye"
                                                 aria-hidden="true" style="color: black;"></i>&nbsp; <span
                                                 style="color:black;">View</span> </button></a></td>
                                         </tr>
                                         <tr>
                                             <th scope="row">3</th>
                                             <th class="th-lg" style="text-align: center;">พ.อ.ต.นามสมมุติ รักสะอาด</td>
-                                            <th class="th-lg" style="text-align: center;">จนท.ปซ.ผบซ.กบสซ.ศซว.ทอ.</td>
-                                            <th class="th-lg" style="text-align: center;">บ้านเดี่ยว</td>
-                                            <th class="th-lg" style="text-align: center;">ท่าดินแดง</td>
-                                            <th class="th-lg" style="text-align: center;">25/6/2564</td>
-                                                <td><a href="Form-scroe-view.html"><button type="button"
+                                                <th class="th-lg" style="text-align: center;">จนท.ปซ.ผบซ.กบสซ.ศซว.ทอ.</td>
+                                                    <th class="th-lg" style="text-align: center;">บ้านเดี่ยว</td>
+                                                        <th class="th-lg" style="text-align: center;">ท่าดินแดง</td>
+                                                            <th class="th-lg" style="text-align: center;">25/6/2564</td>
+                                                                <td><a href="Form-scroe-view.html"><button type="button"
                                                     class="btn btn-outline-success btn-sm ">ประเมินแล้ว</button></a>
-                                        </td>
-                                            <td><button type="submit" class="btn btn-sm "><i class="fa fa-eye"
+                                                                </td>
+                                                                <td><button type="submit" class="btn btn-sm "><i class="fa fa-eye"
                                                         aria-hidden="true" style="color: black;"></i>&nbsp; <span
                                                         style="color:black;">View</span> </button></td>
                                         </tr>
                                         <tr>
                                             <th scope="row">4</th>
                                             <th class="th-lg" style="text-align: center;">พ.อ.ต.นามสมมุติ รักสะอาด</td>
-                                            <th class="th-lg" style="text-align: center;">จนท.ปซ.ผบซ.กบสซ.ศซว.ทอ.</td>
-                                            <th class="th-lg" style="text-align: center;">บ้านเดี่ยว</td>
-                                            <th class="th-lg" style="text-align: center;">ท่าดินแดง</td>
-                                            <th class="th-lg" style="text-align: center;">25/6/2564</td>
-                                            <td><button type="button" class="btn btn-outline-danger btn-sm"
-                                                    style="padding-left: 7px;">ยังไม่ได้ประเมิน</button></td>
-                                            <td><button type="submit" class="btn btn-sm "><i class="fa fa-eye"
+                                                <th class="th-lg" style="text-align: center;">จนท.ปซ.ผบซ.กบสซ.ศซว.ทอ.</td>
+                                                    <th class="th-lg" style="text-align: center;">บ้านเดี่ยว</td>
+                                                        <th class="th-lg" style="text-align: center;">ท่าดินแดง</td>
+                                                            <th class="th-lg" style="text-align: center;">25/6/2564</td>
+                                                                <td><button type="button" class="btn btn-outline-danger btn-sm" style="padding-left: 7px;">ยังไม่ได้ประเมิน</button></td>
+                                                                <td><button type="submit" class="btn btn-sm "><i class="fa fa-eye"
                                                         aria-hidden="true" style="color: black;"></i>&nbsp; <span
                                                         style="color:black;">View</span> </button></td>
                                         </tr>
                                         <tr>
                                             <th scope="row">5</th>
                                             <th class="th-lg" style="text-align: center;">พ.อ.ต.นามสมมุติ รักสะอาด</td>
-                                            <th class="th-lg" style="text-align: center;">จนท.ปซ.ผบซ.กบสซ.ศซว.ทอ.</td>
-                                            <th class="th-lg" style="text-align: center;">บ้านเดี่ยว</td>
-                                            <th class="th-lg" style="text-align: center;">ท่าดินแดง</td>
-                                            <th class="th-lg" style="text-align: center;">25/6/2564</td>
-                                                <td><a href="Form-scroe-view.html"><button type="button"
+                                                <th class="th-lg" style="text-align: center;">จนท.ปซ.ผบซ.กบสซ.ศซว.ทอ.</td>
+                                                    <th class="th-lg" style="text-align: center;">บ้านเดี่ยว</td>
+                                                        <th class="th-lg" style="text-align: center;">ท่าดินแดง</td>
+                                                            <th class="th-lg" style="text-align: center;">25/6/2564</td>
+                                                                <td><a href="Form-scroe-view.html"><button type="button"
                                                     class="btn btn-outline-success btn-sm ">ประเมินแล้ว</button></a>
-                                        </td>
-                                            <td><button type="submit" class="btn btn-sm "><i class="fa fa-eye"
+                                                                </td>
+                                                                <td><button type="submit" class="btn btn-sm "><i class="fa fa-eye"
                                                         aria-hidden="true" style="color: black;"></i>&nbsp; <span
                                                         style="color:black;">View</span> </button></td>
                                         </tr>
                                         <tr>
                                             <th scope="row">6</th>
                                             <th class="th-lg" style="text-align: center;">พ.อ.ต.นามสมมุติ รักสะอาด</td>
-                                            <th class="th-lg" style="text-align: center;">จนท.ปซ.ผบซ.กบสซ.ศซว.ทอ.</td>
-                                            <th class="th-lg" style="text-align: center;">บ้านเดี่ยว</td>
-                                            <th class="th-lg" style="text-align: center;">ท่าดินแดง</td>
-                                            <th class="th-lg" style="text-align: center;">25/6/2564</td>
-                                                <td><a href="Form-scroe-view.html"><button type="button"
+                                                <th class="th-lg" style="text-align: center;">จนท.ปซ.ผบซ.กบสซ.ศซว.ทอ.</td>
+                                                    <th class="th-lg" style="text-align: center;">บ้านเดี่ยว</td>
+                                                        <th class="th-lg" style="text-align: center;">ท่าดินแดง</td>
+                                                            <th class="th-lg" style="text-align: center;">25/6/2564</td>
+                                                                <td><a href="Form-scroe-view.html"><button type="button"
                                                     class="btn btn-outline-success btn-sm ">ประเมินแล้ว</button></a>
-                                        </td>
-                                            <td><button type="submit" class="btn btn-sm "><i class="fa fa-eye"
+                                                                </td>
+                                                                <td><button type="submit" class="btn btn-sm "><i class="fa fa-eye"
                                                         aria-hidden="true" style="color: black;"></i>&nbsp; <span
                                                         style="color:black;">View</span> </button></td>
                                         </tr>
@@ -382,8 +379,7 @@
                                     <nav class="my-4 pt-2">
                                         <ul class="pagination pagination-circle pg-blue mb-0">
                                             <!--First-->
-                                            <li class="page-item disabled clearfix d-none d-md-block"><a
-                                                    class="page-link">First</a></li>
+                                            <li class="page-item disabled clearfix d-none d-md-block"><a class="page-link">First</a></li>
                                             <!--Arrow left-->
                                             <li class="page-item disabled">
                                                 <a class="page-link" aria-label="Previous">
@@ -405,8 +401,7 @@
                                                 </a>
                                             </li>
                                             <!--First-->
-                                            <li class="page-item clearfix d-none d-md-block"><a
-                                                    class="page-link">Last</a></li>
+                                            <li class="page-item clearfix d-none d-md-block"><a class="page-link">Last</a></li>
                                         </ul>
                                     </nav>
                                     <!--/Pagination -->
@@ -435,11 +430,11 @@
                 {% endblock %}
             </div>
         </div>
-        
+
     </div>
 
-    
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <!-- jquery vendor -->
     <script src="{% static 'assets/js/lib/jquery.min.js' %}"></script>
     <script src="{% static 'assets/js/lib/jquery.nanoscroller.min.js' %}"></script>
@@ -471,4 +466,3 @@
 </body>
 
 </html>
-
