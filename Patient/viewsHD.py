@@ -37,7 +37,7 @@ class InfectListView(LoginRequiredMixin,ListView):
     ordering = ['Date',]
 
     def get_queryset(self) :
-        queryset = Patient.objects.filter(IsAirforce = True)
+        queryset = Patient.objects.filter(CurrentTreatment = 3) #'กักตัวรอเตียง'
         return queryset
 
     def get_template_names(self):
