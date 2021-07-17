@@ -48,7 +48,7 @@
             </td>
             <td>{{ partient.Mobile }}</td>
             <td>
-                <a href = '#'class="btn  btn-sm btn-primary" role="button" >view</a>                
+                <a href = '{% url 'Patient:Detail' partient.id %}'class="btn  btn-sm btn-primary" role="button" >view</a>                
                 <a href = '{% url 'Patient:UpdateFB' partient.id %}' class="btn  btn-sm btn-warning" role="button" >แก้ไข</a>                
             </td>
           </tr>

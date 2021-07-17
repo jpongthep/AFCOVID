@@ -5,9 +5,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
+from django.forms import formset_factory
+
 
 from Patient.forms import PatientForm
-from Patient.models import Patient
+from Patient.models import (Patient,
+                            StatusLog,
+                            TreatmentLog)
 
 # class AddNewView(LoginRequiredMixin,CreateView):
 class PatientAddNewView(CreateView):
@@ -39,6 +43,19 @@ class PatientListView(LoginRequiredMixin,ListView):
             return 'Patient/List.html'
         else:
             return 'Patient/ListAFCMO.html'
+
+def PatientDetail(request, pk):
+    aPatient = get_object_or_404(Patient, id = pk)
+    StatusList = StatusLog.objects.filter(Patient = aPatient).order_by('-Date')
+    TreatmentList = TreatmentLog.objects.filter(Patient = aPatient).order_by('-Date')
+        
+    context = {
+                "Patient" :  aPatient, 
+                'StatusList' : StatusList,
+                'TreatmentList' : TreatmentList
+                }
+ 
+    return render(request, "Patient/Detail.html", context)
 
 # class PatientUpdateView(PermissionRequiredMixin,UpdateView):
 class PatientUpdateView(PermissionRequiredMixin,UpdateView):

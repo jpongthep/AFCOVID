@@ -1,0 +1,51 @@
+{% extends '_base.html' %}
+{% load static %}
+{% load thaidate %}
+
+{% block title %}ข้อมูลผู้ป่วย{% endblock %}
+
+{% block content %}
+
+<div class="container">
+   
+          วันที่ : {{ Patient.Date }}<br>
+          ผู้บันทึก : {{ Patient.DataUser }}<br>
+          ชื่อผู้ป่วย: {{ Patient.FullName }}<br>
+          ชื่อคนแพร่เชื้อ: {{ Patient.InfectiousName }}<br>
+          เพศ : {{ Patient.Gender }}<br>
+          วันเกิด : {{ Patient.BirthDay }}<br>
+          เลขบัตรประชาชน : {{ Patient.PersonID }}<br>
+          ที่ทำงาน/สังกัด : {{ Patient.Office }}<br>
+          ขรก.ทอ. : {{ Patient.IsAirforce }}<br>
+          วันที่ตรวจพบเชื้อ : {{ Patient.DatePositive }}<br>
+          เบอร์มือถือ : {{ Patient.Mobile }}<br>
+          ที่อยู่ปัจจุบัน : {{ Patient.Address }}<br>
+          เบอร์ฉุกเฉิน : {{ Patient.EmergencyMobile }}<br>
+          Corona3 : {{ Patient.Corona3 }}<br>
+          DetectedResult : {{ Patient.DetectedResult }}<br>
+
+          ConfirmUser : {{ Patient.ConfirmUser }}<br>
+          ConfirmedPatient : {{ Patient.ConfirmedPatient }}<br>
+          Comment : {{ Patient.Comment }}<br>
+
+</div>
+<div class = "container">
+  <div class = "row">
+    <div class = "col-6">
+      <b>สถานะผู้ป่วย</b> <br>
+      {% for status in StatusList %}
+        {{status.Date}} , {{status.RecorderUser}} , {{status.RecorderUser}}, {{status.get_Status_display}} , {{status.Comment}} <br>
+      {% endfor %}
+    </div>
+      <div class = "col-6">
+    <b>การรักษาผู้ป่วย</b> <br>
+    {% for treatment in TreatmentList %}
+      {{treatment.Date}} , {{treatment.RecorderUser}} , {{treatment.RecorderUser}}, {{treatment.get_Treatment_display}} , {{treatment.Comment}} <br>
+    {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
+
