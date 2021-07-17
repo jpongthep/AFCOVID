@@ -77,4 +77,4 @@ class PatientForm(PatientBaseForm):
     class Meta(PatientBaseForm.Meta):
         model = Patient
         fields = '__all__'
-        exclude = ('DataUser','ConfirmUser','ConfirmedPatient')
+        exclude = ('DataUser','ConfirmUser','ConfirmedPatient', )

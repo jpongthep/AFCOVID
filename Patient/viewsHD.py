@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib import messages
 from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, redirect
 
 from Patient.forms import PatientForm
 from Patient.models import Patient
@@ -36,8 +37,16 @@ class PatientAddNewView(CreateView):
 class PatientListView(ListView):
     model = Patient
     template_name = 'Patient/List.html'
-    paginate_by = 20
+    paginate_by = 5
     ordering = ['Date',]
+
+    def get_template_names(self):
+        # print(self.request.user)
+        # print(self.request.user.has_perm('UserData.User_AF_CMO'))
+        if self.request.user.has_perm('UserData.User_AF_CMO'):
+            return 'Patient/List.html'
+        else:
+            return 'Patient/ListAFCMO.html'
 
 # class PatientUpdateView(PermissionRequiredMixin,UpdateView):
 class PatientUpdateView(UpdateView):
@@ -48,3 +57,19 @@ class PatientUpdateView(UpdateView):
     form_class = PatientForm
     template_name = 'Patient/Update.html'    
     success_url = reverse_lazy('Patient:List')
+
+
+def UpdatePatientData(request, pk):
+    context ={}
+
+    obj = get_object_or_404(Patient, id = pk)
+ 
+    form = PatientForm(request.POST or None, request.FILES or None, instance = obj)
+ 
+    if form.is_valid():
+        form.save()
+        return redirect(reverse_lazy('Patient:List'))
+ 
+    context["form"] = form
+ 
+    return render(request, "Patient/Update.html", context)
