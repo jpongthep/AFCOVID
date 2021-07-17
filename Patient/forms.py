@@ -2,13 +2,13 @@ from django.db import models
 from django import forms
 from django.forms import ModelForm
 
-from Patient.models import Patient
+from Patient.models import Patient, StatusLog, TreatmentLog
 
 class PatientBaseForm(ModelForm):
     class Meta:
         model = Patient
         fields = '__all__'
-        exclude = ('DataUser','ConfirmUser')
+        exclude = ('CurrentStatus', 'DataUser','CurrentTreatment','ConfirmUser')
 
         widgets = {
             'Date': forms.DateInput(
@@ -78,3 +78,47 @@ class PatientForm(PatientBaseForm):
         model = Patient
         fields = '__all__'
         exclude = ('DataUser','ConfirmUser','ConfirmedPatient', )
+
+
+class StatusLogForm(ModelForm):
+    class Meta:
+        model = StatusLog
+        fields = ('Date', 'Status', 'Comment')
+        # exclude = ('ThePatient','RecorderUser')
+        widgets = {
+            'Date': forms.DateInput(
+                    format=('%Y-%m-%d'),
+                    attrs={'class': 'form-control', 
+                        'placeholder': 'Select a date',
+                        'type': 'date'
+                        }),
+            'Status': forms.Select(
+                    attrs={'class': 'form-control', 
+                        }),
+            'Comment': forms.Textarea(
+                    attrs={'class': 'form-control', 
+                        'rows': 3,
+                        }), 
+        }
+
+class TreatmentLogForm(ModelForm):
+    class Meta:
+        model = TreatmentLog
+        fields = ('Date', 'Treatment', 'Comment')
+        # exclude = ('ThePatient','RecorderUser')
+
+        widgets = {
+            'Date': forms.DateInput(
+                    format=('%Y-%m-%d'),
+                    attrs={'class': 'form-control', 
+                        'placeholder': 'Select a date',
+                        'type': 'date'
+                        }) ,
+            'Treatment': forms.Select(
+                    attrs={'class': 'form-control', 
+                        }),
+            'Comment': forms.Textarea(
+                    attrs={'class': 'form-control', 
+                        'rows': 3,
+                        }), 
+        }

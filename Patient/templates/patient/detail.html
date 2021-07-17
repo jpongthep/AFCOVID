@@ -30,20 +30,27 @@
 
 </div>
 <div class = "container">
-  <div class = "row">
-    <div class = "col-6">
-      <b>สถานะผู้ป่วย</b> <br>
-      {% for status in StatusList %}
-        {{status.Date}} ,  {{status.RecorderUser}}, {{status.get_Status_display}} , {{status.Comment}} <br>
-      {% endfor %}
-    </div>
-      <div class = "col-6">
-    <b>การรักษาผู้ป่วย</b> <br>
-    {% for treatment in TreatmentList %}
-      {{treatment.Date}} ,  {{treatment.RecorderUser}}, {{treatment.get_Treatment_display}} , {{treatment.Comment}} <br>
-    {% endfor %}
-    </div>
-  </div>
+  <form method = 'POST'>
+      {% csrf_token %}
+      <div class = "row">      
+        <div class = "col-6">
+          <b>สถานะผู้ป่วย</b> <br>
+          {% for status in StatusList %}
+            {{status.Date}} ,  {{status.RecorderUser}}, {{status.get_Status_display}} , {{status.Comment}} <br>
+          {% endfor %}
+          {{ status_log_form }}
+        </div>
+          <div class = "col-6">
+        <b>การรักษาผู้ป่วย</b> <br>
+        {% for treatment in TreatmentList %}
+          {{treatment.Date}} ,  {{treatment.RecorderUser}}, {{treatment.get_Treatment_display}} , {{treatment.Comment}} <br>
+        {% endfor %}
+        {{ treatment_log_form }}
+        </div>
+
+      </div>
+    <input type = "submit">
+  </form>
 </div>
 
 
