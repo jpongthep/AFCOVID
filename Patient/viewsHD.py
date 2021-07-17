@@ -25,16 +25,8 @@ class PatientAddNewView(CreateView):
         messages.info(self.request,"Save Success")
         return HttpResponseRedirect(self.get_success_url())
 
-    # def post(self, request, *args, **kwargs):
-    #     form = self.get_form()
-    #     if form.is_valid():
-    #         obj = form.save(commit=False)
-    #         obj.DataUser = request.user
-    #         obj.save()
-    #         messages.success(request, f'Your order has been placed.')
-    #     return redirect('Patient:List')
-
-class PatientListView(ListView):
+class PatientListView(LoginRequiredMixin,ListView):
+    login_url = '/login'
     model = Patient
     template_name = 'Patient/List.html'
     paginate_by = 5
@@ -49,8 +41,8 @@ class PatientListView(ListView):
             return 'Patient/ListAFCMO.html'
 
 # class PatientUpdateView(PermissionRequiredMixin,UpdateView):
-class PatientUpdateView(UpdateView):
-    # permission_required = 'Patient.change_patient'
+class PatientUpdateView(PermissionRequiredMixin,UpdateView):
+    permission_required = 'Patient.change_patient'
 
     model = Patient
     # fields = '__all__'
