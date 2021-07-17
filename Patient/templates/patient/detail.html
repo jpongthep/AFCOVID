@@ -34,13 +34,13 @@
     <div class = "col-6">
       <b>สถานะผู้ป่วย</b> <br>
       {% for status in StatusList %}
-        {{status.Date}} , {{status.RecorderUser}} , {{status.RecorderUser}}, {{status.get_Status_display}} , {{status.Comment}} <br>
+        {{status.Date}} ,  {{status.RecorderUser}}, {{status.get_Status_display}} , {{status.Comment}} <br>
       {% endfor %}
     </div>
       <div class = "col-6">
     <b>การรักษาผู้ป่วย</b> <br>
     {% for treatment in TreatmentList %}
-      {{treatment.Date}} , {{treatment.RecorderUser}} , {{treatment.RecorderUser}}, {{treatment.get_Treatment_display}} , {{treatment.Comment}} <br>
+      {{treatment.Date}} ,  {{treatment.RecorderUser}}, {{treatment.get_Treatment_display}} , {{treatment.Comment}} <br>
     {% endfor %}
     </div>
   </div>
