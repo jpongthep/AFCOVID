@@ -8,6 +8,14 @@ from django.db.models.signals import post_save
 from UserData.models import User
 # Create your models here.
 
+RIGHT_MEDICAL_TREATMENT_CHOICE = (
+    ( 0 ,  'ไม่ระบุ' ) ,
+    ( 1 ,  'เบิกจ่ายตรง (กรมบัญชีกลาง)' ) ,
+    ( 2 ,  'ประกันสังคม' ) ,
+    ( 3 ,  'UC (สปสช.)' ) ,
+    ( 4 ,  'เงินสด' ) ,
+)
+
 CHOICE_STATUSLEVEL = (
     ( 0 ,  'ไม่ระบุ' ) ,
     ( 1 ,  'ผู้ป่วยสีเขียว' ) ,
@@ -112,6 +120,11 @@ class Patient(models.Model):
                                 verbose_name = 'ที่อยู่ปัจจุบัน', 
                                 null = True, 
                                 blank = True)
+    RightMedicalTreatment = Model Interger Choices = models.IntegerField(
+                            choices = RIGHT_MEDICAL_TREATMENT_CHOICE, 
+                            default = 0, 
+                            null=True,
+                            blank = True)
     Corona3 = models.FileField(
                                 upload_to='Corona3/', 
                                 null = True, 
