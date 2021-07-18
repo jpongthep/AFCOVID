@@ -186,7 +186,7 @@ class Patient(models.Model):
             today = date.today()
             return today.year - self.BirthDay.year
         else:
-            return 0
+            return "-"
     
 
 class StatusLog(models.Model):
