@@ -25,21 +25,21 @@
           </tr>
         </thead>
         <tbody>
-          {% for partient in object_list %}
+          {% for patient in object_list %}
           <tr>
-            <td>{{ partient.Date| thaidate:"d M y" }}</td>
-            <td>{{ partient.FullName }} ({{ partient.get_Gender_display }}) </td>
-            <td>{{ partient.Age }}</td>
+            <td>{{ patient.Date| thaidate:"d M y" }}</td>
+            <td>{{ patient.FullName }} ({{ patient.get_Gender_display }}) </td>
+            <td>{{ patient.Age }}</td>
             <td>
-                {% if partient.IsAirforce  %}
+                {% if patient.IsAirforce  %}
                     (ทอ.) 
                 {% endif %}
-                {{ partient.Office}} 
+                {{ patient.Office}} 
             </td>
-            <td>{{ partient.DatePositive }}</td>
-            <td>{{ partient.get_CurrentTreatment_display }}</td>
-            <td>{{ partient.get_CurrentStatus_display }} ( {{ partient.LestestStatus }})</td>
-            <td>{{ partient.Mobile }}</td>
+            <td>{{ patient.DatePositive }}</td>
+            <td>{{ patient.get_CurrentTreatment_display }}</td>
+            <td>{{ patient.get_CurrentStatus_display }} ( {{ patient.LestestStatus }})</td>
+            <td>{{ patient.Mobile }}</td>
           </tr>
           {% endfor %}
           <tr>

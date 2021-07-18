@@ -25,32 +25,32 @@
           </tr>
         </thead>
         <tbody>
-          {% for partient in object_list %}
+          {% for patient in object_list %}
           <tr>
-            <td>{{ partient.Date| thaidate:"d M y" }}</td>
-            <td>{{ partient.FullName }} </td>
-            <td>{{ partient.Age }}</td>
+            <td>{{ patient.Date| thaidate:"d M y" }}</td>
+            <td>{{ patient.FullName }} </td>
+            <td>{{ patient.Age }}</td>
             <td>
-                {% if partient.IsAirforce  %}
+                {% if patient.IsAirforce  %}
                     (ทอ.) 
                 {% endif %}
-                {{ partient.Office}} 
+                {{ patient.Office}} 
             </td>
-            <td>{{ partient.DatePositive }}</td>
-            <td>{{ partient.get_CurrentTreatment_display }}</td>
+            <td>{{ patient.DatePositive }}</td>
+            <td>{{ patient.get_CurrentTreatment_display }}</td>
             <td> 
               <i class="far fa-edit"></i> 
-
+<!--
                 <i class="fas fa-battery-full 2x" style="color:green"></i>
                 <i class="fas fa-battery-half" style="color:yellow"></i>
                 <i class="fas fa-battery-quarter" style="color:yellow"></i>
-
-               ( {{ partient.get_Status_display }})
+-->
+               {{ patient.get_CurrentStatus_display }}
             </td>
-            <td>{{ partient.Mobile }}</td>
+            <td>{{ patient.Mobile }}</td>
             <td>
-                <a href = '{% url 'Patient:Detail' partient.id %}'class="btn  btn-sm btn-primary" role="button" >view</a>                
-                <a href = '{% url 'Patient:UpdateFB' partient.id %}' class="btn  btn-sm btn-warning" role="button" >แก้ไข</a>                
+                <a href = '{% url 'Patient:Detail' patient.id %}'class="btn  btn-sm btn-primary" role="button" >view</a>                
+                <a href = '{% url 'Patient:UpdateFB' patient.id %}' class="btn  btn-sm btn-warning" role="button" >แก้ไข</a>                
             </td>
           </tr>
           {% endfor %}
