@@ -1,3 +1,5 @@
+import re
+
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
@@ -83,7 +85,7 @@ class User(AbstractUser):
         ( 40201 ,  'พนง.อาวุโส' ) ,
         ( 40400 ,  'พนง.หญิง' ) ,
         ( 40401 ,  'พนง.' ) ,
-        ( 50000 ,  '----' )
+        ( 0 ,  '' )
     ) 
 
     Rank = models.PositiveIntegerField(choices = CHOICE_Rank, default = 0, null=True)
@@ -92,6 +94,14 @@ class User(AbstractUser):
     MobileTel =  models.CharField(max_length=20, null = True, blank = True)
     Unit =  models.CharField(max_length=150, null = True, blank = True)    
 
+    @property
+    def FullName(self):
+        RankDisplay = self.get_Rank_display()
+        if re.findall("หญิง", RankDisplay ):
+            return f'{RankDisplay} {self.first_name} {self.last_name}'
+        else:
+            return f'{RankDisplay} {self.first_name} {self.last_name}'
+        
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
 

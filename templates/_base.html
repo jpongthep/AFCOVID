@@ -50,25 +50,33 @@
                             </style>
 
                         </a></div>
-                    
+<!--                    
                     <li><a class="sidebar-sub-toggle"><i class="fa fa-signal" aria-hidden="true"></i> Dashboard </a>
                     </li>
-
+!-->
                     <li>
                         <a href="{% url 'Patient:List' %}">
                             <i class="fa fa-address-card-o" aria-hidden="true"></i> ผู้ป่วย
                         </a>
                     </li>
 
-                    <li><a href="{% url 'Patient:Infect'%}"><i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                            ผู้ติดเชื้อ </a></li>
+                    <li>
+                        <a href="{% url 'Patient:Infect'%}">
+                            <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                            ผู้ติดเชื้อ 
+                        </a>
+                    </li>
 
-                    <li><a href="app-event-calender.html"><i class="fa fa-random" aria-hidden="true"></i>
-                            ผู้มีความเสี่ยง </a></li>
-
+                    <li>
+                        <a href="app-event-calender.html">
+                            <i class="fa fa-random" aria-hidden="true"></i>
+                            ผู้มีความเสี่ยง 
+                        </a>
+                    </li>
+<!--
                     <li><a href="app-event-calender.html"><i class="fa fa-book" aria-hidden="true"></i>
                             คู่มือการใช้ </a></li>                            
-
+-->
                 </ul>
             </div>
         </div>
@@ -87,12 +95,13 @@
                         </div>
                     </div>
                     <div class="float-right">
+<!--
                         <div class="dropdown dib">
                             <div class="header-icon" data-toggle="dropdown">
                                 <i class="ti-user"></i>
                             </div>
                         </div>
-
+-->
                         <div class="dropdown dib">
                             <div class="header-icon" >
                                 <a href = "/admin"><i class="ti-settings"></i></a>
@@ -101,7 +110,7 @@
 
                         <div class="dropdown dib">
                             <div class="header-icon" data-toggle="dropdown">
-                                <a href = "{% url 'logout' %}"><i class="ti-power-off"></i></a>
+                                <a href = "/logout"><i class="ti-power-off"></i></a>
                             </div>
                         </div>
 
@@ -116,7 +125,9 @@
         
         <div class="main">
             <div class="container-fluid">
+                {% include "DisplayMessage.html" %}
                 {% block content %}
+                
                 <div class="row">
                     <div class="col-lg-8 p-r-0 title-margin-right">
                         <div class="page-header">

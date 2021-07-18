@@ -61,6 +61,12 @@ class PatientBaseForm(ModelForm):
                         'rows': 3,
                         'cols': 40
                         }),                                                                                                                      
+            'Corona3': forms.FileInput(
+                    attrs={'class': 'form-control'
+                        }),                                                                                                                      
+            'DetectedResult': forms.FileInput(
+                    attrs={'class': 'form-control'
+                        }),                                                                                                                      
             'Comment': forms.Textarea(
                     attrs={'class': 'form-control', 
                         'rows': 3,
@@ -76,8 +82,14 @@ class PatientForm(PatientBaseForm):
 
     class Meta(PatientBaseForm.Meta):
         model = Patient
-        fields = '__all__'
-        exclude = ('DataUser','ConfirmUser','ConfirmedPatient', )
+        fields = '__all__'         
+        exclude = (                    
+                    'DataUser',
+                    'ConfirmUser',
+                    'ConfirmedPatient',
+                    'CurrentStatus', 
+                    'CurrentTreatment',
+        )        
 
 
 class StatusLogForm(ModelForm):

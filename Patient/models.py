@@ -9,18 +9,20 @@ from UserData.models import User
 # Create your models here.
 
 CHOICE_STATUSLEVEL = (
-    ( 1 ,  'เขียว' ) ,
-    ( 2 ,  'เหลืองอ่อน' ) ,
-    ( 3 ,  'เหลืองแก่' ) ,
-    ( 4 ,  'แดง' ) ,
+    ( 0 ,  'ไม่ระบุ' ) ,
+    ( 1 ,  'ผู้ป่วยสีเขียว' ) ,
+    ( 2 ,  'ผู้ป่วยสีเหลือง' ) ,
+    ( 3 ,  'ผู้ป่วยสีส้ม' ) ,
+    ( 4 ,  'ผู้ป่วยสีแดง' ) ,
     ( 5 ,  'หายป่วย' ) ,
     ( 6 ,  'เสียชีวิต' ) ,
-    ( 7 ,  'เสี่ยงสูง (ผู้ใกล้ชิด)' ) ,
-    ( 8 ,  'ปลอดเชื้อ (ผู้ใกล้ชิด)' ) ,
-    ( 9 ,  'ติดเชื้อ (ผู้ใกล้ชิด)' ) ,
+    ( 7 ,  'ผู้ใกล้ชิดเสี่ยงสูง' ) ,
+    ( 8 ,  'ผู้ใกล้ชิดปลอดเชื้อ' ) ,
+    ( 9 ,  'ผู้ใกล้ชิดติดเชื้อ' ) ,
 )
 
 TREATMENTCHOICES = (
+    ( 0 ,  'ไม่ระบุ'),
     ( 1 ,  'รักษาระยะห่าง'),
     ( 2 ,  'กักตัวอยู่บ้าน'),
     ( 3 ,  'กักตัวรอเตียง'),
@@ -93,12 +95,12 @@ class Patient(models.Model):
                                     verbose_name = 'วันที่ตรวจพบเชื้อ')
     CurrentStatus = models.IntegerField(
                             choices = CHOICE_STATUSLEVEL, 
-                            default = 1, 
+                            default = 0, 
                             null=True,
                             blank = True)
     CurrentTreatment = models.IntegerField(
                                 choices = TREATMENTCHOICES, 
-                                default = 1, 
+                                default = 0, 
                                 null=True)                                                          
     Mobile  = models.CharField(
                                 max_length = 20,

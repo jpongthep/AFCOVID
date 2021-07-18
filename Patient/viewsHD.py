@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
@@ -14,9 +15,9 @@ from Patient.models import (Patient,
                             StatusLog,
                             TreatmentLog)
 
-# class AddNewView(LoginRequiredMixin,CreateView):
-class PatientAddNewView(CreateView):
-    # login_url = '/admin/'
+
+class PatientAddNewView(LoginRequiredMixin,CreateView):
+    login_url = '/login'
     model = Patient
     # fields = '__all__'
     form_class = PatientForm
@@ -27,7 +28,7 @@ class PatientAddNewView(CreateView):
         self.object = form.save(commit=False)
         self.object.DataUser = self.request.user
         self.object.save()
-        messages.info(self.request,"Save Success")
+        messages.info(self.request,f'บันทึกข้อมูล {self.object.FullName} เรียบร้อย')
         return HttpResponseRedirect(self.get_success_url())
 
 class InfectListView(LoginRequiredMixin,ListView):
@@ -77,14 +78,15 @@ def SaveStatusTreatment(request, pk):
         form.RecorderUser = request.user
         form.ThePatient = aPatient
         form.save()
-        messages.info(request,'Save Status success')
+        messages.info(request,f'บันทึกสถานะของ {aPatient} เรียบร้อย')
     if treatment_log_form.is_valid() and DateList[1]:
         form = treatment_log_form.save(commit=False)
         form.RecorderUser = request.user
         form.ThePatient = aPatient
         form.save()
-        messages.info(request,'Save Treatment success')
+        messages.info(request,f'บันทึกการรักษาของ {aPatient} เรียบร้อย')
 
+@login_required
 def PatientDetail(request, pk):
     aPatient = get_object_or_404(Patient, id = pk)
     if request.method == 'POST':
@@ -117,7 +119,7 @@ class PatientUpdateView(PermissionRequiredMixin,UpdateView):
     template_name = 'Patient/Update.html'    
     success_url = reverse_lazy('Patient:List')
 
-
+@login_required
 def UpdatePatientData(request, pk):
     context ={}
 
@@ -127,6 +129,7 @@ def UpdatePatientData(request, pk):
  
     if form.is_valid():
         form.save()
+        messages.info(request,f"Update ข้อมูล {Patient} เรียบร้อย")
         return redirect(reverse_lazy('Patient:List'))
  
     context["form"] = form

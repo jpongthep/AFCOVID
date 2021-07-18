@@ -7,6 +7,8 @@
 {% block content %}
 
 <div class="container">
+
+
     <div class="table-responsive">
       AFCMO {{ request.user }}
       <table class="table table-striped table-bordered">
@@ -20,7 +22,6 @@
             <th>การรักษา</th>     
             <th>สถานะ</th>     
             <th>มือถือ</th>     
-            <th>การจัดการ</th>     
           </tr>
         </thead>
         <tbody>
@@ -36,19 +37,13 @@
                 {{ partient.Office}} 
             </td>
             <td>{{ partient.DatePositive }}</td>
-            <td>{{ partient.CurrentThreatment }}</td>
-            <td>{{ partient.CurrentStatus }} ( {{ partient.LestestStatus }})</td>
+            <td>{{ partient.get_CurrentTreatment_display }}</td>
+            <td>{{ partient.get_CurrentStatus_display }} ( {{ partient.LestestStatus }})</td>
             <td>{{ partient.Mobile }}</td>
-            <td>
-                <a href = '#'class="btn  btn-sm btn-primary" role="button" >view</a>                
-                <a href = '{% url 'Patient:Update' partient.id %}' class="btn  btn-sm btn-warning" role="button" >แก้ไข</a> 
-               
-            </td>
           </tr>
           {% endfor %}
           <tr>
-            <td colspan = 8></td>
-            <td><a href = "{% url 'Patient:AddNew' %}"class="btn   btn-success" role="button" >เพิ่มผู้ป่วย</a></td>            
+            <td colspan = 8><a href = "{% url 'Patient:AddNew' %}"class="btn   btn-success" role="button" >เพิ่มผู้ป่วย</a></td>            
           </tr>
         </tbody>
       </table>

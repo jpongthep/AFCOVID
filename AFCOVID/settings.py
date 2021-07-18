@@ -105,6 +105,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = [    
+    'UserData.AFAuthentications.SettingsBackend'
+]
+SESSION_COOKIE_AGE = 60*60*24
+
 AUTH_USER_MODEL ='UserData.User'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/login'

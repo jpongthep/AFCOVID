@@ -1,10 +1,32 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 from UserData.models import User
 
 
-# Register your models here.
+# first unregister the existing useradmin...
+# admin.site.unregister(User)
+
+class UserAdmin(BaseUserAdmin):
+
+    list_display = ('username', 'Unit', 'email','FullName','is_staff', 'is_staff')
+    list_editable = ['is_staff']
+    fieldsets = (
+    (None, {'fields': ('username', 'password')}),
+    ('Personal info', {'fields': ('first_name', 'last_name', 'email', 'MobileTel')}),
+    ('RTAF info', {'fields': ('Rank', 'Position', 'OfficePhone', 'Unit')}),
+    ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
+    ('Important dates', {'fields': ('last_login', 'date_joined')}),)
+
+    add_fieldsets = (
+    (None, {
+        'classes': ('wide',),
+        'fields': ('username', 'email', 'first_name', 'last_name', 'password1', 'password2')}),)
+    list_filter = ('is_staff', 'is_superuser', 'groups')
+    search_fields = ('username', 'first_name', 'last_name', 'email')
+    ordering = ('Unit','username',)
+    filter_horizontal = ('groups', 'user_permissions',)
+
 
 admin.site.register(User, UserAdmin)
 

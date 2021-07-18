@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Focus Admin: Widget</title>
+    <title>AF COVID-19 Recorder</title>
 
     <!-- ================= Favicon ================== -->
     <!-- Standard -->
@@ -27,6 +27,33 @@
     <link href="{% static 'assets/css/lib/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'assets/css/lib/helper.css' %}" rel="stylesheet">
     <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+    <style>
+        .error {
+            padding: 10px;
+            background-color: #f44336;
+            color: white;
+        }
+        .info {
+            padding: 10px;
+            background-color: #218aff;
+            color: white;
+        }
+
+        .closebtn {
+            margin-left: 15px;
+            color: white;
+            font-weight: bold;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .closebtn:hover {
+            color: black;
+        }
+    </style>
 </head>
 
 <body class="bg-primary">
@@ -51,6 +78,9 @@
                                     <label>Password</label>
                                     {{ form.password }}
                                 </div>
+                                {% include "DisplayMessage.html" %}
+
+                                
                                 <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Sign in</button>
                             </form>
                         </div>
