@@ -3,14 +3,10 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 from UserData.models import User
 
-
-# first unregister the existing useradmin...
-# admin.site.unregister(User)
-
 class UserAdmin(BaseUserAdmin):
 
-    list_display = ('username', 'Unit', 'email','FullName','is_staff', 'is_staff')
-    list_editable = ['is_staff']
+    list_display = ('username', 'Unit', 'email','FullName','is_staff', 'is_superuser')
+    list_editable = ['is_staff', 'is_superuser']
     fieldsets = (
     (None, {'fields': ('username', 'password')}),
     ('Personal info', {'fields': ('first_name', 'last_name', 'email', 'MobileTel')}),
@@ -29,4 +25,3 @@ class UserAdmin(BaseUserAdmin):
 
 
 admin.site.register(User, UserAdmin)
-

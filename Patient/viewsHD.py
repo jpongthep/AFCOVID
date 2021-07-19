@@ -62,8 +62,8 @@ class PatientAddNewView(LoginRequiredMixin,CreateView):
 class InfectListView(LoginRequiredMixin,ListView):
     login_url = '/login'
     template_name = 'Patient/List.html'
-    paginate_by = 5
-    ordering = ['Date',]
+    paginate_by = 10
+    ordering = ['-Date','-id']
 
     def get_queryset(self) :
         queryset = Patient.objects.filter(CurrentTreatment = 3) #'กักตัวรอเตียง'
@@ -123,7 +123,7 @@ def PatientDetail(request, pk):
                 'treatment_log_form' : treatment_log_form
                 }
 
-    return render(request, "Patient/Detail.html", context)
+    return render(request, "Patient/Detail2.html", context)
 
 
 
@@ -136,6 +136,7 @@ class PatientUpdateView(PermissionRequiredMixin,UpdateView):
     form_class = PatientForm
     template_name = 'Patient/Update.html'    
     success_url = reverse_lazy('Patient:List')
+
 
 def DeletePatientData(request,pk):
     patient = Patient.objects.get(id = pk)
@@ -157,7 +158,7 @@ def UpdatePatientData(request, pk):
  
     if form.is_valid():
         form.save()
-        messages.info(request,f"Update ข้อมูล {Patient} เรียบร้อย")
+        messages.info(request,f"Update ข้อมูล {Patient.FullName} เรียบร้อย")
         return redirect(reverse_lazy('Patient:List'))
  
     context["form"] = form

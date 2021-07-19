@@ -2,7 +2,11 @@ from django.db import models
 from django import forms
 from django.forms import ModelForm
 
-from Patient.models import Patient, StatusLog, TreatmentLog
+from Patient.models import (
+                            Patient, 
+                            StatusLog, 
+                            TreatmentLog,
+                            RIGHT_MEDICAL_TREATMENT_CHOICE)
 
 class PatientBasicDataForm(ModelForm):
     class Meta:
@@ -34,11 +38,7 @@ class PatientBasicDataForm(ModelForm):
             'FullName': forms.TextInput(
                     attrs={'class': 'form-control', 
                         'placeholder': 'คำนำหน้า ชื่อ นามสกุล',
-                        }),
-            # 'InfectiousName': forms.Select(
-            #         attrs={'class': 'form-control', 
-            #             'placeholder': 'ผู้ติดเชื้อที่ใกล้ชิด',
-            #             }),     
+                        }), 
             'Gender': forms.Select(
                     attrs={'class': 'form-control', 
                         }),      
@@ -58,12 +58,7 @@ class PatientBasicDataForm(ModelForm):
                         'cols': 40
                         }),
             'IsAirforce': forms.CheckboxInput(attrs={'class': 'form-control',}),                          
-            # 'DatePositive': forms.DateInput(
-            #         format=('%Y-%m-%d'),
-            #         attrs={'class': 'form-control', 
-            #             'placeholder': 'Select a date',
-            #             'type': 'date'
-            #             }),       
+    
             'Mobile': forms.TextInput(
                     attrs={'class': 'form-control', 
                         'placeholder': 'เบอร์มือถือ',
@@ -83,27 +78,34 @@ class PatientBasicDataForm(ModelForm):
                         'rows': 3,
                         }),                                                                                                                      
         }
+    def clean_PersonID(self):
+        return self.cleaned_data['PersonID'] or None
 
 
 class PatientCOVIDForm(PatientBasicDataForm):
 
     def __init__(self, *args, **kwargs):
         super(PatientBasicDataForm, self).__init__(*args, **kwargs)
+
+        self.fields['RightMedicalTreatment'] = forms.ChoiceField(
+                                                        widget  = forms.RadioSelect, 
+                                                        choices = RIGHT_MEDICAL_TREATMENT_CHOICE)
         self.fields['DatePositive'].widget = forms.DateInput(
                                                 format=('%Y-%m-%d'),
                                                 attrs={'class': 'form-control', 
                                                     'placeholder': 'Select a date',
                                                     'type': 'date'
                                                     })
-        self.fields['InfectiousName'].widget = forms.Select(
-                                                attrs={'class': 'form-control', 
-                                                    })
+        # self.fields['InfectiousName'].widget = forms.Select(
+        #                                         attrs={'class': 'form-control', 
+        #                                             })
         self.fields['Corona3'].widget = forms.FileInput(attrs={'class': 'form-control'})
         self.fields['DetectedResult'].widget = forms.FileInput(attrs={'class': 'form-control'})
         self.fields['ConfirmedPatient'].widget = forms.CheckboxInput(attrs={'class': 'form-control',})
         
     class Meta(PatientBasicDataForm.Meta):
         fields = PatientBasicDataForm.Meta.fields + [
+                    'RightMedicalTreatment',
                     'DatePositive',
                     'InfectiousName',
                     'Corona3',

@@ -3,10 +3,8 @@ import datetime
 
 from django.db import models
 from django.db.models.fields import BooleanField
-from django.db.models.signals import post_save
 
 from UserData.models import User
-# Create your models here.
 
 RIGHT_MEDICAL_TREATMENT_CHOICE = (
     ( 0 ,  'ไม่ระบุ' ) ,
@@ -44,7 +42,7 @@ class Patient(models.Model):
     class Meta:
         verbose_name_plural = "ตารางผู้ป่วย [Patient]"    
         # ordering = ('-ActionOccure','ActionUser','ActionDo')
-        
+    
     Date = models.DateField(
                             default=datetime.date.today, 
                             verbose_name = 'วันที่')
@@ -83,7 +81,7 @@ class Patient(models.Model):
                                 verbose_name = 'วันเกิด')
     PersonID = models.CharField(
                                 max_length = 13,
-                                default = "-", 
+                                unique = True,
                                 blank = True, 
                                 null = True,
                                 verbose_name = 'เลขบัตรประชาชน')
@@ -123,7 +121,8 @@ class Patient(models.Model):
     RightMedicalTreatment = models.IntegerField(
                             choices = RIGHT_MEDICAL_TREATMENT_CHOICE, 
                             default = 0, 
-                            null=True,
+                            verbose_name = 'สิทธิ์การรักษาพยาบาล', 
+                            null = True,
                             blank = True)
     Corona3 = models.FileField(
                                 upload_to='Corona3/', 

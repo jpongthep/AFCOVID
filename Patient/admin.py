@@ -5,7 +5,7 @@ from Patient.models import ( Patient,
                              StatusLog)
 
 class PatientAdmin(admin.ModelAdmin):
-    list_display = ['Date','FullName','CurrentStatus','CurrentTreatment']
+    list_display = ['Date','FullName','PersonID','CurrentStatus','CurrentTreatment']
     search_fields = ['FullName']
     list_filter = ['Date']
     # list_editable = ['Type','NumDay']
