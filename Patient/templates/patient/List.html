@@ -27,7 +27,7 @@
           {% for patient in object_list %}
           <tr>
             <td>{{ patient.Date| thaidate:"d M y" }}</td>
-            <td>{{ patient.FullName }} </td>
+            <td>{{ forloop.counter}}. {{ patient.FullName }} </td>
             <td>{{ patient.Age }}</td>
             <td>
                 {% if patient.IsAirforce  %}
