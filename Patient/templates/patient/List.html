@@ -9,7 +9,6 @@
 <div class="container">
 
     <div class="table-responsive">
-      Base {{ request.user }}
       <table class="table table-striped table-bordered">
         <thead>
           <tr>
@@ -21,7 +20,7 @@
             <th>การรักษา</th>     
             <th>สถานะ</th>     
             <th>มือถือ</th>     
-            <th>การจัดการ</th>     
+            <th colspan = 3>การจัดการ</th>     
           </tr>
         </thead>
         <tbody>
@@ -50,13 +49,25 @@
             <td>{{ patient.Mobile }}</td>
             <td>
                 <a href = '{% url 'Patient:Detail' patient.id %}'class="btn  btn-sm btn-primary" role="button" >view</a>                
+            </td>
+            <td>
                 <a href = '{% url 'Patient:UpdateFB' patient.id %}' class="btn  btn-sm btn-warning" role="button" >แก้ไข</a>                
+            </td>
+            <td>
+              {% if  patient.DataUser == request.user %}
+                <a 
+                  href = '{% url 'Patient:Delete' patient.id %}' 
+                  class="btn  btn-sm btn-danger" 
+                  role="button" 
+                  onclick = "return confirm('ยืนยันการลบข้อมูลของ{{ patient.FullName }} ');"
+                >ลบ</a>   
+              {% endif %}            
             </td>
           </tr>
           {% endfor %}
           <tr>
             <td colspan = 8></td>
-            <td><a href = "{% url 'Patient:AddNew' %}"class="btn   btn-success" role="button" >เพิ่มผู้ป่วย</a></td>            
+            <td colspan = 3><a href = "{% url 'Patient:AddNew' %}"class="btn   btn-success" role="button" >เพิ่มผู้ป่วย</a></td>            
           </tr>
         </tbody>
       </table>
@@ -102,28 +113,4 @@
 </div>
 
 
-{% endblock %}
-
-{% block script %}
-<script>
-    function startTime() {
-        var today = new Date();
-        var h = today.getHours();
-        var m = today.getMinutes();
-        var s = today.getSeconds();
-        m = checkTime(m);
-        s = checkTime(s);
-        document.getElementById('clock').innerHTML =
-        h + ":" + m + ":" + s;
-        var t = setTimeout(startTime, 500);
-    }
-    
-    function checkTime(i) {
-        if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
-        return i;
-    }
-    
-    startTime();
-    
-</script>
 {% endblock %}

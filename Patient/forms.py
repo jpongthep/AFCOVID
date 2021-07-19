@@ -4,12 +4,26 @@ from django.forms import ModelForm
 
 from Patient.models import Patient, StatusLog, TreatmentLog
 
-class PatientBaseForm(ModelForm):
+class PatientBasicDataForm(ModelForm):
     class Meta:
         model = Patient
-        fields = '__all__'
-        exclude = ('CurrentStatus', 'DataUser','CurrentTreatment','ConfirmUser')
-
+        fields = [
+                    'Date', 
+                    'DataUser', 
+                    'FullName',
+                    'Gender',  
+                    'BirthDay', 
+                    'PersonID', 
+                    'Office', 
+                    'IsAirforce',
+                    'Mobile', 
+                    'Address', 
+                    'EmergencyMobile', 
+                    'Comment',
+                ]
+        exclude = [                    
+                    'DataUser',
+        ]
         widgets = {
             'Date': forms.DateInput(
                     format=('%Y-%m-%d'),
@@ -21,10 +35,10 @@ class PatientBaseForm(ModelForm):
                     attrs={'class': 'form-control', 
                         'placeholder': 'คำนำหน้า ชื่อ นามสกุล',
                         }),
-            'InfectiousName': forms.Select(
-                    attrs={'class': 'form-control', 
-                        'placeholder': 'ผู้ติดเชื้อที่ใกล้ชิด',
-                        }),     
+            # 'InfectiousName': forms.Select(
+            #         attrs={'class': 'form-control', 
+            #             'placeholder': 'ผู้ติดเชื้อที่ใกล้ชิด',
+            #             }),     
             'Gender': forms.Select(
                     attrs={'class': 'form-control', 
                         }),      
@@ -43,15 +57,13 @@ class PatientBaseForm(ModelForm):
                         'rows': 3,
                         'cols': 40
                         }),
-            'IsAirforce': forms.CheckboxInput(
-                    attrs={'class': 'form-control', 
-                        }),                          
-            'DatePositive': forms.DateInput(
-                    format=('%Y-%m-%d'),
-                    attrs={'class': 'form-control', 
-                        'placeholder': 'Select a date',
-                        'type': 'date'
-                        }),       
+            'IsAirforce': forms.CheckboxInput(attrs={'class': 'form-control',}),                          
+            # 'DatePositive': forms.DateInput(
+            #         format=('%Y-%m-%d'),
+            #         attrs={'class': 'form-control', 
+            #             'placeholder': 'Select a date',
+            #             'type': 'date'
+            #             }),       
             'Mobile': forms.TextInput(
                     attrs={'class': 'form-control', 
                         'placeholder': 'เบอร์มือถือ',
@@ -60,13 +72,12 @@ class PatientBaseForm(ModelForm):
                     attrs={'class': 'form-control', 
                         'rows': 3,
                         'cols': 40
-                        }),                                                                                                                      
-            'Corona3': forms.FileInput(
-                    attrs={'class': 'form-control'
-                        }),                                                                                                                      
-            'DetectedResult': forms.FileInput(
-                    attrs={'class': 'form-control'
-                        }),                                                                                                                      
+                        }),     
+            'EmergencyMobile': forms.TextInput(
+                    attrs={'class': 'form-control', 
+                        'placeholder': 'เบอร์มือถือ',
+                        }),                                                                                                                                          
+                                                                                                                
             'Comment': forms.Textarea(
                     attrs={'class': 'form-control', 
                         'rows': 3,
@@ -74,13 +85,44 @@ class PatientBaseForm(ModelForm):
         }
 
 
-class PatientForm(PatientBaseForm):
+class PatientCOVIDForm(PatientBasicDataForm):
 
     def __init__(self, *args, **kwargs):
-        super(PatientBaseForm, self).__init__(*args, **kwargs)
+        super(PatientBasicDataForm, self).__init__(*args, **kwargs)
+        self.fields['DatePositive'].widget = forms.DateInput(
+                                                format=('%Y-%m-%d'),
+                                                attrs={'class': 'form-control', 
+                                                    'placeholder': 'Select a date',
+                                                    'type': 'date'
+                                                    })
+        self.fields['InfectiousName'].widget = forms.Select(
+                                                attrs={'class': 'form-control', 
+                                                    })
+        self.fields['Corona3'].widget = forms.FileInput(attrs={'class': 'form-control'})
+        self.fields['DetectedResult'].widget = forms.FileInput(attrs={'class': 'form-control'})
+        self.fields['ConfirmedPatient'].widget = forms.CheckboxInput(attrs={'class': 'form-control',})
+        
+    class Meta(PatientBasicDataForm.Meta):
+        fields = PatientBasicDataForm.Meta.fields + [
+                    'DatePositive',
+                    'InfectiousName',
+                    'Corona3',
+                    'DetectedResult',
+                    'ConfirmedPatient',                    
+                ]
+        exclude = PatientBasicDataForm.Meta.exclude + [                    
+                    'ConfirmUser',
+                ]
+
+           
+
+class PatientForm(PatientBasicDataForm):
+
+    def __init__(self, *args, **kwargs):
+        super(PatientBasicDataForm, self).__init__(*args, **kwargs)
         self.fields['EmergencyMobile'].widget.attrs['class'] = 'form-control'
 
-    class Meta(PatientBaseForm.Meta):
+    class Meta(PatientBasicDataForm.Meta):
         model = Patient
         fields = '__all__'         
         exclude = (                    
@@ -89,7 +131,8 @@ class PatientForm(PatientBaseForm):
                     'ConfirmedPatient',
                     'CurrentStatus', 
                     'CurrentTreatment',
-        )        
+        )      
+          
 
 
 class StatusLogForm(ModelForm):

@@ -1,28 +1,56 @@
 from django.shortcuts import render
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.forms import formset_factory
 from django.db.models import Q
+from django.contrib.auth.models import Group
 
-
-from Patient.forms import PatientForm, StatusLogForm, TreatmentLogForm
+from Patient.forms import (PatientBasicDataForm, 
+                            PatientCOVIDForm,
+                            PatientForm, 
+                            StatusLogForm, 
+                            TreatmentLogForm)
 from Patient.models import (Patient,
                             StatusLog,
                             TreatmentLog)
 
+def get_form_class(user):
+    IsAFCMO = user.has_perm('UserData.User_AF_CMO')
+    IsUnitCMO = user.has_perm('UserData.User_Unit_CMO')
+    
+    IsCRC = user.has_perm('UserData.User_CRC')
+
+    if IsAFCMO or IsUnitCMO:
+        return PatientBasicDataForm
+    elif IsCRC:
+        return PatientCOVIDForm
+    else:
+        return PatientForm
+
+def get_template_name(user):
+    IsAFCMO = user.has_perm('UserData.User_AF_CMO')
+    IsUnitCMO = user.has_perm('UserData.User_Unit_CMO')
+
+    if IsAFCMO or IsUnitCMO:
+        return 'Patient/List.html'
+    else:
+        return 'Patient/List.html' #'Patient/ListAFCMO.html'
 
 class PatientAddNewView(LoginRequiredMixin,CreateView):
     login_url = '/login'
     model = Patient
     # fields = '__all__'
-    form_class = PatientForm
+    # form_class = PatientForm
     template_name = 'Patient/AddNew.html'    
     success_url = reverse_lazy('Patient:List')
+
+    def get_form_class(self):
+        return get_form_class(self.request.user)
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
@@ -42,27 +70,17 @@ class InfectListView(LoginRequiredMixin,ListView):
         return queryset
 
     def get_template_names(self):
-        # print(self.request.user)
-        # print(self.request.user.has_perm('UserData.User_AF_CMO'))
-        if self.request.user.has_perm('UserData.User_AF_CMO'):
-            return 'Patient/List.html'
-        else:
-            return 'Patient/ListAFCMO.html'
+        return get_template_name(self.request.user)
 
 class PatientListView(LoginRequiredMixin,ListView):
     login_url = '/login'
     model = Patient
     template_name = 'Patient/List.html'
-    paginate_by = 5
-    ordering = ['Date',]
+    paginate_by = 10
+    ordering = ['-Date','-id']
 
     def get_template_names(self):
-        # print(self.request.user)
-        # print(self.request.user.has_perm('UserData.User_AF_CMO'))
-        if self.request.user.has_perm('UserData.User_AF_CMO'):
-            return 'Patient/List.html'
-        else:
-            return 'Patient/ListAFCMO.html'
+        return get_template_name(self.request.user)
 
 def SaveStatusTreatment(request, pk):
     aPatient = get_object_or_404(Patient, id = pk)
@@ -119,13 +137,23 @@ class PatientUpdateView(PermissionRequiredMixin,UpdateView):
     template_name = 'Patient/Update.html'    
     success_url = reverse_lazy('Patient:List')
 
+def DeletePatientData(request,pk):
+    patient = Patient.objects.get(id = pk)
+    if patient.DataUser == request.user:
+        patient.delete()
+        return redirect('Patient:List')
+    else:
+        return HttpResponse(f'<h1>ไม่สามารถลบข้อมูลผู้ป่วยที่ผู้อื่นกรอกได้</h1> <p>ผู้กรอก : {patient.DataUser.FullName}</p>')
+
+
 @login_required
 def UpdatePatientData(request, pk):
     context ={}
 
     obj = get_object_or_404(Patient, id = pk)
- 
-    form = PatientForm(request.POST or None, request.FILES or None, instance = obj)
+
+    UserForm = get_form_class(request.user)
+    form = UserForm(request.POST or None, request.FILES or None, instance = obj)
  
     if form.is_valid():
         form.save()

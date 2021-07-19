@@ -147,7 +147,7 @@ class Patient(models.Model):
                                 blank = True)
     ConfirmedPatient = BooleanField(
                                     default = False, 
-                                    verbose_name= "กวป.ยืนยันผู้ติดเชื้อ",
+                                    verbose_name= "แพทย์ยืนยันข้อมูล",
                                     blank = True, 
                                     null = True)
     Comment  = models.TextField(

@@ -38,7 +38,7 @@ class SettingsBackend(ModelBackend):
         try:
             user = User.objects.get(username=username)
 
-            if username == 'admin':
+            if username in ['admin', 'TestAFCMO', 'testUnitCMO','testCRC']:
                 return user
 
             # if not re.search("@rtaf.mi.th$",user.email):
@@ -60,23 +60,20 @@ class SettingsBackend(ModelBackend):
         except User.DoesNotExist:
             ReturnData = checkRTAFPassdword(username,password)
             if ReturnData:
-                user = User(username=username)
-                user.email = f'{username}@rtaf.mi.th'
-                if ReturnData['user_orgname'] == "ศซว.ทอ.":
-                    user.is_staff = True
-                else:
-                    user.is_staff = False
+                user = User(username = username)
+                user.email = f'{username}@rtaf.mi.th'                
+                user.is_active = False
+                user.is_staff = False
                 user.is_superuser = False
                 user.first_name = ReturnData['user_name']
                 user.last_name = ""
+                user.Unit = ReturnData['user_orgname']
+                user.save()
 
                 UserUnit = Unit.objects.filter(ShortName = ReturnData['user_orgname'])
-                if UserUnit.exists():
-                    user.Unit = UserUnit
-                else:
+                if not UserUnit.exists():                    
                     NewUnit = Unit(ShortName = ReturnData['user_orgname'], FullName = ReturnData['user_orgname'])
-                    NewUnit.save()
-                user.save()
+                    NewUnit.save()                
 
                 messages.warning(request,f'ไม่มีผู้ใช้นี้ในระบบ ได้ทำการเพิ่ม "{username}" ให้แล้ว ติดต่อ Admin เพื่อเข้าใช้งาน')
             else:

@@ -23,9 +23,10 @@ class User(AbstractUser):
             ("User_Unit_CMO", "User Unit CMO"),
             ("User_PMD", "User PMD"),        
             ("User_CRC", "User CRC"),        
+            ("User_Hospital", "User Hospital"),        
             # ศูนย์ปฏิบัติการพลเรือน-ทหารศูนย์บรรเทาสาธารณภัย
             # Civilian-Military Operations Center Disaster Relief Center
-            # Preventive Medicine Division
+            # กวป. Preventive Medicine Division
             # ศูนย์ประสานผู้ป่วย COVID -19  ทอ. (RTAF COVID-19 Response Center : CRC)
         )
     CHOICE_Rank = (

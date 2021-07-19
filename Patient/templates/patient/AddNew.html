@@ -12,10 +12,12 @@
     </div>
 </div>
 <div class="row">
-    <div class = "col-6">
+    <div class = "col-8">
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ form }}
+            <table class="table">
+            {{ form.as_table }}
+            </table>
             <input class="btn btn-primary" type="submit" value="Submit">
         </form>
     </div>
