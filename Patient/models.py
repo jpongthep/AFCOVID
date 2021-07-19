@@ -120,7 +120,7 @@ class Patient(models.Model):
                                 verbose_name = 'ที่อยู่ปัจจุบัน', 
                                 null = True, 
                                 blank = True)
-    RightMedicalTreatment = Model Interger Choices = models.IntegerField(
+    RightMedicalTreatment = models.IntegerField(
                             choices = RIGHT_MEDICAL_TREATMENT_CHOICE, 
                             default = 0, 
                             null=True,
@@ -147,7 +147,7 @@ class Patient(models.Model):
                                 blank = True)
     ConfirmedPatient = BooleanField(
                                     default = False, 
-                                    verbose_name= "กวป.ยืนยันผู้ติดเชื้อ",
+                                    verbose_name= "แพทย์ยืนยันข้อมูล",
                                     blank = True, 
                                     null = True)
     Comment  = models.TextField(

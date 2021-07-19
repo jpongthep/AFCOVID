@@ -56,7 +56,7 @@
 !-->
                     <li>
                         <a href="{% url 'Patient:List' %}">
-                            <i class="fa fa-address-card-o" aria-hidden="true"></i> ผู้ป่วย
+                            <i class="fa fa-address-card-o" aria-hidden="true"></i> รายชื่อทั้งหมด
                         </a>
                     </li>
 <!--
@@ -125,6 +125,19 @@
         
         <div class="main">
             <div class="container-fluid">
+                
+                <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                  <strong>User : </strong> {{ request.user.FullName }} 
+                    {% if request.user.groups.all %}
+                        <strong>Group : </strong> 
+                    {% endif %}
+                    {% for group in request.user.groups.all %}
+                        {{ group.name }}
+                    {% endfor %}
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
                 {% include "DisplayMessage.html" %}
                 {% block content %}
                 

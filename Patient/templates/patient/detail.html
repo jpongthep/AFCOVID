@@ -20,8 +20,20 @@
           เบอร์มือถือ : {{ Patient.Mobile }}<br>
           ที่อยู่ปัจจุบัน : {{ Patient.Address }}<br>
           เบอร์ฉุกเฉิน : {{ Patient.EmergencyMobile }}<br>
-          Corona3 : {{ Patient.Corona3 }}<br>
-          DetectedResult : {{ Patient.DetectedResult }}<br>
+          Corona3 : 
+            {% if Patient.Corona3 %}
+              <a href = "{% get_media_prefix %}{{ Patient.Corona3 }}" target = "_blank" class="btn  btn-sm btn-primary">openfile </a>
+            {% else %}
+              -
+            {% endif %}
+          <br>
+          DetectedResult : 
+            {% if Patient.DetectedResult %}
+              <a href = "{% get_media_prefix %}{{ Patient.DetectedResult }}" target = "_blank" class="btn  btn-sm btn-primary">openfile </a>
+            {% else %}
+              -
+            {% endif %}
+          <br>
 
           ConfirmUser : {{ Patient.ConfirmUser }}<br>
           ConfirmedPatient : {{ Patient.ConfirmedPatient }}<br>
