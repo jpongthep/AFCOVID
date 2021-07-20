@@ -102,8 +102,7 @@ class Patient(models.Model):
     CurrentStatus = models.IntegerField(
                             choices = CHOICE_STATUSLEVEL, 
                             default = 0, 
-                            null=True,
-                            blank = True)
+                            null=True)
     CurrentTreatment = models.IntegerField(
                                 choices = TREATMENTCHOICES, 
                                 default = 0, 

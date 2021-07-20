@@ -6,7 +6,9 @@ from Patient.viewsHD import (PatientAddNewView,
                              UpdatePatientData,
                              PatientDetail,
                              InfectListView,
-                             DeletePatientData
+                             DeletePatientData,
+                             DeletePatientTreatmentLog,
+                             DeletePatientStatusLog,
                              )
 
 
@@ -19,6 +21,8 @@ urlpatterns = [
     path('<int:pk>/detail', PatientDetail, name = 'Detail'),
     path('<int:pk>/update', PatientUpdateView.as_view(), name = 'Update'),
     path('<int:pk>/delete', DeletePatientData, name = 'Delete'),
+    path('<int:PatientPk>/<int:treatmentPk>/DelTreatment', DeletePatientTreatmentLog, name = 'DelTreatment'),
+    path('<int:PatientPk>/<int:statusPk>/DelStatus', DeletePatientStatusLog, name = 'DelStatus'),
     path('<int:pk>/updateFB', UpdatePatientData, name = 'UpdateFB'),
     path('Infect', InfectListView.as_view(), name = 'Infect'),
     

@@ -97,13 +97,13 @@ def SaveStatusTreatment(request, pk):
     treatment_log_form = TreatmentLogForm(request.POST, prefix='treatment')
     print(request.POST)
     print(status_log_form)
-    if status_log_form.is_valid():
+    if status_log_form.is_valid() and request.POST['status-Date']:
         form = status_log_form.save(commit = False)
         form.RecorderUser = request.user
         form.ThePatient = aPatient
         form.save()
         messages.info(request,f'บันทึกสถานะของ "{aPatient}" เรียบร้อย')
-    if treatment_log_form.is_valid():
+    if treatment_log_form.is_valid() and request.POST['treatment-Date']:
         form = treatment_log_form.save(commit=False)
         form.RecorderUser = request.user
         form.ThePatient = aPatient
@@ -129,8 +129,7 @@ def PatientDetail(request, pk):
                 'treatment_log_form' : treatment_log_form
                 }
 
-    return render(request, "Patient/Detail2.html", context)
-
+    return render(request, "Patient/Detail.html", context)
 
 
 # class PatientUpdateView(PermissionRequiredMixin,UpdateView):
@@ -145,12 +144,33 @@ class PatientUpdateView(PermissionRequiredMixin,UpdateView):
 
 
 def DeletePatientData(request,pk):
-    patient = Patient.objects.get(id = pk)
-    if patient.DataUser == request.user:
-        patient.delete()
-        return redirect('Patient:List')
-    else:
-        return HttpResponse(f'<h1>ไม่สามารถลบข้อมูลผู้ป่วยที่ผู้อื่นกรอกได้</h1> <p>ผู้ขอลบ : {request.user.FullName}</p> <p>ผู้กรอกข้อมูล : {patient.DataUser.FullName}</p>')
+    if request.method == 'POST':
+        patient = Patient.objects.get(id = pk)
+        if patient.DataUser == request.user:
+            patient.delete()
+            return redirect('Patient:List')  
+        else:
+            return HttpResponse(f'<h1>ไม่สามารถลบข้อมูลผู้ป่วยที่ผู้อื่นกรอกได้</h1> <p>ผู้ขอลบ : {request.user.FullName}</p> <p>ผู้กรอกข้อมูล : {patient.DataUser.FullName}</p>')
+
+    return redirect('Patient:List') 
+
+
+def DeletePatientTreatmentLog(request,PatientPk, treatmentPk):
+    if request.method == 'POST':
+        treatment = TreatmentLog.objects.get(id = treatmentPk)
+        treatment.delete()
+        return redirect('Patient:Detail', pk=PatientPk) 
+            
+    return redirect('Patient:Detail', pk=PatientPk)
+
+
+def DeletePatientStatusLog(request,PatientPk, statusPk):
+    if request.method == 'POST':
+        status = StatusLog.objects.get(id = statusPk)
+        status.delete()
+        return redirect('Patient:Detail', pk=PatientPk) 
+            
+    return redirect('Patient:Detail', pk=PatientPk)
 
 
 @login_required

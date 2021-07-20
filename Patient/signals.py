@@ -4,6 +4,7 @@ from django.dispatch import receiver
 from Patient.models import Patient, StatusLog, TreatmentLog
 
 
+@receiver(post_delete, sender=StatusLog)
 @receiver(post_save, sender=StatusLog)
 def PostSaveSignal(sender, instance, **kwargs):
     LastestStatus = StatusLog.objects.filter(ThePatient = instance.ThePatient).order_by('-Date')
@@ -16,6 +17,7 @@ def PostSaveSignal(sender, instance, **kwargs):
     patient.CurrentStatus = StatusResult
     patient.save()
 
+@receiver(post_delete, sender=TreatmentLog)
 @receiver(post_save, sender=TreatmentLog)
 def PostSaveSignal(sender, instance, **kwargs):
     LastestTreatment = TreatmentLog.objects.filter(ThePatient = instance.ThePatient).order_by('-Date')

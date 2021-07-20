@@ -142,7 +142,7 @@ class StatusLogForm(ModelForm):
     class Meta:
         model = StatusLog
         fields = ('Date', 'Status', 'Comment')
-        # exclude = ('ThePatient','RecorderUser')
+        # exclude = ('Date',)
         widgets = {
             'Date': forms.DateInput(
                     format=('%Y-%m-%d'),
@@ -163,7 +163,7 @@ class TreatmentLogForm(ModelForm):
     class Meta:
         model = TreatmentLog
         fields = ('Date', 'Treatment', 'Comment')
-        # exclude = ('ThePatient','RecorderUser')
+        # exclude = ('Date',)
 
         widgets = {
             'Date': forms.DateInput(
