@@ -5,8 +5,35 @@
 {% block title %}ข้อมูลผู้ป่วย{% endblock %}
 
 {% block content %}
-<style>
-.section-title h3 {
+
+
+<style scoped>
+
+
+.section-title h2 {
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  position: relative;
+  color: #173b6c;
+}
+
+
+
+.section-title2 h3 {
+  font-size: 20px;
+  font-weight: bold;
+
+  padding-top: 10px;
+
+  position: relative;
+  color: #173b6c;
+}
+
+
+
+.section-title3 h3 {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 20px;
@@ -15,115 +42,141 @@
   color: #173b6c;
 }
 
-.section-title h3::after {
-  content: '';
-  position: absolute;
-  display: block;
-  width: 600px;
-  height: 3px;
-  background: #149ddd;
-  bottom: 0;
-  left: 0;
+
+
+
+hr.line1 {
+  border-top: 5px solid "#a1a1a1";
+  border-radius: 5px;
 }
 
-.section-title h4 {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 10px;
-  padding-bottom: 8px;
-  position: relative;
-  color: #173b6c;
+/* Dashed red border */
+hr.new2 {
+  border-top: 1px dashed red;
 }
 
-.section-title h4::after {
-  content: '';
-  position: absolute;
-  display: block;
-  width: 600px;
-  height: 3px;
-  background: #149ddd;
-  bottom: 0;
-  left: 0;
+/* Dotted red border */
+hr.new3 {
+  border-top: 1px dotted red;
 }
+
+/* Thick red border */
+hr.new4 {
+  border: 1px solid red;
+}
+
+/* Large rounded green border */
+hr.new5 {
+  border: 5px solid green;
+  border-radius: 5px;
+}
+
 
 </style>
 <div class="container">
-    <div class="section-title">
-        <h3>{{ Patient.FullName }}</h3>
+<div class="section-title">
+  <h2>{{ Patient.FullName }}</h2>
+  <hr class = "line1">  
+</div>
+
+
+  <div class="section-title2">   
+    <h3>1. ข้อมูลพื้นฐานทั่วไป</h3>
+  </div>
+  <div class="row">
+    <div class="col">
+      <ul>              
+        <li><i class="d-flex"></i> <strong>ผู้บันทึก : </strong> <span>{{ Patient.DataUser.FullName }} <strong>เมื่อวันที่</strong> {{ Patient.Date|thaidate:"D d M Y" }}</span></li>
+        <li><i class="d-flex"></i> <strong>เพศ  :</strong> <span>{{ Patient.get_Gender_display }}</span></li>
+        <li><i class="d-flex"></i> <strong>เลขบัตรประชาชน : </strong> <span>{{ Patient.PersonID }}</span></li>
+        <li><i class="d-flex"></i> <strong>หมายเหตุ : </strong> <span> {{ Patient.Comment }}<br></span></li>
+      </ul>
     </div>
-
-    <div class="row">
-        <div class="col-lg-6">
-            <ul>
-                <li><i class="bi bi-chevron-right"></i> <strong>ผู้บันทึก:</strong> <span>{{ Patient.DataUser.FullName }} <strong>เมื่อวันที่</strong> {{ Patient.Date|thaidate:"D d M Y" }}</span></li>
-                <li><i class="bi bi-chevron-right"></i> <strong>เพศ:</strong> <span>{{ Patient.Gender }}</span></li>
-                <li><i class="bi bi-chevron-right"></i> <strong>เลขบัตรประชาชน:</strong> <span>{{ Patient.PersonID }}</span></li>
-                <li><i class="bi bi-chevron-right"></i> <strong>หมายเหตุ:</strong> <span>Comment : {{ Patient.Comment }}<br></span></li>     
-            </ul>
-        </div>
-        <div class="col-lg-6">
-            <ul>
-                <li><i class="bi bi-chevron-right"></i> <strong>วันเกิด:</strong> <span>{{ Patient.BirthDay }} ({{ Patient.Age }})</span></li>
-                <li><i class="bi bi-chevron-right"></i> 
-                    {% if Patient.IsAirforce %} 
-                        <strong>เป็นข้าราชการกองทัพอากาศ</strong> <span>{{ Patient.Office }}</span></li>
-                    {% else %}
-                        <strong>ไม่เป็นข้าราชการกองทัพอากาศ</strong> <span>{{ Patient.Office }}</span></li>
-                    {% endif %}
-                <li><i class="bi bi-chevron-right"></i> <strong>ที่อยู่ปัจจุบัน :</strong> <span>{{ Patient.Address }}</span></li>
-                <li><i class="bi bi-chevron-right"></i> <strong>เบอร์มือถือ : </strong> <span>{{ Patient.Mobile }}</span> <strong>เบอร์ฉุกเฉิน : </strong> <span>{{ Patient.EmergencyMobile }}</span></li>
-            </ul>
-        </div>
-    </div>
-
-          ชื่อคนแพร่เชื้อ: {{ Patient.InfectiousName }}<br>
-         
-          วันที่ตรวจพบเชื้อ : {{ Patient.DatePositive }}<br>
-
-          Corona3 : 
-            {% if Patient.Corona3 %}
-              <a href = "{% get_media_prefix %}{{ Patient.Corona3 }}" target = "_blank" class="btn  btn-sm btn-primary">openfile </a>
+    <div class="col">
+      <ul>
+        <li><i class="bi bi-chevron-right"></i> <strong>วันเกิด : </strong> <span>{{ Patient.BirthDay }} ({{ Patient.Age }})</span></li>
+        <li><i class="bi bi-chevron-right"></i> 
+            {% if Patient.IsAirforce %} 
+                <strong>เป็นข้าราชการกองทัพอากาศ : </strong> <span>{{ Patient.Office }}</span></li>
             {% else %}
-              -
+                <strong>ไม่เป็นข้าราชการกองทัพอากาศ : </strong> <span>{{ Patient.Office }}</span></li>
             {% endif %}
-          <br>
-          DetectedResult : 
+        <li><i class="bi bi-chevron-right"></i> <strong>ที่อยู่ปัจจุบัน : </strong> <span>{{ Patient.Address }}</span></li>
+        <li><i class="bi bi-chevron-right"></i> <strong>เบอร์มือถือ : </strong> <span>{{ Patient.Mobile }}</span> <strong>เบอร์ฉุกเฉิน : </strong> <span>{{ Patient.EmergencyMobile }}</span></li>
+      </ul>
+    </div>    
+     
+  </div>
+  <hr class = "line1"> 
+</div>
+{% if Patient.ConfirmedByCRC %}
+<div class="container"> 
+  <div class="section-title2">
+    <h3>2. ข้อมูลการติดเชื้อและสอบสวนโรค</h3>
+  </div>
+  <div class="row">
+    <div class="col">
+      <ul>              
+        <li><i class="d-flex"></i> <strong> ชื่อคนแพร่เชื้อ : </strong>{{ Patient.InfectiousName }}</li>
+        <li><i class="d-flex"></i> 
+          <strong>DetectedResult :</strong>
             {% if Patient.DetectedResult %}
               <a href = "{% get_media_prefix %}{{ Patient.DetectedResult }}" target = "_blank" class="btn  btn-sm btn-primary">openfile </a>
             {% else %}
               -
             {% endif %}
-          <br>
-
-          ConfirmUser : {{ Patient.ConfirmUser }}<br>
-          ConfirmedPatient : {{ Patient.ConfirmedPatient }}<br>
-          
-
+        </li>
+        <li><i class="d-flex"></i>  <strong>CRC ผู้สอบสวนโรค : </strong> {{ Patient.ConfirmUser }}<br></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <li><i class="bi bi-chevron-right"></i> <strong> วันที่ตรวจพบเชื้อ : </strong> {{ Patient.DatePositive }}</li>
+        <li><i class="bi bi-chevron-right"></i> 
+          <strong>Corona3 : </strong>
+            {% if Patient.Corona3 %}
+              <a href = "{% get_media_prefix %}{{ Patient.Corona3 }}" target = "_blank" class="btn  btn-sm btn-primary">openfile </a>
+            {% else %}
+              -
+            {% endif %}
+      </ul>
+    </div>    
+  </div>  
+  <hr class = "line1"> 
 </div>
+
+
+
+
 <div class = "container">
-  <form method = 'POST'>
-      {% csrf_token %}
-      <div class = "row">      
-        <div class = "col-6">
-          <b>สถานะผู้ป่วย</b> <br>
-          {% for status in StatusList %}
-            {{status.Date}} ,  {{status.RecorderUser}}, {{status.get_Status_display}} , {{status.Comment}} <br>
-          {% endfor %}
-          {{ status_log_form }}
-        </div>
+  <div class="section-title3">
+    <h3>3. ข้อมูลสถานะและการรักษา</h3>
+  </div>
+  <div class="col">
+    <form method = 'POST'>
+        {% csrf_token %}
+        <div class = "row">      
           <div class = "col-6">
-        <b>การรักษาผู้ป่วย</b> <br>
-        {% for treatment in TreatmentList %}
-          {{treatment.Date}} ,  {{treatment.RecorderUser}}, {{treatment.get_Treatment_display}} , {{treatment.Comment}} <br>
-        {% endfor %}
-        {{ treatment_log_form }}
+            <b>สถานะผู้ป่วย</b> <br>
+            {% for status in StatusList %}
+              <li style="background-color:aquamarine;">{{status.Date}} ,  {{status.RecorderUser}}, {{status.get_Status_display}} , {{status.Comment}} <br></li>
+            {% endfor %}
+            {{ status_log_form }}
+          </div>
+            <div class = "col-6">
+          <b>การรักษาผู้ป่วย</b> <br>
+          {% for treatment in TreatmentList %}
+          <li style="background-color: #f6f7be;">{{treatment.Date}} ,  {{treatment.RecorderUser}}, {{treatment.get_Treatment_display}} , {{treatment.Comment}} <br></li>
+          {% endfor %}
+          {{ treatment_log_form }}
+          </div>
+
         </div>
-
-      </div>
-    <input class="btn btn-primary" type="submit" value="Submit">
-  </form>
+      <input class="btn btn-primary" type="submit" value="Submit">
+    </form>
+  </div>
 </div>
-
+{% endif %}
 
 {% endblock %}
 

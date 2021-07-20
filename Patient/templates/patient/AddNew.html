@@ -16,19 +16,11 @@
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <table class="table">
-            {{ form.as_table }}
+                {{ form.as_table }}
             </table>
             <input class="btn btn-primary" type="submit" value="Submit">
         </form>
     </div>
 </div>
 
-
-{% endblock %}
-
-{% block script %}
-    <script>
-
-        
-    </script>
 {% endblock %}

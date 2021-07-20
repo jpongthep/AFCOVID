@@ -9,6 +9,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.forms import formset_factory
 from django.db.models import Q
 from django.contrib.auth.models import Group
+import requests
 
 from Patient.forms import (PatientBasicDataForm, 
                             PatientCOVIDForm,
@@ -53,10 +54,17 @@ class PatientAddNewView(LoginRequiredMixin,CreateView):
         return get_form_class(self.request.user)
 
     def form_valid(self, form):
-        self.object = form.save(commit=False)
-        self.object.DataUser = self.request.user
-        self.object.save()
-        messages.info(self.request,f'บันทึกข้อมูล {self.object.FullName} เรียบร้อย')
+      
+        if self.request.user.has_perm("UserData.User_CRC"):
+            a = form.save(commit=False)
+            a.DataUser = self.request.user
+            a.ConfirmUser = self.request.user
+            a.ConfirmedByCRC = True
+            a.save()
+        else:
+            form.save()
+
+        messages.info(self.request,f'บันทึกข้อมูล {a.FullName} เรียบร้อย')
         return HttpResponseRedirect(self.get_success_url())
 
 class InfectListView(LoginRequiredMixin,ListView):
@@ -85,24 +93,22 @@ class PatientListView(LoginRequiredMixin,ListView):
 def SaveStatusTreatment(request, pk):
     aPatient = get_object_or_404(Patient, id = pk)
 
-    DateList = request.POST.getlist('Date')        
-    status_log_form = StatusLogForm(request.POST)
-    treatment_log_form = TreatmentLogForm(request.POST)
+    status_log_form = StatusLogForm(request.POST, prefix='status')
+    treatment_log_form = TreatmentLogForm(request.POST, prefix='treatment')
     print(request.POST)
     print(status_log_form)
-    if status_log_form.is_valid() and DateList[0]:
+    if status_log_form.is_valid():
         form = status_log_form.save(commit = False)
-        form.Date = DateList[0]
         form.RecorderUser = request.user
         form.ThePatient = aPatient
         form.save()
-        messages.info(request,f'บันทึกสถานะของ {aPatient} เรียบร้อย')
-    if treatment_log_form.is_valid() and DateList[1]:
+        messages.info(request,f'บันทึกสถานะของ "{aPatient}" เรียบร้อย')
+    if treatment_log_form.is_valid():
         form = treatment_log_form.save(commit=False)
         form.RecorderUser = request.user
         form.ThePatient = aPatient
         form.save()
-        messages.info(request,f'บันทึกการรักษาของ {aPatient} เรียบร้อย')
+        messages.info(request,f'บันทึกการรักษาของ "{aPatient}" เรียบร้อย')
 
 @login_required
 def PatientDetail(request, pk):
@@ -110,8 +116,8 @@ def PatientDetail(request, pk):
     if request.method == 'POST':
         SaveStatusTreatment(request, pk)        
 
-    status_log_form = StatusLogForm()
-    treatment_log_form = TreatmentLogForm()
+    status_log_form = StatusLogForm(prefix='status')
+    treatment_log_form = TreatmentLogForm(prefix='treatment')
 
     StatusList = StatusLog.objects.filter(ThePatient = aPatient).order_by('-Date')
     TreatmentList = TreatmentLog.objects.filter(ThePatient = aPatient).order_by('-Date')        
@@ -144,7 +150,7 @@ def DeletePatientData(request,pk):
         patient.delete()
         return redirect('Patient:List')
     else:
-        return HttpResponse(f'<h1>ไม่สามารถลบข้อมูลผู้ป่วยที่ผู้อื่นกรอกได้</h1> <p>ผู้กรอก : {patient.DataUser.FullName}</p>')
+        return HttpResponse(f'<h1>ไม่สามารถลบข้อมูลผู้ป่วยที่ผู้อื่นกรอกได้</h1> <p>ผู้ขอลบ : {request.user.FullName}</p> <p>ผู้กรอกข้อมูล : {patient.DataUser.FullName}</p>')
 
 
 @login_required
@@ -157,8 +163,16 @@ def UpdatePatientData(request, pk):
     form = UserForm(request.POST or None, request.FILES or None, instance = obj)
  
     if form.is_valid():
-        form.save()
-        messages.info(request,f"Update ข้อมูล {Patient.FullName} เรียบร้อย")
+        patientFullName = request.POST["FullName"]        
+        if request.user.has_perm("UserData.User_CRC"):
+            a = form.save(commit=False)
+            a.ConfirmUser = request.user
+            a.ConfirmedByCRC = True
+            a.save()
+        else:
+            form.save()
+
+        messages.info(request,f"Update ข้อมูล '{patientFullName}' เรียบร้อย")
         return redirect(reverse_lazy('Patient:List'))
  
     context["form"] = form

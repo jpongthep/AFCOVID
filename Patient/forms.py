@@ -101,7 +101,7 @@ class PatientCOVIDForm(PatientBasicDataForm):
         #                                             })
         self.fields['Corona3'].widget = forms.FileInput(attrs={'class': 'form-control'})
         self.fields['DetectedResult'].widget = forms.FileInput(attrs={'class': 'form-control'})
-        self.fields['ConfirmedPatient'].widget = forms.CheckboxInput(attrs={'class': 'form-control',})
+        # self.fields['ConfirmedByCRC'].widget = forms.CheckboxInput(attrs={'class': 'form-control',})
         
     class Meta(PatientBasicDataForm.Meta):
         fields = PatientBasicDataForm.Meta.fields + [
@@ -110,10 +110,11 @@ class PatientCOVIDForm(PatientBasicDataForm):
                     'InfectiousName',
                     'Corona3',
                     'DetectedResult',
-                    'ConfirmedPatient',                    
+                    'ConfirmedByCRC',                    
                 ]
         exclude = PatientBasicDataForm.Meta.exclude + [                    
                     'ConfirmUser',
+                    'ConfirmedByCRC'
                 ]
 
            
@@ -130,7 +131,7 @@ class PatientForm(PatientBasicDataForm):
         exclude = (                    
                     'DataUser',
                     'ConfirmUser',
-                    'ConfirmedPatient',
+                    'ConfirmedByCRC',
                     'CurrentStatus', 
                     'CurrentTreatment',
         )      

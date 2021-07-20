@@ -38,8 +38,11 @@ class SettingsBackend(ModelBackend):
         try:
             user = User.objects.get(username=username)
 
-            # if username in ['admin', 'TestAFCMO', 'testUnitCMO','testCRC']:
-            #     return user
+            if not user.is_active:
+                return None
+
+            if username in ['admin', 'TestAFCMO', 'testUnitCMO','testCRC']:
+                return user
 
             # if not re.search("@rtaf.mi.th$",user.email):
             #     user = django_authenticate(username=username, password=password)

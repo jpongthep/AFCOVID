@@ -144,14 +144,14 @@ class Patient(models.Model):
                                 verbose_name = 'ผู้ยืนยันข้อมูล ',
                                 null = True,
                                 blank = True)
-    ConfirmedPatient = BooleanField(
+    ConfirmedByCRC = BooleanField(
                                     default = False, 
                                     verbose_name= "แพทย์ยืนยันข้อมูล",
                                     blank = True, 
                                     null = True)
     Comment  = models.TextField(
                                 default = None, 
-                                verbose_name = "คำอธิบาย",
+                                verbose_name = "หมายเหตุ",
                                 blank = True, 
                                 null = True,)
 

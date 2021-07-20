@@ -13,9 +13,9 @@
         <thead>
           <tr>
             <th>Date</th>
-            <th>FullName</th>
-            <th>อายุ</th>
+            <th>FullName (อายุ)</th>            
             <th>หน่วยงาน</th>
+            <th>CRC</th>
             <th>Positive เมื่อ</th>
             <th>การรักษา</th>     
             <th>สถานะ</th>     
@@ -27,18 +27,28 @@
           {% for patient in object_list %}
           <tr>
             <td>{{ patient.Date| thaidate:"d M y" }}</td>
-            <td>{{ forloop.counter }}. {{ patient.FullName }} </td>
-            <td>{{ patient.Age }}</td>
+            <td>{{ forloop.counter }}. {{ patient.FullName }} 
+              {% if patient.Age > 0 %}
+                ({{ patient.Age }})
+              {% endif %}            
+            </td>            
             <td>
                 {% if patient.IsAirforce  %}
                     (ทอ.) 
                 {% endif %}
                 {{ patient.Office}} 
             </td>
+            <td>
+              {% if patient.ConfirmedByCRC  %}                    
+                    <abbr title="{{patient.ConfirmUser.FullName}}"><i class="fas fa-check"></i></abbr>
+              {% endif %}
+            </td>
             <td>{{ patient.DatePositive }}</td>
-            <td>{{ patient.get_CurrentTreatment_display }}</td>
+            <td>
+            
+              {{ patient.get_CurrentTreatment_display }}
+            </td>
             <td> 
-              <i class="far fa-edit"></i> 
 <!--
                 <i class="fas fa-battery-full 2x" style="color:green"></i>
                 <i class="fas fa-battery-half" style="color:yellow"></i>
