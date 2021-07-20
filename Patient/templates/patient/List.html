@@ -26,7 +26,7 @@
         <tbody>
           {% for patient in object_list %}
           <tr>
-            <td>{{ patient.Date| thaidate:"d M y" }}</td>
+            <td>{{ patient.Date|thaidate:"d-m-y" }}</td>
             <td>{{ forloop.counter }}. {{ patient.FullName }} 
               {% if patient.Age > 0 %}
                 ({{ patient.Age }})
@@ -43,7 +43,7 @@
                     <abbr title="{{patient.ConfirmUser.FullName}}"><i class="fas fa-check"></i></abbr>
               {% endif %}
             </td>
-            <td>{{ patient.DatePositive }}</td>
+            <td>{{ patient.DatePositive|thaidate:"d-m-y" }}</td>
             <td>
             
               {{ patient.get_CurrentTreatment_display }}

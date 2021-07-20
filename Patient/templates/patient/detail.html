@@ -73,6 +73,7 @@ hr.new5 {
   </div>
   <div class="row">
     <div class="col">
+      
       <ul>              
         <li><i class="d-flex"></i> <strong>ผู้บันทึก : </strong> <span>{{ Patient.DataUser.FullName }} <strong>เมื่อวันที่</strong> {{ Patient.Date|thaidate:"d-m-y" }}</span></li>
         <li><i class="d-flex"></i> <strong>เพศ  :</strong> <span>{{ Patient.get_Gender_display }}</span></li>
@@ -119,7 +120,7 @@ hr.new5 {
     </div>
     <div class="col">
       <ul>
-        <li><i class="bi bi-chevron-right"></i> <strong> วันที่ตรวจพบเชื้อ : </strong> {{ Patient.DatePositive }}</li>
+        <li><i class="bi bi-chevron-right"></i> <strong> วันที่ตรวจพบเชื้อ : </strong> {{ Patient.DatePositive|thaidate:"d-m-y" }}</li>
         <li><i class="bi bi-chevron-right"></i> 
           <strong>Corona3 : </strong>
             {% if Patient.Corona3 %}

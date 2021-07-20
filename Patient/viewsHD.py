@@ -144,33 +144,27 @@ class PatientUpdateView(PermissionRequiredMixin,UpdateView):
 
 
 def DeletePatientData(request,pk):
-    if request.method == 'POST':
-        patient = Patient.objects.get(id = pk)
-        if patient.DataUser == request.user:
-            patient.delete()
-            return redirect('Patient:List')  
-        else:
-            return HttpResponse(f'<h1>ไม่สามารถลบข้อมูลผู้ป่วยที่ผู้อื่นกรอกได้</h1> <p>ผู้ขอลบ : {request.user.FullName}</p> <p>ผู้กรอกข้อมูล : {patient.DataUser.FullName}</p>')
-
-    return redirect('Patient:List') 
+    patient = Patient.objects.get(id = pk)
+    if patient.DataUser == request.user:
+        patient.delete()
+        return redirect('Patient:List')  
+    else:
+        return HttpResponse(f'<h1>ไม่สามารถลบข้อมูลผู้ป่วยที่ผู้อื่นกรอกได้</h1> <p>ผู้ขอลบ : {request.user.FullName}</p> <p>ผู้กรอกข้อมูล : {patient.DataUser.FullName}</p>')
 
 
 def DeletePatientTreatmentLog(request,PatientPk, treatmentPk):
-    if request.method == 'POST':
-        treatment = TreatmentLog.objects.get(id = treatmentPk)
-        treatment.delete()
-        return redirect('Patient:Detail', pk=PatientPk) 
+    treatment = TreatmentLog.objects.get(id = treatmentPk)
+    treatment.delete()
+    return redirect('Patient:Detail', pk=PatientPk) 
             
-    return redirect('Patient:Detail', pk=PatientPk)
 
 
 def DeletePatientStatusLog(request,PatientPk, statusPk):
-    if request.method == 'POST':
-        status = StatusLog.objects.get(id = statusPk)
-        status.delete()
-        return redirect('Patient:Detail', pk=PatientPk) 
-            
-    return redirect('Patient:Detail', pk=PatientPk)
+    status = StatusLog.objects.get(id = statusPk)
+    status.delete()
+    return redirect('Patient:Detail', pk=PatientPk) 
+        
+
 
 
 @login_required
