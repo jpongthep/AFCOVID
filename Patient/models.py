@@ -273,3 +273,40 @@ class TreatmentLog(models.Model):
     def __str__(self):
         return f'{self.ThePatient} : {self.Treatment}'
 
+
+class AMEDPatient(models.Model):
+    class Meta:
+        verbose_name_plural = " [AMEDPatient]"
+    PersonID = models.CharField(
+                                max_length = 13,
+                                unique = True,
+                                blank = True, 
+                                null = True,
+                                verbose_name = 'เลขบัตรประชาชน')
+    HNNumber = models.CharField(
+                                max_length = 20,
+                                unique = True,
+                                blank = True,
+                                null = True,
+                                verbose_name = 'เลขผู้ป่วยนอก')
+    ANNumber = models.CharField(
+                                max_length = 20,
+                                unique = True,
+                                blank = True,
+                                null = True,
+                                verbose_name = 'เลขผู้ป่วยใน')
+    Fullname = models.CharField(                                
+                                max_length = 255,
+                                default = "-", 
+                                blank = True, 
+                                null = True,
+                                verbose_name = 'ชื่อผู้ป่วย')
+    Mobile = models.CharField(
+                                max_length = 20,
+                                blank = True, 
+                                null = True,
+                                verbose_name = 'เบอร์มือถือ')
+    Symtom = models.IntegerField(
+                                choices = CHOICE_STATUSLEVEL, 
+                                default = 0, 
+                                null=True)
