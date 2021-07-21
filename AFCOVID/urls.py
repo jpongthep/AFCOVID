@@ -8,8 +8,10 @@ from UserData.forms import MyLoginView
 from django.conf.urls.static import static
 from UserData.forms import MyLoginView
 
-def home(request):
-    return render(request,'_base.html')
+from django.shortcuts import render
+
+def TestPage(request):
+    return render(request,"_milk.html")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -19,6 +21,14 @@ urlpatterns = [
     # path('login/', MyLoginView.as_view(), name = 'login'),
     # path('logout/', authviews.LogoutView.as_view(), name = 'logout'),
    
+<<<<<<< HEAD
     # path('', include('Patient.urls')),
+=======
+    path('', include('Patient.urls')),
+    path('tp', TestPage),
 
-]+ static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
+]
+>>>>>>> 1fef7138dea6503622fe0aca38aad9c5159966de
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

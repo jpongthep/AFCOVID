@@ -1,20 +1,49 @@
 from datetime import date
+import datetime
 
 from django.db import models
 
 from django.db.models.fields import BooleanField
+
 from UserData.models import User
-import datetime
 
-# Create your models here.
+RIGHT_MEDICAL_TREATMENT_CHOICE = (
+    ( 0 ,  'ไม่ระบุ' ) ,
+    ( 1 ,  'เบิกจ่ายตรง (กรมบัญชีกลาง)' ) ,
+    ( 2 ,  'ประกันสังคม' ) ,
+    ( 3 ,  'UC (สปสช.)' ) ,
+    ( 4 ,  'เงินสด' ) ,
+)
 
+CHOICE_STATUSLEVEL = (
+    ( 0 ,  'ไม่ระบุ' ) ,
+    ( 1 ,  'ผู้ป่วยสีเขียว' ) ,
+    ( 2 ,  'ผู้ป่วยสีเหลืองอ่อน' ) ,
+    ( 3 ,  'ผู้ป่วยสีเหลืองเข้ม' ) ,
+    ( 4 ,  'ผู้ป่วยสีแดง' ) ,
+    ( 5 ,  'หายป่วย' ) ,
+    ( 6 ,  'เสียชีวิต' ) ,
+    ( 7 ,  'ผู้ใกล้ชิดเสี่ยงสูง' ) ,
+    ( 8 ,  'ผู้ใกล้ชิดปลอดเชื้อ' ) ,
+    ( 9 ,  'ผู้ใกล้ชิดติดเชื้อ' ) ,
+)
 
+TREATMENTCHOICES = (
+    ( 0 ,  'ไม่ระบุ'),
+    ( 1 ,  'รักษาระยะห่าง'),
+    ( 2 ,  'กักตัวอยู่บ้าน'),
+    ( 3 ,  'กักตัวรอเตียง'),
+    ( 4 ,  'Home Isolation'),
+    ( 5 ,  'รพ.สนาม'),
+    ( 6 ,  'โรงพยาบาล'),
+    ( 7 ,  'ICU')
+) 
 
 class Patient(models.Model):
     class Meta:
         verbose_name_plural = "ตารางผู้ป่วย [Patient]"    
         # ordering = ('-ActionOccure','ActionUser','ActionDo')
-        
+    
     Date = models.DateField(
                             default=datetime.date.today, 
                             verbose_name = 'วันที่')
@@ -53,7 +82,7 @@ class Patient(models.Model):
                                 verbose_name = 'วันเกิด')
     PersonID = models.CharField(
                                 max_length = 13,
-                                default = "-", 
+                                unique = True,
                                 blank = True, 
                                 null = True,
                                 verbose_name = 'เลขบัตรประชาชน')
@@ -71,6 +100,16 @@ class Patient(models.Model):
                                     blank = True, 
                                     null = True,
                                     verbose_name = 'วันที่ตรวจพบเชื้อ')
+    CurrentStatus = models.IntegerField(
+                            choices = CHOICE_STATUSLEVEL, 
+                            default = 0, 
+                            null=True,
+                            verbose_name = 'สถานะผู้ป่วยปัจจุบัน')
+    CurrentTreatment = models.IntegerField(
+                                choices = TREATMENTCHOICES, 
+                                default = 0, 
+                                null=True,
+                                verbose_name = 'การรักษาปัจจุบัน')                                                         
     Mobile  = models.CharField(
                                 max_length = 20,
                                 blank = True, 
@@ -81,6 +120,12 @@ class Patient(models.Model):
                                 verbose_name = 'ที่อยู่ปัจจุบัน', 
                                 null = True, 
                                 blank = True)
+    RightMedicalTreatment = models.IntegerField(
+                            choices = RIGHT_MEDICAL_TREATMENT_CHOICE, 
+                            default = 0, 
+                            verbose_name = 'สิทธิ์การรักษาพยาบาล', 
+                            null = True,
+                            blank = True)
     Corona3 = models.FileField(
                                 upload_to='Corona3/', 
                                 null = True, 
@@ -101,48 +146,54 @@ class Patient(models.Model):
                                 verbose_name = 'ผู้ยืนยันข้อมูล ',
                                 null = True,
                                 blank = True)
-    ConfirmedPatient = BooleanField(
+    ConfirmedByCRC = BooleanField(
                                     default = False, 
-                                    verbose_name= "กวป.ยืนยันผู้ติดเชื้อ",
+                                    verbose_name= "แพทย์ยืนยันข้อมูล",
                                     blank = True, 
                                     null = True)
+    IsAMED = BooleanField(
+                                    default = False, 
+                                    verbose_name= "มีข้อมูลใน AMED",
+                                    blank = True, 
+                                    null = True,)                                    
     Comment  = models.TextField(
                                 default = None, 
-                                verbose_name = "คำอธิบาย",
+                                verbose_name = "หมายเหตุ",
                                 blank = True, 
                                 null = True,)
+
 
     def __str__(self):
         return self.FullName
 
-    @property
-    def CurrentStatus(self):
-        LastestStatus = StatusLog.objects.filter(Patient = self).order_by('-Date')
-        if LastestStatus.exists():
-            return LastestStatus[0].get_Status_display()
-        else:
-            return "-"
+    # @property
+    # def CurrentStatus(self):
+    #     LastestStatus = StatusLog.objects.filter(Patient = self).order_by('-Date')
+    #     if LastestStatus.exists():
+    #         return LastestStatus[0].get_Status_display()
+    #     else:
+    #         return "-"
     
     @property
     def LestestStatus(self):
-        LastestStatus = StatusLog.objects.filter(Patient = self).order_by('-Date')
+        LastestStatus = StatusLog.objects.filter(ThePatient = self).order_by('-Date')
         if LastestStatus.exists():
             return LastestStatus[0].Date
         else:
             return ""
 
     
-    @property
-    def CurrentTreatment(self):
-        LastestTreatment = TreatmentLog.objects.filter(Patient = self).order_by('-Date')
-        if LastestTreatment.exists():
-            return LastestTreatment[0].get_Treatment_display()
-        else:
-            return "-"
+    # @property
+    # def CurrentTreatment(self):
+    #     LastestTreatment = TreatmentLog.objects.filter(Patient = self).order_by('-Date')
+    #     if LastestTreatment.exists():
+    #         return LastestTreatment[0].get_Treatment_display()
+    #     else:
+    #         return "-"
     
     @property
     def LestestTreatment(self):
-        LastestTreatment = TreatmentLog.objects.filter(Patient = self).order_by('-Date')
+        LastestTreatment = TreatmentLog.objects.filter(ThePatient = self).order_by('-Date')
         if LastestTreatment.exists():
             return LastestTreatment[0].Date
         else:
@@ -154,7 +205,7 @@ class Patient(models.Model):
             today = date.today()
             return today.year - self.BirthDay.year
         else:
-            return 0
+            return "-"
     
 
 class StatusLog(models.Model):
@@ -162,9 +213,9 @@ class StatusLog(models.Model):
         verbose_name_plural = "ตารางสถานะผู้ป่วย [StatusLog]"    
         # ordering = ('-ActionOccure','ActionUser','ActionDo')
         #     
-    Patient  = models.ForeignKey(
+    ThePatient  = models.ForeignKey(
                                 Patient, 
-                                on_delete=models.DO_NOTHING, 
+                                on_delete=models.CASCADE, 
                                 related_name='PatientName', 
                                 blank = True, 
                                 null = True,
@@ -177,17 +228,7 @@ class StatusLog(models.Model):
     Date = models.DateField(blank = True, 
                             null = True,
                             verbose_name = 'วันที่บันทึก')
-    CHOICE_STATUSLEVEL = (
-        ( 1 ,  'เขียว' ) ,
-        ( 2 ,  'เหลืองอ่อน' ) ,
-        ( 3 ,  'เหลืองแก่' ) ,
-        ( 4 ,  'แดง' ) ,
-        ( 5 ,  'หายป่วย' ) ,
-        ( 6 ,  'เสียชีวิต' ) ,
-        ( 7 ,  'เสี่ยงสูง (ผู้ใกล้ชิด)' ) ,
-        ( 8 ,  'ปลอดเชื้อ (ผู้ใกล้ชิด)' ) ,
-        ( 9 ,  'ติดเชื้อ (ผู้ใกล้ชิด)' ) ,
-    ) 
+
     Status = models.IntegerField(
                             choices = CHOICE_STATUSLEVEL, 
                             default = 1, 
@@ -199,15 +240,15 @@ class StatusLog(models.Model):
                                 blank = True)
 
     def __str__(self):
-        return f'{self.Patient} : {self.Status}'
+        return f'{self.ThePatient} : {self.Status}'
 
-class TreatmentLog (models.Model):
+class TreatmentLog(models.Model):
     class Meta:
         verbose_name_plural = "ตารางแสดงการรักษาผู้ป่วย [TreatmentLog]"
 
-    Patient  = models.ForeignKey(
+    ThePatient  = models.ForeignKey(
                                     Patient, 
-                                    on_delete=models.DO_NOTHING, 
+                                    on_delete=models.CASCADE, 
                                     related_name='PatientLogTreament', 
                                     blank = True, 
                                     null = True,
@@ -220,15 +261,7 @@ class TreatmentLog (models.Model):
     Date = models.DateField(blank = True, 
                             null = True,
                             verbose_name = 'วันที่บันทึก')
-    TREATMENTCHOICES = (
-        ( 1 ,  'รักษาระยะห่าง'),
-        ( 2 ,  'กักตัวอยู่บ้าน'),
-        ( 3 ,  'กักตัวรอเตียง'),
-        ( 4 ,  'Home Isolation'),
-        ( 5 ,  'รพ.สนาม'),
-        ( 6 ,  'โรงพยาบาล'),
-        ( 7 ,  'ICU')
-    ) 
+
     Treatment = models.IntegerField(
                                 choices = TREATMENTCHOICES, 
                                 default = 1, 
@@ -239,4 +272,46 @@ class TreatmentLog (models.Model):
                                 blank = True)
 
     def __str__(self):
+<<<<<<< HEAD
         return f'{self.Patient} : {self.Treatment}'
+=======
+        return f'{self.ThePatient} : {self.Treatment}'
+
+
+class AMEDPatient(models.Model):
+    class Meta:
+        verbose_name_plural = " [AMEDPatient]"
+    PersonID = models.CharField(
+                                max_length = 13,
+                                unique = True,
+                                blank = True, 
+                                null = True,
+                                verbose_name = 'เลขบัตรประชาชน')
+    HNNumber = models.CharField(
+                                max_length = 20,
+                                unique = True,
+                                blank = True,
+                                null = True,
+                                verbose_name = 'เลขผู้ป่วยนอก')
+    ANNumber = models.CharField(
+                                max_length = 20,
+                                unique = True,
+                                blank = True,
+                                null = True,
+                                verbose_name = 'เลขผู้ป่วยใน')
+    Fullname = models.CharField(                                
+                                max_length = 255,
+                                default = "-", 
+                                blank = True, 
+                                null = True,
+                                verbose_name = 'ชื่อผู้ป่วย')
+    Mobile = models.CharField(
+                                max_length = 20,
+                                blank = True, 
+                                null = True,
+                                verbose_name = 'เบอร์มือถือ')
+    Symtom = models.IntegerField(
+                                choices = CHOICE_STATUSLEVEL, 
+                                default = 0, 
+                                null=True)
+>>>>>>> 1fef7138dea6503622fe0aca38aad9c5159966de

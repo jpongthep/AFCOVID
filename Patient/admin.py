@@ -5,7 +5,7 @@ from Patient.models import ( Patient,
                              StatusLog)
 
 class PatientAdmin(admin.ModelAdmin):
-    list_display = ['Date','FullName','CurrentStatus','CurrentTreatment']
+    list_display = ['Date','FullName','PersonID','CurrentStatus','CurrentTreatment']
     search_fields = ['FullName']
     list_filter = ['Date']
     # list_editable = ['Type','NumDay']
@@ -13,16 +13,16 @@ class PatientAdmin(admin.ModelAdmin):
 
 
 class StatusLogAdmin(admin.ModelAdmin):
-    list_display = ['Patient','Date','Status']
-    search_fields = ['Patient__FullName']
+    list_display = ['ThePatient','Date','Status']
+    search_fields = ['ThePatient__FullName']
     list_filter = ['Date']
     save_as = True
     # list_editable = ['Type','NumDay']
     # list_display_links = ['Person']
 
 class TreatmentLogAdmin(admin.ModelAdmin):
-    list_display = ['Patient','Date','Treatment']
-    search_fields = ['Patient__FullName']
+    list_display = ['ThePatient','Date','Treatment']
+    search_fields = ['ThePatient__FullName']
     list_filter = ['Date']
     save_as = True
     # list_editable = ['Type','NumDay']

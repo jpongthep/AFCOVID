@@ -19,27 +19,28 @@
     <!-- Standard iPhone Touch Icon-->
     <link rel="apple-touch-icon" sizes="57x57" href="http://placehold.it/57.png/000/fff">
     <!-- Styles -->
-    <link href="{% static 'assets/css/lib/calendar2/pignose.calendar.min.css' %}" rel="stylesheet">
-    <link href="{% static 'assets/css/lib/chartist/chartist.min.css' %}" rel="stylesheet">
-    <link href="{% static 'assets/css/lib/font-awesome.min.css' %}" rel="stylesheet">
-    <link href="{% static 'assets/css/lib/themify-icons.css' %}" rel="stylesheet">
-    <link href="{% static 'assets/css/lib/owl.carousel.min.css' %}" rel="stylesheet" />
-    <link href="{% static 'assets/css/lib/owl.theme.default.min.css' %}" rel="stylesheet" />
-    <link href="{% static 'assets/css/lib/weather-icons.css' %}" rel="stylesheet" />
-    <link href="{% static 'assets/css/lib/menubar/sidebar.css' %}" rel="stylesheet">
-    <link href="{% static 'assets/css/lib/bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static 'assets/css/lib/helper.css' %}" rel="stylesheet">
-    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/lib/font-awesome.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'assets/css/lib/themify-icons.css ' %} " rel="stylesheet" />
+    <link href="{% static 'assets/css/lib/menubar/sidebar.css '%} " rel="stylesheet" />
+
+    <link href="{% static 'assets/css/lib/bootstrap.min.css '%} " rel="stylesheet" />
+    <link href="{% static 'assets/css/lib/helper.css '%} " rel="stylesheet" />
+    <link href="{% static 'assets/css/style.css '%} " rel="stylesheet" />
 </head>
 
 <body>
 
     <div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
+    
         <div class="nano">
             <div class="nano-content">
                 <ul>
+<<<<<<< HEAD
                     <div class="logo">
                         <a href="index.html">
+=======
+                    <div class="logo"><a href="{% url 'Patient:Dashboard' %}">
+>>>>>>> 1fef7138dea6503622fe0aca38aad9c5159966de
                             <img class="pic" src="{% static 'assets/images/RTAF.png' %}" alt="" /><span>AFCOVID</span>
                             <style>
                                 .pic {
@@ -50,6 +51,7 @@
                                 }
                             </style>
 
+<<<<<<< HEAD
                         </a>
                     </div>
 
@@ -59,18 +61,46 @@
                     <li>
                         <a href="{% url ' Patient:List ' %}">
                             <i class="fa fa-address-card-o" aria-hidden="true"></i> ผู้ป่วย
+=======
+                        </a></div>
+
+                    <li>
+                        <a href="{% url 'Patient:List' 0 %}">
+                            <i class="fa fa-address-card" aria-hidden="true"></i> รายชื่อผู้ป่วยทั้งหมด
+>>>>>>> 1fef7138dea6503622fe0aca38aad9c5159966de
                         </a>
                     </li>
 
-                    <li><a href="app-event-calender.html"><i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                            ผู้ติดเชื้อ </a></li>
+                    <li>
+                        <a href="{% url 'Patient:List' 1 %}">
+                            <i class="fa fa-hospital" aria-hidden="true"></i></i> รายชื่อผู้มีข้อมูลใน AMED
+                        </a>
+                    </li>
 
-                    <li><a href="app-event-calender.html"><i class="fa fa-random" aria-hidden="true"></i>
-                            ผู้มีความเสี่ยง </a></li>
+                    <li>
+                        <a href="{% url 'Patient:List' 2 %}">
+                            <i class="fa fa-user" aria-hidden="true"></i></i> รายชื่อผู้ป่วยพลทหาร
+                        </a>
+                    </li>
 
+<<<<<<< HEAD
                     <li><a href="app-event-calender.html"><i class="fa fa-book" aria-hidden="true"></i>
                             คู่มือการใช้ </a></li>
+=======
+                    <li>
+                        <a href="{% url 'Patient:List' 3 %}">
+                            <i class="fa fa-users" aria-hidden="true"></i></i> รายชื่อผู้ป่วยยกเว้นพลทหาร
+                        </a>
+                    </li>
+>>>>>>> 1fef7138dea6503622fe0aca38aad9c5159966de
 
+                    {% comment %} 
+                    <li>
+                        <a href="{% url 'Patient:Detail' 1 %}">
+                            <i class="fa fa-book" aria-hidden="true"></i> คู่มือการใช้
+                        </a>
+                    </li>                 
+                    {% endcomment %}
                 </ul>
             </div>
         </div>
@@ -88,12 +118,10 @@
                             <span class="line"></span>
                         </div>
                     </div>
+  
+
+
                     <div class="float-right">
-                        <div class="dropdown dib">
-                            <div class="header-icon" data-toggle="dropdown">
-                                <i class="ti-user"></i>
-                            </div>
-                        </div>
 
                         <div class="dropdown dib">
                             <div class="header-icon">
@@ -102,8 +130,13 @@
                         </div>
 
                         <div class="dropdown dib">
+<<<<<<< HEAD
                             <div class="header-icon" data-toggle="dropdown">
                                 <a href="{% url 'logout' %}"><i class="ti-power-off"></i></a>
+=======
+                            <div class="header-icon">
+                                <a href = "{% url 'logout' %}"><i class="ti-power-off"></i></a>
+>>>>>>> 1fef7138dea6503622fe0aca38aad9c5159966de
                             </div>
                         </div>
 
@@ -116,10 +149,33 @@
 
     <div class="content-wrap">
 
+<<<<<<< HEAD
         <div class="main">
+=======
+   
+>>>>>>> 1fef7138dea6503622fe0aca38aad9c5159966de
             <div class="container-fluid">
+                
+                <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                  <strong>User : </strong> {{ request.user.FullName }} 
+                    {% if request.user.groups.all %}
+                        <strong>Group : </strong> 
+                    {% endif %}
+                    {% for group in request.user.groups.all %}
+                        {{ group.name }}
+                    {% endfor %}
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+        <div class="main">
+                  
+                {% include "DisplayMessage.html" %}
+                
                 {% block content %}
+
                 <div class="row">
+                                                
                     <div class="col-lg-8 p-r-0 title-margin-right">
                         <div class="page-header">
                             <div class="page-title">
