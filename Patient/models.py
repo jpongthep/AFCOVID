@@ -102,11 +102,13 @@ class Patient(models.Model):
     CurrentStatus = models.IntegerField(
                             choices = CHOICE_STATUSLEVEL, 
                             default = 0, 
-                            null=True)
+                            null=True,
+                            verbose_name = 'สถานะผู้ป่วยปัจจุบัน')
     CurrentTreatment = models.IntegerField(
                                 choices = TREATMENTCHOICES, 
                                 default = 0, 
-                                null=True)                                                          
+                                null=True,
+                                verbose_name = 'การรักษาปัจจุบัน')                                                         
     Mobile  = models.CharField(
                                 max_length = 20,
                                 blank = True, 
@@ -148,6 +150,11 @@ class Patient(models.Model):
                                     verbose_name= "แพทย์ยืนยันข้อมูล",
                                     blank = True, 
                                     null = True)
+    IsAMED = BooleanField(
+                                    default = False, 
+                                    verbose_name= "มีข้อมูลใน AMED",
+                                    blank = True, 
+                                    null = True,)                                    
     Comment  = models.TextField(
                                 default = None, 
                                 verbose_name = "หมายเหตุ",
@@ -207,7 +214,7 @@ class StatusLog(models.Model):
         #     
     ThePatient  = models.ForeignKey(
                                 Patient, 
-                                on_delete=models.DO_NOTHING, 
+                                on_delete=models.CASCADE, 
                                 related_name='PatientName', 
                                 blank = True, 
                                 null = True,
@@ -240,7 +247,7 @@ class TreatmentLog(models.Model):
 
     ThePatient  = models.ForeignKey(
                                     Patient, 
-                                    on_delete=models.DO_NOTHING, 
+                                    on_delete=models.CASCADE, 
                                     related_name='PatientLogTreament', 
                                     blank = True, 
                                     null = True,

@@ -24,6 +24,10 @@ class PatientBasicDataForm(ModelForm):
                     'Address', 
                     'EmergencyMobile', 
                     'Comment',
+
+                    'IsAMED',
+                    'CurrentStatus',
+                    'CurrentTreatment',
                 ]
         exclude = [                    
                     'DataUser',
@@ -76,8 +80,17 @@ class PatientBasicDataForm(ModelForm):
             'Comment': forms.Textarea(
                     attrs={'class': 'form-control', 
                         'rows': 3,
-                        }),                                                                                                                      
+                        }),    
+            'IsAMED': forms.CheckboxInput(attrs={'class': 'form-control',}),                          
+                            
+            'CurrentStatus': forms.Select(
+                    attrs={'class': 'form-control', 
+                        }),   
+            'CurrentTreatment': forms.Select(
+                    attrs={'class': 'form-control', 
+                        }),                                                                                                                                                                     
         }
+
     def clean_PersonID(self):
         return self.cleaned_data['PersonID'] or None
 

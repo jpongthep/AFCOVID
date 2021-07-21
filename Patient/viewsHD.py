@@ -16,6 +16,7 @@ from Patient.forms import (PatientBasicDataForm,
                             PatientForm, 
                             StatusLogForm, 
                             TreatmentLogForm)
+
 from Patient.models import (Patient,
                             StatusLog,
                             TreatmentLog)
@@ -23,15 +24,18 @@ from Patient.models import (Patient,
 def get_form_class(user):
     IsAFCMO = user.has_perm('UserData.User_AF_CMO')
     IsUnitCMO = user.has_perm('UserData.User_Unit_CMO')
-    
     IsCRC = user.has_perm('UserData.User_CRC')
 
-    if IsAFCMO or IsUnitCMO:
-        return PatientBasicDataForm
-    elif IsCRC:
+    if IsCRC:
+        print("User CRC Form")
         return PatientCOVIDForm
+    elif IsAFCMO or IsUnitCMO:
+        return PatientCOVIDForm
+        # print("User Basic Form")
+        # return PatientBasicDataForm    
     else:
-        return PatientForm
+        return PatientCOVIDForm
+        # return PatientForm
 
 def get_template_name(user):
     IsAFCMO = user.has_perm('UserData.User_AF_CMO')
@@ -48,13 +52,13 @@ class PatientAddNewView(LoginRequiredMixin,CreateView):
     # fields = '__all__'
     # form_class = PatientForm
     template_name = 'Patient/AddNew.html'    
-    success_url = reverse_lazy('Patient:List')
+    
 
     def get_form_class(self):
         return get_form_class(self.request.user)
 
     def form_valid(self, form):
-      
+        print('Create Check Form - Valid start')
         if self.request.user.has_perm("UserData.User_CRC"):
             a = form.save(commit=False)
             a.DataUser = self.request.user
@@ -64,31 +68,38 @@ class PatientAddNewView(LoginRequiredMixin,CreateView):
         else:
             form.save()
 
+        print('Create Check Form - Valid end')
         messages.info(self.request,f'บันทึกข้อมูล {a.FullName} เรียบร้อย')
-        return HttpResponseRedirect(self.get_success_url())
 
-class InfectListView(LoginRequiredMixin,ListView):
-    login_url = '/login'
-    template_name = 'Patient/List.html'
-    paginate_by = 10
-    ordering = ['-Date','-id']
+        return redirect(reverse('Patient:List', kwargs={'PatientType': 0}))
 
-    def get_queryset(self) :
-        queryset = Patient.objects.filter(CurrentTreatment = 3) #'กักตัวรอเตียง'
-        return queryset
+ 
 
-    def get_template_names(self):
-        return get_template_name(self.request.user)
 
 class PatientListView(LoginRequiredMixin,ListView):
     login_url = '/login'
     model = Patient
     template_name = 'Patient/List.html'
-    paginate_by = 10
+    paginate_by = 2
     ordering = ['-Date','-id']
 
     def get_template_names(self):
         return get_template_name(self.request.user)
+
+    def get_queryset(self) :
+        PatientType = self.kwargs['PatientType']
+        self.request.session['PatientType'] = PatientType
+        print('PatientType',PatientType)
+        if PatientType == 0:
+            queryset = Patient.objects.all()   
+        elif PatientType == 1:
+            queryset = Patient.objects.filter(IsAMED = True)
+        elif PatientType == 2:
+            queryset = Patient.objects.filter(FullName__icontains="พลฯ")
+        elif PatientType == 3:
+            queryset = Patient.objects.exclude(FullName="พลฯ")         
+
+        return queryset        
 
 def SaveStatusTreatment(request, pk):
     aPatient = get_object_or_404(Patient, id = pk)
@@ -132,22 +143,26 @@ def PatientDetail(request, pk):
     return render(request, "Patient/Detail.html", context)
 
 
-# class PatientUpdateView(PermissionRequiredMixin,UpdateView):
-class PatientUpdateView(PermissionRequiredMixin,UpdateView):
-    permission_required = 'Patient.change_patient'
+
+class PatientUpdateView(LoginRequiredMixin,UpdateView):
 
     model = Patient
     # fields = '__all__'
     form_class = PatientForm
-    template_name = 'Patient/Update.html'    
-    success_url = reverse_lazy('Patient:List')
+    template_name = 'Patient/Update.html'  
+
+    def get_success_url(self):
+        PatientType = self.request.session.get('PatientType',0)
+        print('PatientType',PatientType)
+        return reverse('Patient:List', kwargs={'PatientType': PatientType})
+
 
 
 def DeletePatientData(request,pk):
     patient = Patient.objects.get(id = pk)
     if patient.DataUser == request.user:
         patient.delete()
-        return redirect('Patient:List')  
+        return redirect(reverse('Patient:List', kwargs={'PatientType': 0}))  
     else:
         return HttpResponse(f'<h1>ไม่สามารถลบข้อมูลผู้ป่วยที่ผู้อื่นกรอกได้</h1> <p>ผู้ขอลบ : {request.user.FullName}</p> <p>ผู้กรอกข้อมูล : {patient.DataUser.FullName}</p>')
 
@@ -158,14 +173,11 @@ def DeletePatientTreatmentLog(request,PatientPk, treatmentPk):
     return redirect('Patient:Detail', pk=PatientPk) 
             
 
-
 def DeletePatientStatusLog(request,PatientPk, statusPk):
     status = StatusLog.objects.get(id = statusPk)
     status.delete()
     return redirect('Patient:Detail', pk=PatientPk) 
-        
-
-
+    
 
 @login_required
 def UpdatePatientData(request, pk):
@@ -177,7 +189,7 @@ def UpdatePatientData(request, pk):
     form = UserForm(request.POST or None, request.FILES or None, instance = obj)
  
     if form.is_valid():
-        patientFullName = request.POST["FullName"]        
+        patientFullName = request.POST["FullName"]
         if request.user.has_perm("UserData.User_CRC"):
             a = form.save(commit=False)
             a.ConfirmUser = request.user
@@ -187,7 +199,7 @@ def UpdatePatientData(request, pk):
             form.save()
 
         messages.info(request,f"Update ข้อมูล '{patientFullName}' เรียบร้อย")
-        return redirect(reverse_lazy('Patient:List'))
+        return redirect(reverse_lazy('Patient:List', kwargs={'PatientType': 0}))
  
     context["form"] = form
  
