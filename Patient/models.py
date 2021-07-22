@@ -276,7 +276,7 @@ class TreatmentLog(models.Model):
 
 class AMEDPatient(models.Model):
     class Meta:
-        verbose_name_plural = " [AMEDPatient]"
+        verbose_name_plural = " [AMED Patient]"
     PersonID = models.CharField(
                                 max_length = 13,
                                 unique = True,
@@ -295,7 +295,7 @@ class AMEDPatient(models.Model):
                                 blank = True,
                                 null = True,
                                 verbose_name = 'เลขผู้ป่วยใน')
-    Fullname = models.CharField(                                
+    FullName = models.CharField(                                
                                 max_length = 255,
                                 default = "-", 
                                 blank = True, 
@@ -310,3 +310,6 @@ class AMEDPatient(models.Model):
                                 choices = CHOICE_STATUSLEVEL, 
                                 default = 0, 
                                 null=True)
+
+    def __str__(self):
+        return self.FullName
