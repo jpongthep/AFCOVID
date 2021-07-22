@@ -127,7 +127,7 @@ class PatientListView(LoginRequiredMixin,ListView):
         if nameSearch:
             queryset = queryset.filter(Q(FullName__icontains = nameSearch) | Q(PersonID = nameSearch))
         
-        return queryset
+        return queryset.order_by('-Date','-FullName')
        
 
 def SaveStatusTreatment(request, pk):
