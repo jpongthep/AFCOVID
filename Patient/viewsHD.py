@@ -80,7 +80,7 @@ class PatientListView(LoginRequiredMixin,ListView):
     login_url = '/login'
     model = Patient
     template_name = 'Patient/List.html'
-    paginate_by = 2
+    paginate_by = 10
     ordering = ['-Date','-id']
 
     def get_template_names(self):
@@ -89,17 +89,27 @@ class PatientListView(LoginRequiredMixin,ListView):
     def get_queryset(self) :
         PatientType = self.kwargs['PatientType']
         self.request.session['PatientType'] = PatientType
+
         print('PatientType',PatientType)
         if PatientType == 0:
             queryset = Patient.objects.all()   
         elif PatientType == 1:
             queryset = Patient.objects.filter(IsAMED = True)
+        elif PatientType == 4:
+            queryset = Patient.objects.filter(IsAirforce = True)
         elif PatientType == 2:
             queryset = Patient.objects.filter(FullName__icontains="พลฯ")
         elif PatientType == 3:
             queryset = Patient.objects.exclude(FullName="พลฯ")         
 
-        return queryset        
+        nameSearch = self.request.GET.get('textsearch')
+        print('nameSearch = ',nameSearch)
+
+        if nameSearch:
+            queryset = queryset.filter(FullName__icontains = nameSearch)
+        
+        return queryset
+       
 
 def SaveStatusTreatment(request, pk):
     aPatient = get_object_or_404(Patient, id = pk)

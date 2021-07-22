@@ -26,6 +26,8 @@
     <link href="{% static 'assets/css/lib/bootstrap.min.css '%} " rel="stylesheet" />
     <link href="{% static 'assets/css/lib/helper.css '%} " rel="stylesheet" />
     <link href="{% static 'assets/css/style.css '%} " rel="stylesheet" />
+
+
 </head>
 
 <body>
@@ -57,6 +59,12 @@
                     <li>
                         <a href="{% url 'Patient:List' 1 %}">
                             <i class="fa fa-hospital" aria-hidden="true"></i></i> รายชื่อผู้มีข้อมูลใน AMED
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'Patient:List' 4 %}">
+                            <i class="fa fa-user" aria-hidden="true"></i></i> รายชื่อผู้ป่วย ทอ.
                         </a>
                     </li>
 
@@ -96,7 +104,7 @@
                             <span class="line"></span>
                         </div>
                     </div>
-  
+                    
 
 
                     <div class="float-right">
