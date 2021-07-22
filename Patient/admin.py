@@ -2,7 +2,8 @@ from django.contrib import admin
 
 from Patient.models import ( Patient, 
                              TreatmentLog, 
-                             StatusLog)
+                             StatusLog,
+                             AMEDPatient)
 
 class PatientAdmin(admin.ModelAdmin):
     list_display = ['Date','FullName','PersonID','CurrentStatus','CurrentTreatment']
@@ -28,6 +29,16 @@ class TreatmentLogAdmin(admin.ModelAdmin):
     # list_editable = ['Type','NumDay']
     # list_display_links = ['Person']
 
+class AMEDPatientAdmin(admin.ModelAdmin):
+    pass
+    # list_display = ['ThePatient','Date','Treatment']
+    # search_fields = ['ThePatient__FullName']
+    # list_filter = ['Date']
+    # save_as = True
+    # list_editable = ['Type','NumDay']
+    # list_display_links = ['Person']    
+
 admin.site.register(Patient, PatientAdmin)
 admin.site.register(TreatmentLog, TreatmentLogAdmin)
 admin.site.register(StatusLog, StatusLogAdmin)
+admin.site.register(AMEDPatient, AMEDPatientAdmin)

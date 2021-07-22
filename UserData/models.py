@@ -101,10 +101,10 @@ class User(AbstractUser):
         if re.findall("หญิง", RankDisplay ):
             return f'{RankDisplay} {self.first_name} {self.last_name}'
         else:
-            return f'{RankDisplay} {self.first_name} {self.last_name}'
+            return f'{RankDisplay}{self.first_name} {self.last_name}'
         
     def __str__(self):
-        return f'{self.first_name} {self.last_name}'
+        return self.FullName()
 
 
 

@@ -164,25 +164,27 @@ class PatientUpdateView(LoginRequiredMixin,UpdateView):
     def get_success_url(self):
         PatientType = self.request.session.get('PatientType',0)
         print('PatientType',PatientType)
+        messages.info(request,f'บันทึกการ update ข้อมูล เรียบร้อย')
         return reverse('Patient:List', kwargs={'PatientType': PatientType})
 
 
-
+@login_required
 def DeletePatientData(request,pk):
     patient = Patient.objects.get(id = pk)
     if patient.DataUser == request.user:
         patient.delete()
+        messages.info(request,f'ลบข้อมูลของ {patient.FullName} เรียบร้อย')
         return redirect(reverse('Patient:List', kwargs={'PatientType': 0}))  
     else:
         return HttpResponse(f'<h1>ไม่สามารถลบข้อมูลผู้ป่วยที่ผู้อื่นกรอกได้</h1> <p>ผู้ขอลบ : {request.user.FullName}</p> <p>ผู้กรอกข้อมูล : {patient.DataUser.FullName}</p>')
 
-
+@login_required
 def DeletePatientTreatmentLog(request,PatientPk, treatmentPk):
     treatment = TreatmentLog.objects.get(id = treatmentPk)
     treatment.delete()
     return redirect('Patient:Detail', pk=PatientPk) 
             
-
+@login_required
 def DeletePatientStatusLog(request,PatientPk, statusPk):
     status = StatusLog.objects.get(id = statusPk)
     status.delete()
