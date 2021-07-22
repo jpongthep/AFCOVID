@@ -272,10 +272,8 @@ class TreatmentLog(models.Model):
                                 blank = True)
 
     def __str__(self):
-<<<<<<< HEAD
         return f'{self.Patient} : {self.Treatment}'
-=======
-        return f'{self.ThePatient} : {self.Treatment}'
+        # return f'{self.ThePatient} : {self.Treatment}'
 
 
 class AMEDPatient(models.Model):
@@ -314,4 +312,3 @@ class AMEDPatient(models.Model):
                                 choices = CHOICE_STATUSLEVEL, 
                                 default = 0, 
                                 null=True)
->>>>>>> 1fef7138dea6503622fe0aca38aad9c5159966de

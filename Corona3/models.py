@@ -8,7 +8,7 @@ from django.db.models.fields import BooleanField
 
 # Create your models here.
 
-from UserData.models import User
+# from UserData.models import User
 from Patient.models import Patient
 
 class Corona3(models.Model):

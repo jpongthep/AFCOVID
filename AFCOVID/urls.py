@@ -16,19 +16,15 @@ def TestPage(request):
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', MyLoginView.as_view(), name='login'),    
-    path('', home, name="home"),
+    # path('', home, name="home"),
     # path('admin/', admin.site.urls, name = 'admin'),
     # path('login/', MyLoginView.as_view(), name = 'login'),
     # path('logout/', authviews.LogoutView.as_view(), name = 'logout'),
    
-<<<<<<< HEAD
     # path('', include('Patient.urls')),
-=======
-    path('', include('Patient.urls')),
-    path('tp', TestPage),
+    # path('tp', TestPage),
 
 ]
->>>>>>> 1fef7138dea6503622fe0aca38aad9c5159966de
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
