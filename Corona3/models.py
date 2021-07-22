@@ -18,8 +18,7 @@ class Corona3(models.Model):
     Patient = models.ForeignKey(
                                 Patient,
                                 on_delete = models.DO_NOTHING,
-                                related_name = 'Patient',
-                                verbose_name = 'เลขประชาชน')
+                                related_name = 'Patient_colona3')
     FullName = models.CharField(
                                 max_length = 255,
                                 default = "-", 
@@ -39,8 +38,7 @@ class Corona3(models.Model):
                                 blank = True,
                                 verbose_name = 'เพศ')
     AgePaient = models.IntegerField(
-                                    max_length = 3,
-                                    default = "-",
+                                    default = 0,
                                     blank = True,
                                     null = True,
                                     verbose_name = 'อายุ')
@@ -153,8 +151,8 @@ class Corona3(models.Model):
                                     null = True,
                                     blank = True,
                                     verbose_name = 'ระบุลักษะณะการพักอาศัย')
-    class Meta:
-        verbose_name_plural = "ข้อมูลทางเทคนิค"
+    # class Meta:
+    #     verbose_name_plural = "ข้อมูลทางเทคนิค"
     # <------ข้อมูลทางเทคนิค---------->
     DatePatient = models.DateField(
                             default=datetime.date.today, 
@@ -225,11 +223,11 @@ class Corona3(models.Model):
                                 null = True,
                                 blank = True,
                                 verbose_name = 'กรณีเพศหญิง')
-    class Meta:
-        verbose_name_plural = "ผลการตรวจที่ยืนยันว่าเป็น SARS-CoV-2"
+    # class Meta:
+    #     verbose_name_plural = "ผลการตรวจที่ยืนยันว่าเป็น SARS-CoV-2"
     # <---------ผลการตรวจที่ยืนยันว่าเป็น SARS-CoV-2----------------->
-    class Meta:
-        verbose_name_plural = "วิธีการตรวจ RT-PCR"
+    # class Meta:
+    #     verbose_name_plural = "วิธีการตรวจ RT-PCR"
 
     DateCheckRTPCR = models.DateField(
                             default=datetime.date.today, 
@@ -258,8 +256,8 @@ class Corona3(models.Model):
                                 null = True,
                                 blank = True,
                                 verbose_name = 'ผลการตรวจ RT PCR')
-    class Meta:
-        verbose_name_plural = "วิธีการตรวจ Antigen"
+    # class Meta:
+    #     verbose_name_plural = "วิธีการตรวจ Antigen"
 
     DateCheckAntigen = models.DateField(
                             default=datetime.date.today, 
@@ -285,8 +283,8 @@ class Corona3(models.Model):
                                 blank = True,
                                 verbose_name = 'ผลการตรวจ Antigen')
     
-    class Meta:
-        verbose_name_plural = "วิธีการตรวจ Antibody ครั้งที่ 1"
+    # class Meta:
+    #     verbose_name_plural = "วิธีการตรวจ Antibody ครั้งที่ 1"
 
     DateCheckAntibody1 = models.DateField(
                             default=datetime.date.today, 
@@ -320,8 +318,8 @@ class Corona3(models.Model):
                                     verbose_name= "มี",
                                     blank = True, 
                                     null = True,)
-    class Meta:
-        verbose_name_plural = "วิธีการตรวจ Antibody ครั้งที่ 2"
+    # class Meta:
+    #     verbose_name_plural = "วิธีการตรวจ Antibody ครั้งที่ 2"
 
     DateCheckAntibody2 = models.DateField(
                             default=datetime.date.today, 
@@ -356,8 +354,8 @@ class Corona3(models.Model):
                                     blank = True, 
                                     null = True,)
     
-    class Meta:
-        verbose_name_plural = "ประวัติการได้รับวัคซีนป้องกันโรคติดเชื้อไวรัสโคโรนา 2019"
+    # class Meta:
+    #     verbose_name_plural = "ประวัติการได้รับวัคซีนป้องกันโรคติดเชื้อไวรัสโคโรนา 2019"
 
     ReceivedVaccine = BooleanField(
                                     default = False, 
@@ -411,8 +409,8 @@ class Corona3(models.Model):
                                 null = True,
                                 blank = True,
                                 verbose_name = 'สถานที่ฉีด')
-    class Meta:
-        verbose_name_plural = "ประวัติเสียงในช่วง 14 วัน ก่อนเริ่มป่วย (หรือ 14  วันก่่อนพบการติดเชื้อ)"
+    # class Meta:
+    #     verbose_name_plural = "ประวัติเสียงในช่วง 14 วัน ก่อนเริ่มป่วย (หรือ 14  วันก่่อนพบการติดเชื้อ)"
 
     LiveInCovid = BooleanField(
                                     default = False, 
@@ -493,8 +491,8 @@ class Corona3(models.Model):
                                 null = True,
                                 blank = True,
                                 verbose_name = 'ระบุประวัติเสี่ยงอื่น ๆ')
-    class Meta:
-        verbose_name_plural = "การค้นหาผู้สัมผัส"
+    # class Meta:
+    #     verbose_name_plural = "การค้นหาผู้สัมผัส"
 
     ContactRisky = models.IntegerField(
                                     default = 0, 
@@ -538,17 +536,15 @@ class Corona3(models.Model):
                                     verbose_name = 'สถานที่กักตัว(สถานที่กักตัว)กี่คน', 
                                     null = True,
                                     blank = True)
+      
+    # class Meta:
+    #         verbose_name_plural = "เจ้าหน้าที่รายงาน"
 
-                    
-    class Meta:
-            verbose_name_plural = "เจ้าหน้าที่รายงาน"
-
-    UserReport = models.CharField(
-                                max_length = 100,
-                                default = '-', 
-                                null = True,
-                                blank = True,
-                                verbose_name = 'ผู้รายงาน')
+    UserReport = models.ForeignKey(
+                                    User, 
+                                    on_delete=models.DO_NOTHING, 
+                                    related_name='Corona3_User', 
+                                    verbose_name = 'ผู้บันทึกข้อมูล')
     Unit = models.CharField(
                                 max_length = 100,
                                 default = '-', 

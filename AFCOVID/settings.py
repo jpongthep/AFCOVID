@@ -25,7 +25,8 @@ INSTALLED_APPS = [
     'thaidate',
     
     'UserData',
-    'Patient'
+    'Patient',
+    # 'Corona3'
 ]
 
 MIDDLEWARE = [
