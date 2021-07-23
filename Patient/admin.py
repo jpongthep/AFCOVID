@@ -8,9 +8,9 @@ from Patient.models import ( Patient,
 class PatientAdmin(admin.ModelAdmin):
     list_display = ['Date','FullName','PersonID','CurrentStatus','CurrentTreatment']
     search_fields = ['FullName']
-    list_filter = ['Date']
+    list_filter = ['Date','CurrentStatus','CurrentTreatment']
     # list_editable = ['Type','NumDay']
-    # list_display_links = ['Person']
+    list_display_links = ['FullName',]
 
 
 class StatusLogAdmin(admin.ModelAdmin):

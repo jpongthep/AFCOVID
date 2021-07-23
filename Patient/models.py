@@ -165,14 +165,6 @@ class Patient(models.Model):
     def __str__(self):
         return self.FullName
 
-    # @property
-    # def CurrentStatus(self):
-    #     LastestStatus = StatusLog.objects.filter(Patient = self).order_by('-Date')
-    #     if LastestStatus.exists():
-    #         return LastestStatus[0].get_Status_display()
-    #     else:
-    #         return "-"
-    
     @property
     def LestestStatus(self):
         LastestStatus = StatusLog.objects.filter(ThePatient = self).order_by('-Date')
@@ -181,14 +173,6 @@ class Patient(models.Model):
         else:
             return ""
 
-    
-    # @property
-    # def CurrentTreatment(self):
-    #     LastestTreatment = TreatmentLog.objects.filter(Patient = self).order_by('-Date')
-    #     if LastestTreatment.exists():
-    #         return LastestTreatment[0].get_Treatment_display()
-    #     else:
-    #         return "-"
     
     @property
     def LestestTreatment(self):
@@ -206,7 +190,6 @@ class Patient(models.Model):
         else:
             return "-"
     
-
 class StatusLog(models.Model):
     class Meta:
         verbose_name_plural = "ตารางสถานะผู้ป่วย [StatusLog]"    
@@ -276,7 +259,7 @@ class TreatmentLog(models.Model):
 
 class AMEDPatient(models.Model):
     class Meta:
-        verbose_name_plural = " [AMED Patient]"
+        verbose_name_plural = "ตารางผู้ป่วย AMED [AMED Patient]"
     PersonID = models.CharField(
                                 max_length = 13,
                                 unique = True,

@@ -114,12 +114,12 @@ class PatientListView(LoginRequiredMixin,ListView):
             queryset = Patient.objects.all()   
         elif PatientType == 1:
             queryset = Patient.objects.filter(IsAMED = True)
-        elif PatientType == 4:
-            queryset = Patient.objects.filter(IsAirforce = True)
         elif PatientType == 2:
             queryset = Patient.objects.filter(FullName__icontains="พลฯ")
         elif PatientType == 3:
-            queryset = Patient.objects.exclude(FullName="พลฯ")         
+            queryset = Patient.objects.exclude(FullName__icontains="พลฯ")     
+        elif PatientType == 4:
+            queryset = Patient.objects.filter(IsAirforce = True)            
 
         nameSearch = self.request.GET.get('textsearch')
         print('nameSearch = ',nameSearch)
@@ -170,7 +170,6 @@ def PatientDetail(request, pk):
                 }
 
     return render(request, "Patient/Detail.html", context)
-
 
 
 class PatientUpdateView(LoginRequiredMixin,UpdateView):
