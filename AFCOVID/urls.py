@@ -4,10 +4,12 @@ from django.shortcuts import render
 from django.contrib.auth import views as authviews
 from django.conf import settings
 from django.conf.urls.static import static
-from UserData.forms import MyLoginView
+from django.contrib.auth.decorators import login_required
 
+from UserData.forms import MyLoginView
 from django.shortcuts import render
 
+@login_required
 def TestPage(request):
     return render(request,"_milk.html")
 

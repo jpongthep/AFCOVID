@@ -11,8 +11,7 @@ from django.db.models import Q
 from django.contrib.auth.models import Group
 import requests
 
-from Patient.forms import (PatientBasicDataForm, 
-                            PatientCOVIDForm,
+from Patient.forms import ( PatientCOVIDForm,
                             PatientForm, 
                             StatusLogForm, 
                             TreatmentLogForm)
@@ -86,6 +85,26 @@ class PatientListView(LoginRequiredMixin,ListView):
     def get_template_names(self):
         return get_template_name(self.request.user)
 
+    def get_context_data(self, **kwargs):
+        context = super(PatientListView, self).get_context_data(**kwargs)
+
+        PatientType = self.kwargs['PatientType']
+        self.request.session['PatientType'] = PatientType
+
+        print('PatientType',PatientType)
+        if PatientType == 0:
+            context['PageTitle'] = "ผู้ป่วยทั้งหมด"
+        elif PatientType == 1:
+            context['PageTitle'] = "ผู้ป่วย AMED"
+        elif PatientType == 4:
+            context['PageTitle'] = "ผู้ป่วย ทอ."
+        elif PatientType == 2:
+            context['PageTitle'] = "ผู้ป่วยพลทหาร"
+        elif PatientType == 3:
+            context['PageTitle'] = "ผู้ป่วยนอกจากพลทหาร"
+    
+        return context
+
     def get_queryset(self) :
         PatientType = self.kwargs['PatientType']
         self.request.session['PatientType'] = PatientType
@@ -95,20 +114,20 @@ class PatientListView(LoginRequiredMixin,ListView):
             queryset = Patient.objects.all()   
         elif PatientType == 1:
             queryset = Patient.objects.filter(IsAMED = True)
-        elif PatientType == 4:
-            queryset = Patient.objects.filter(IsAirforce = True)
         elif PatientType == 2:
             queryset = Patient.objects.filter(FullName__icontains="พลฯ")
         elif PatientType == 3:
-            queryset = Patient.objects.exclude(FullName="พลฯ")         
+            queryset = Patient.objects.exclude(FullName__icontains="พลฯ")     
+        elif PatientType == 4:
+            queryset = Patient.objects.filter(IsAirforce = True)            
 
         nameSearch = self.request.GET.get('textsearch')
         print('nameSearch = ',nameSearch)
 
         if nameSearch:
-            queryset = queryset.filter(FullName__icontains = nameSearch)
+            queryset = queryset.filter(Q(FullName__icontains = nameSearch) | Q(PersonID = nameSearch))
         
-        return queryset
+        return queryset.order_by('-Date','-FullName')
        
 
 def SaveStatusTreatment(request, pk):
@@ -151,7 +170,6 @@ def PatientDetail(request, pk):
                 }
 
     return render(request, "Patient/Detail.html", context)
-
 
 
 class PatientUpdateView(LoginRequiredMixin,UpdateView):
