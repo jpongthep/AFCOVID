@@ -3,7 +3,6 @@ import datetime
 from re import T
 
 from django.db import models
-from django.db.models.enums import Choices
 from django.db.models.fields import BooleanField
 
 # Create your models here.
@@ -13,7 +12,7 @@ from Patient.models import Patient
 
 class Corona3(models.Model):
     class Meta:
-        verbose_name_plural = "แบบฟอร์ม Corana3"
+        verbose_name_plural = "แบบฟอร์ม Corona3"
 
     Patient = models.ForeignKey(
                                 Patient,
