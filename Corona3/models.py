@@ -234,6 +234,7 @@ class Corona3(models.Model):
     DateCheckRTPCR = models.DateField(
                             default=datetime.date.today, 
                             verbose_name = 'วันที่ตรวจ RT PCR')
+
     TypeExampleRTPCR = models.CharField(
                                 max_length = 50,
                                 default = '-', 
@@ -556,7 +557,13 @@ class Corona3(models.Model):
     DateReport = models.DateField(
                                 default=datetime.date.today, 
                                 verbose_name = 'วันที่')
-    
+    @property
+    def IsPersonID(self):
+        if self.PersonID:
+            return len(self.PersonID) == 13
+        else:
+            return False
+            
     @property
     def Age(self):
         if self.BirthDay:

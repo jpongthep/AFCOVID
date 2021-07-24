@@ -9,8 +9,8 @@ class Unit(models.Model):
 
     class Meta:
         verbose_name_plural = "หน่วยขึ้นตรง ทอ. [Unit]" 
-    FullName = models.CharField(max_length = 100, blank = False, default = None)
-    ShortName = models.CharField(max_length = 100, blank = False, default = None)
+    FullName = models.CharField(max_length = 90, blank = False, default = None)
+    ShortName = models.CharField(max_length = 90, blank = False, default = None)
     
     def __str__(self):
         return f'{self.ShortName}'
@@ -29,6 +29,7 @@ class User(AbstractUser):
             # กวป. Preventive Medicine Division
             # ศูนย์ประสานผู้ป่วย COVID -19  ทอ. (RTAF COVID-19 Response Center : CRC)
         )
+
     CHOICE_Rank = (
         ( 30101 ,  'พล.อ.อ.*' ) ,
         ( 30102 ,  'พล.อ.อ.*หญิง' ) ,
