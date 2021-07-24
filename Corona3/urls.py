@@ -10,11 +10,8 @@ app_name = "Corona3"
 
 urlpatterns = [
    
-    # path('AddNew', Corona3AddNewView.as_view(), name = 'AddNew'),
     path('AddNew', CreateCorona3Data.as_view(), name = 'AddNew'),
-    # path('',Corona3ListView.as_view(), name = 'List'),
     path('',ListCorona3Data.as_view(), name = 'List'),
-    # path('<int:pk>/detail', Corona3Detail, name = 'Detail'),
     path('<int:pk>/detail', Corona3Detail, name = 'Detail'),
     # path('<int:pk>/update', Corona3UpdateView.as_view(), name = 'Update'),
     path('<int:pk>/update', EditCorona3Data.as_view(), name = 'Update'),
