@@ -8,7 +8,7 @@ from django.db.models.fields import BooleanField
 
 # Create your models here.
 
-from UserData.models import User
+# from UserData.models import User
 from Patient.models import Patient
 
 class Corona3(models.Model):
@@ -413,6 +413,7 @@ class Corona3(models.Model):
                                     verbose_name= "มี",
                                     blank = True, 
                                     null = True,)
+                                    
     InThaiProvice = models.CharField(
                                 max_length = 100,
                                 default = '-', 
@@ -530,14 +531,21 @@ class Corona3(models.Model):
                                     null = True,
                                     blank = True)
 
-    UserReport = models.ForeignKey(
-                                    User, 
-                                    on_delete=models.DO_NOTHING, 
-                                    related_name='Corona3_User', 
-                                    verbose_name = 'ผู้บันทึกข้อมูล')
-    Unit = models.CharField(
+    # class Meta:
+    #         verbose_name_plural = "เจ้าหน้าที่รายงาน"
+
+    UserReport = models.CharField(
                                 max_length = 100,
                                 default = '-', 
+                                null = True,
+                                blank = True,
+                                verbose_name = 'ผู้รายงาน')
+    # UserReport = models.ForeignKey(
+    #                                 on_delete=models.DO_NOTHING, 
+    #                                 related_name='Corona3_User', 
+    #                                 verbose_name = 'ผู้บันทึกข้อมูล')
+    Unit = models.CharField(
+                                max_length = 100,
                                 null = True,
                                 blank = True,
                                 verbose_name = 'หน่วยงาน')
