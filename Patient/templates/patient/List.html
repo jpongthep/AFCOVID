@@ -1,0 +1,171 @@
+{% extends '_base.html' %}
+{% load static %}
+{% load thaidate %}
+
+{% block title %}{{ PageTitle }}{% endblock %}
+
+{% block content %}
+    <style>    
+        form.example input[type=text] {
+        padding: 5px;
+        font-size: 17px;
+        border: 1px solid grey;
+        float: left;
+        width: 80%;
+        background: #f1f1f1;
+        }
+
+        form.example button {
+        float: left;
+        width: 20%;
+        padding: 5px;
+        background: #2196F3;
+        color: white;
+        font-size: 17px;
+        border: 1px solid grey;
+        border-left: none;
+        cursor: pointer;
+        }
+
+        form.example button:hover {
+        background: #0b7dda;
+        }
+
+        form.example::after {
+        content: "";
+        clear: both;
+        display: table;
+        }    
+    </style>
+
+<div class="container">
+    <div class = "float-right">
+        <form class="example" action="" style="margin:auto;max-width:400px">
+            <input type="text" placeholder="Search.." name="textsearch">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>FullName (อายุ)</th>            
+            <th>หน่วยงาน</th>
+            <th>CRC</th>
+            <th>Positive เมื่อ</th>
+            <th>การรักษา</th>     
+            <th>สถานะ</th>     
+            <th>มือถือ</th>     
+            <th colspan = 3>การจัดการ</th>     
+          </tr>
+        </thead>
+        <tbody>
+          {% for patient in object_list %}
+          <tr>
+            <td>{{ patient.Date|thaidate:"d-m-y" }}</td>
+            <td>{{ forloop.counter }}. {{ patient.FullName }} 
+              {% if patient.Age > 0 %}
+                ({{ patient.Age }})
+              {% endif %}            
+            </td>            
+            <td>
+                {% if patient.IsAirforce  %}
+                    (ทอ.) 
+                {% endif %}
+                {{ patient.Office}} 
+            </td>
+            <td>
+              {% if patient.ConfirmedByCRC  %}                    
+                    <abbr title="{{patient.ConfirmUser.FullName}}"><i class="fas fa-check"></i></abbr>
+              {% endif %}
+            </td>
+            <td>{{ patient.DatePositive|thaidate:"d-m-y" }}</td>
+            <td>
+            
+              {{ patient.get_CurrentTreatment_display }}
+            </td>
+            <td> 
+<!--
+                <i class="fas fa-battery-full 2x" style="color:green"></i>
+                <i class="fas fa-battery-half" style="color:yellow"></i>
+                <i class="fas fa-battery-quarter" style="color:yellow"></i>
+-->
+               {{ patient.get_CurrentStatus_display }}
+            </td>
+            <td>{{ patient.Mobile }}</td>
+            <td>
+                <a href = '{% url 'Patient:Detail' patient.id %}'class="btn  btn-sm btn-primary" role="button" >view</a>                
+            </td>
+            <td>
+                <a href = '{% url 'Patient:UpdateFB' patient.id %}' class="btn  btn-sm btn-warning" role="button" >แก้ไข</a>                
+            </td>
+            <td>
+              {% if  patient.DataUser == request.user %}
+                <a 
+                  href = '{% url 'Patient:Delete' patient.id %}' 
+                  class="btn  btn-sm btn-danger" 
+                  role="button" 
+                  onclick = "return confirm('ยืนยันการลบข้อมูลของ{{ patient.FullName }} ');"
+                >ลบ</a>   
+              {% endif %}            
+            </td>
+          </tr>
+          {% endfor %}
+          <tr>
+            <td colspan = 8></td>
+            <td colspan = 3><a href = "{% url 'Patient:AddNew' %}"class="btn   btn-success" role="button" >เพิ่มผู้ป่วย</a></td>            
+          </tr>
+        </tbody>
+      </table>
+      <nav aria-label="Page navigation example">
+      {% if is_paginated %}
+      <ul class="pagination">
+        {% if page_obj.has_previous %}
+            <li class="page-item">
+            <a class="page-link" href="?page={{page_obj.previous_page_number}}"
+                >&laquo;</a
+            >
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+            <a class="page-link" href="#">&laquo;</a>
+            </li>
+        {% endif %} 
+        {% for i in paginator.page_range %} 
+            {% if page_obj.number ==  i %}
+              <li class="page-item"><a class="page-link active"><strong>{{ i }}</strong></a></li>
+            {% elif i <= 1 or i >= paginator.num_pages|add:"0" %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+              </li>
+            {% elif page_obj.number >=  i|add:"-1"  and page_obj.number <=  i|add:"1"%}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ i }}">{{ i }}</a>                
+              </li>
+            {% else %}
+              <li class="page-item">
+                &nbsp;
+              </li>
+            {% endif %}
+        {% endfor %} 
+        {% if page_obj.has_next %}
+        <li class="page-item">
+          <a href="?page={{page_obj.next_page_number}}" class="page-link"
+            >&raquo;</a
+          >
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+          <a class="page-link">&raquo;</a>
+        </li>
+        {% endif %}
+      </ul>
+      {% endif %}
+
+    </nav>
+    </div>
+</div>
+
+
+{% endblock %}
