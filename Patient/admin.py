@@ -69,9 +69,10 @@ class TreatmentLogAdmin(admin.ModelAdmin):
     # list_display_links = ['Person']
 
 class AMEDPatientAdmin(admin.ModelAdmin):
-    pass
-    # list_display = ['ThePatient','Date','Treatment']
-    # search_fields = ['ThePatient__FullName']
+    list_display = ['FullName','PersonID','HNNumber','ANNumber','Mobile']
+    list_display_links = ['FullName']
+    search_fields = ['FullName']
+    list_editable = ['HNNumber','ANNumber']
     # list_filter = ['Date']
     # save_as = True
     # list_editable = ['Type','NumDay']
