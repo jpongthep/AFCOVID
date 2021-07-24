@@ -3,11 +3,18 @@ from django.contrib import admin
 from Corona3.models import ( Corona3)
 # , TreatmentLog, StatusLog)
 
-class Corona3Admin(admin.ModelAdmin):
-    list_display = ['Date','FullName']
+@admin.action(description='Mark selected Corona3 ')
+def MakeGender(modeladmin, request, queryset):
+    queryset.update(Gender='ช')
+    
+
+class Corona3Admin(admin.ModelAdmin, ):
+    list_display = ['DatePatient','FullName', 'Gender']
     # ,'CurrentStatus','CurrentTreatment']
     search_fields = ['FullName']
     list_filter = ['DatePatient']
+    actions = [MakeGender]
+
     # list_editable = ['Type','NumDay']
     # list_display_links = ['Person']
 
