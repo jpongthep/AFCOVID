@@ -83,7 +83,11 @@ hr.new5 {
     </div>
     <div class="col">
       <ul>
-        <li><i class="bi bi-chevron-right"></i> <strong>วันเกิด : </strong> <span>{{ Patient.BirthDay }} ({{ Patient.Age }})</span></li>
+        <li>
+          <i class="bi bi-chevron-right"></i> 
+          <strong>วันเกิด : </strong> 
+          <span>{{ Patient.BirthDay|thaidate:"d-m-y" }} ({{ Patient.Age }})</span>
+        </li>
         <li><i class="bi bi-chevron-right"></i> 
             {% if Patient.IsAirforce %} 
                 <strong>เป็นข้าราชการกองทัพอากาศ : </strong> <span>{{ Patient.Office }}</span></li>
