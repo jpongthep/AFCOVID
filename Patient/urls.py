@@ -1,5 +1,6 @@
 from django.urls import path, include
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 from Patient.viewsHD import (PatientAddNewView,
                              PatientListView,
@@ -11,8 +12,9 @@ from Patient.viewsHD import (PatientAddNewView,
                              DeletePatientStatusLog,
                              )
 
+@login_required
 def dashboard(request):
-    return render(request, "_base.html")
+    return render(request, "Patient/dashboard.html")
 
 app_name = "Patient"
 

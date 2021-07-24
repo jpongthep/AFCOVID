@@ -11,8 +11,7 @@ from django.db.models import Q
 from django.contrib.auth.models import Group
 import requests
 
-from Patient.forms import (PatientBasicDataForm, 
-                            PatientCOVIDForm,
+from Patient.forms import ( PatientCOVIDForm,
                             PatientForm, 
                             StatusLogForm, 
                             TreatmentLogForm)
@@ -80,15 +79,36 @@ class PatientListView(LoginRequiredMixin,ListView):
     login_url = '/login'
     model = Patient
     template_name = 'Patient/List.html'
-    paginate_by = 2
+    paginate_by = 10
     ordering = ['-Date','-id']
 
     def get_template_names(self):
         return get_template_name(self.request.user)
 
+    def get_context_data(self, **kwargs):
+        context = super(PatientListView, self).get_context_data(**kwargs)
+
+        PatientType = self.kwargs['PatientType']
+        self.request.session['PatientType'] = PatientType
+
+        print('PatientType',PatientType)
+        if PatientType == 0:
+            context['PageTitle'] = "ผู้ป่วยทั้งหมด"
+        elif PatientType == 1:
+            context['PageTitle'] = "ผู้ป่วย AMED"
+        elif PatientType == 4:
+            context['PageTitle'] = "ผู้ป่วย ทอ."
+        elif PatientType == 2:
+            context['PageTitle'] = "ผู้ป่วยพลทหาร"
+        elif PatientType == 3:
+            context['PageTitle'] = "ผู้ป่วยนอกจากพลทหาร"
+    
+        return context
+
     def get_queryset(self) :
         PatientType = self.kwargs['PatientType']
         self.request.session['PatientType'] = PatientType
+
         print('PatientType',PatientType)
         if PatientType == 0:
             queryset = Patient.objects.all()   
@@ -97,9 +117,18 @@ class PatientListView(LoginRequiredMixin,ListView):
         elif PatientType == 2:
             queryset = Patient.objects.filter(FullName__icontains="พลฯ")
         elif PatientType == 3:
-            queryset = Patient.objects.exclude(FullName="พลฯ")         
+            queryset = Patient.objects.exclude(FullName__icontains="พลฯ")     
+        elif PatientType == 4:
+            queryset = Patient.objects.filter(IsAirforce = True)            
 
-        return queryset        
+        nameSearch = self.request.GET.get('textsearch')
+        print('nameSearch = ',nameSearch)
+
+        if nameSearch:
+            queryset = queryset.filter(Q(FullName__icontains = nameSearch) | Q(PersonID = nameSearch))
+        
+        return queryset.order_by('-Date','-FullName')
+       
 
 def SaveStatusTreatment(request, pk):
     aPatient = get_object_or_404(Patient, id = pk)
@@ -143,7 +172,6 @@ def PatientDetail(request, pk):
     return render(request, "Patient/Detail.html", context)
 
 
-
 class PatientUpdateView(LoginRequiredMixin,UpdateView):
 
     model = Patient
@@ -154,25 +182,27 @@ class PatientUpdateView(LoginRequiredMixin,UpdateView):
     def get_success_url(self):
         PatientType = self.request.session.get('PatientType',0)
         print('PatientType',PatientType)
+        messages.info(request,f'บันทึกการ update ข้อมูล เรียบร้อย')
         return reverse('Patient:List', kwargs={'PatientType': PatientType})
 
 
-
+@login_required
 def DeletePatientData(request,pk):
     patient = Patient.objects.get(id = pk)
     if patient.DataUser == request.user:
         patient.delete()
+        messages.info(request,f'ลบข้อมูลของ {patient.FullName} เรียบร้อย')
         return redirect(reverse('Patient:List', kwargs={'PatientType': 0}))  
     else:
         return HttpResponse(f'<h1>ไม่สามารถลบข้อมูลผู้ป่วยที่ผู้อื่นกรอกได้</h1> <p>ผู้ขอลบ : {request.user.FullName}</p> <p>ผู้กรอกข้อมูล : {patient.DataUser.FullName}</p>')
 
-
+@login_required
 def DeletePatientTreatmentLog(request,PatientPk, treatmentPk):
     treatment = TreatmentLog.objects.get(id = treatmentPk)
     treatment.delete()
     return redirect('Patient:Detail', pk=PatientPk) 
             
-
+@login_required
 def DeletePatientStatusLog(request,PatientPk, statusPk):
     status = StatusLog.objects.get(id = statusPk)
     status.delete()

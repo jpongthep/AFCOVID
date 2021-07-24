@@ -20,6 +20,7 @@ class Corona3(models.Model):
                                 on_delete = models.DO_NOTHING,
                                 related_name = 'Patient',
                                 verbose_name = 'ชื่อผู้ป่วย')
+                                # related_name = 'Patient_colona3')
     FullName = models.CharField(
                                 max_length = 255,
                                 default = "-", 
@@ -39,7 +40,8 @@ class Corona3(models.Model):
                                 blank = True,
                                 verbose_name = 'เพศ')
     AgePaient = models.IntegerField(
-                                    default = "-",
+                                    # default = "-",
+                                    default = 0,
                                     blank = True,
                                     null = True,
                                     verbose_name = 'อายุ')
@@ -538,8 +540,10 @@ class Corona3(models.Model):
                                     verbose_name = 'สถานที่กักตัว(สถานที่กักตัว)กี่คน', 
                                     null = True,
                                     blank = True)
+      
+    # class Meta:
+    #         verbose_name_plural = "เจ้าหน้าที่รายงาน"
 
-                    
     # class Meta:
     #         verbose_name_plural = "เจ้าหน้าที่รายงาน"
 
@@ -549,9 +553,12 @@ class Corona3(models.Model):
                                 null = True,
                                 blank = True,
                                 verbose_name = 'ผู้รายงาน')
+    # UserReport = models.ForeignKey(
+    #                                 on_delete=models.DO_NOTHING, 
+    #                                 related_name='Corona3_User', 
+    #                                 verbose_name = 'ผู้บันทึกข้อมูล')
     Unit = models.CharField(
                                 max_length = 100,
-                                default = '-', 
                                 null = True,
                                 blank = True,
                                 verbose_name = 'หน่วยงาน')

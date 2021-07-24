@@ -6,7 +6,8 @@ from django.utils.translation import ngettext
 
 from Patient.models import ( Patient, 
                              TreatmentLog, 
-                             StatusLog)
+                             StatusLog,
+                             AMEDPatient)
 
 # @admin.action(description='เปลี่ยนเป็นหายป่วย ')
 # def MakeGood(modeladmin, request, queryset):
@@ -24,15 +25,15 @@ class PatientAdmin(admin.ModelAdmin):
     # actions = [MakeGood]
     actions = [Make]
 
-    @admin.action(description='เปลี่ยนเป็นหายป่วย ')
-    def MakeGood(self, request, queryset):
-        updated = queryset.update(CurrentStatus='5')
-        self.message_user(request, ngettext(
-            '%d story was successfully marked as CurrentStatus.',
-            '%d stories were successfully marked as CurrentStatus.',
-            updated,
-        ) % updated, messages.SUCCESS)
-    actions = [MakeGood]
+    # @admin.action(description='เปลี่ยนเป็นหายป่วย ')
+    # def MakeGood(self, request, queryset):
+    #     updated = queryset.update(CurrentStatus='5')
+    #     self.message_user(request, ngettext(
+    #         '%d story was successfully marked as CurrentStatus.',
+    #         '%d stories were successfully marked as CurrentStatus.',
+    #         updated,
+    #     ) % updated, messages.SUCCESS)
+    # actions = [MakeGood]
 
 
     # @admin.action(description='เปลี่ยนจากการรักษาเป็นรักษาระยะห่าง ')
@@ -46,8 +47,9 @@ class PatientAdmin(admin.ModelAdmin):
     # actions = [Make]
 
     
+    list_filter = ['Date','CurrentStatus','CurrentTreatment']
     # list_editable = ['Type','NumDay']
-    # list_display_links = ['Person']
+    list_display_links = ['FullName',]
 
 
 class StatusLogAdmin(admin.ModelAdmin):
@@ -66,6 +68,16 @@ class TreatmentLogAdmin(admin.ModelAdmin):
     # list_editable = ['Type','NumDay']
     # list_display_links = ['Person']
 
+class AMEDPatientAdmin(admin.ModelAdmin):
+    pass
+    # list_display = ['ThePatient','Date','Treatment']
+    # search_fields = ['ThePatient__FullName']
+    # list_filter = ['Date']
+    # save_as = True
+    # list_editable = ['Type','NumDay']
+    # list_display_links = ['Person']    
+
 admin.site.register(Patient, PatientAdmin)
 admin.site.register(TreatmentLog, TreatmentLogAdmin)
 admin.site.register(StatusLog, StatusLogAdmin)
+admin.site.register(AMEDPatient, AMEDPatientAdmin)
