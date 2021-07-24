@@ -166,21 +166,11 @@ class Patient(models.Model):
         return self.FullName
 
     @property
-    def LestestStatus(self):
-        LastestStatus = StatusLog.objects.filter(ThePatient = self).order_by('-Date')
-        if LastestStatus.exists():
-            return LastestStatus[0].Date
+    def IsPersonID(self):
+        if self.PersonID:
+            return len(self.PersonID) == 13
         else:
-            return ""
-
-    
-    @property
-    def LestestTreatment(self):
-        LastestTreatment = TreatmentLog.objects.filter(ThePatient = self).order_by('-Date')
-        if LastestTreatment.exists():
-            return LastestTreatment[0].Date
-        else:
-            return ""
+            return False
 
     @property
     def Age(self):

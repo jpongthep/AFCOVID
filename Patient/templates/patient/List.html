@@ -52,7 +52,7 @@
             <th>Date</th>
             <th>FullName (อายุ)</th>            
             <th>หน่วยงาน</th>
-            <th>CRC</th>
+            <th>PID</th>
             <th>Positive เมื่อ</th>
             <th>การรักษา</th>     
             <th>สถานะ</th>     
@@ -76,8 +76,8 @@
                 {{ patient.Office}} 
             </td>
             <td>
-              {% if patient.ConfirmedByCRC  %}                    
-                    <abbr title="{{patient.ConfirmUser.FullName}}"><i class="fas fa-check"></i></abbr>
+              {% if patient.IsPersonID  %}                    
+                    <i class="fas fa-check"></i></abbr>
               {% endif %}
             </td>
             <td>{{ patient.DatePositive|thaidate:"d-m-y" }}</td>
@@ -86,12 +86,22 @@
               {{ patient.get_CurrentTreatment_display }}
             </td>
             <td> 
-<!--
-                <i class="fas fa-battery-full 2x" style="color:green"></i>
-                <i class="fas fa-battery-half" style="color:yellow"></i>
-                <i class="fas fa-battery-quarter" style="color:yellow"></i>
--->
-               {{ patient.get_CurrentStatus_display }}
+              
+              {% if patient.get_CurrentStatus_display == 'ผู้ป่วยสีเขียว'%}
+                  <i class="fas fa-first-aid fa-2x" style="color:rgb(50,205,50)"></i>
+              {%elif patient.get_CurrentStatus_display == 'ผู้ป่วยสีเหลืองอ่อน'%}
+                  <i class="fas fa-first-aid fa-2x" style="color:rgb(238,255,100)"></i>
+              {%elif patient.get_CurrentStatus_display == 'ผู้ป่วยสีเหลืองเข้ม'%}
+                  <i class="fas fa-first-aid fa-2x" style="color:rgb(238,255,10)"></i>
+              {%elif patient.get_CurrentStatus_display == 'ผู้ป่วยสีแดง'%}
+                  <i class="fas fa-first-aid fa-2x" style="color:red"></i>
+              {%elif patient.get_CurrentStatus_display == 'หายป่วย'%}
+                  <i class="fas fa-walking fa-2x" style="color:blue"></i>
+              {%elif patient.get_CurrentStatus_display == 'เสียชีวิต'%}
+                  <i class="fas fa-bed fa-2x" style="color:black"></i>
+              {%else%}
+                -
+              {% endif %}             
             </td>
             <td>{{ patient.Mobile }}</td>
             <td>
