@@ -8,17 +8,19 @@ from django.db.models.fields import BooleanField
 
 # Create your models here.
 
-from UserData.models import User
+# from UserData.models import User
 from Patient.models import Patient
 
 class Corona3(models.Model):
     class Meta:
-        verbose_name_plural = "ข้อมูลทั่วไป"
+        verbose_name_plural = "แบบฟอร์มกรอกข้อมูล Corona3"
 # <--------ข้อมูลทั่วไป------->
     Patient = models.ForeignKey(
                                 Patient,
                                 on_delete = models.DO_NOTHING,
-                                related_name = 'Patient_colona3')
+                                related_name = 'Patient',
+                                verbose_name = 'ชื่อผู้ป่วย')
+                                # related_name = 'Patient_colona3')
     FullName = models.CharField(
                                 max_length = 255,
                                 default = "-", 
@@ -38,6 +40,7 @@ class Corona3(models.Model):
                                 blank = True,
                                 verbose_name = 'เพศ')
     AgePaient = models.IntegerField(
+                                    # default = "-",
                                     default = 0,
                                     blank = True,
                                     null = True,
@@ -417,6 +420,7 @@ class Corona3(models.Model):
                                     verbose_name= "มี",
                                     blank = True, 
                                     null = True,)
+                                    
     InThaiProvice = models.CharField(
                                 max_length = 100,
                                 default = '-', 
@@ -540,14 +544,21 @@ class Corona3(models.Model):
     # class Meta:
     #         verbose_name_plural = "เจ้าหน้าที่รายงาน"
 
-    UserReport = models.ForeignKey(
-                                    User, 
-                                    on_delete=models.DO_NOTHING, 
-                                    related_name='Corona3_User', 
-                                    verbose_name = 'ผู้บันทึกข้อมูล')
-    Unit = models.CharField(
+    # class Meta:
+    #         verbose_name_plural = "เจ้าหน้าที่รายงาน"
+
+    UserReport = models.CharField(
                                 max_length = 100,
                                 default = '-', 
+                                null = True,
+                                blank = True,
+                                verbose_name = 'ผู้รายงาน')
+    # UserReport = models.ForeignKey(
+    #                                 on_delete=models.DO_NOTHING, 
+    #                                 related_name='Corona3_User', 
+    #                                 verbose_name = 'ผู้บันทึกข้อมูล')
+    Unit = models.CharField(
+                                max_length = 100,
                                 null = True,
                                 blank = True,
                                 verbose_name = 'หน่วยงาน')

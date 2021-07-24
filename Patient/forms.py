@@ -140,6 +140,10 @@ class PatientForm(PatientBasicDataForm):
 
     class Meta(PatientBasicDataForm.Meta):
         model = Patient
+<<<<<<< HEAD
+        fields = '__all__'
+        exclude = ('DataUser','ConfirmUser','ConfirmedPatient', )
+=======
         fields = '__all__'         
         exclude = (                    
                     'DataUser',
@@ -193,3 +197,4 @@ class TreatmentLogForm(ModelForm):
                         'rows': 3,
                         }), 
         }
+>>>>>>> 1fef7138dea6503622fe0aca38aad9c5159966de

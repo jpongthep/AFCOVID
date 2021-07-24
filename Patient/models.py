@@ -2,6 +2,7 @@ from datetime import date
 import datetime
 
 from django.db import models
+
 from django.db.models.fields import BooleanField
 
 from UserData.models import User
@@ -254,7 +255,8 @@ class TreatmentLog(models.Model):
                                 blank = True)
 
     def __str__(self):
-        return f'{self.ThePatient} : {self.Treatment}'
+        return f'{self.Patient} : {self.Treatment}'
+        # return f'{self.ThePatient} : {self.Treatment}'
 
 
 class AMEDPatient(models.Model):

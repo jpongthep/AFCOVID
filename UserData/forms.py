@@ -14,7 +14,8 @@ class MyAuthForm(AuthenticationForm):
             attrs = { 'autofocus': True,
                     'class' : 'form-control',
                     'id' : 'floatingInput',
-                    'placeholder' : 'RTAF email account ไม่ต้องมี @rtaf.mi.th',
+                    'placeholder' : 'Username ไม่ต้องมี @email.com',
+                    # 'placeholder' : 'RTAF email account ไม่ต้องมี @rtaf.mi.th',
                     'size' : 30}))
     password = forms.CharField(
         label=_("Password"),
@@ -29,5 +30,27 @@ class MyAuthForm(AuthenticationForm):
 
 class MyLoginView(LoginView):    
     authentication_form = MyAuthForm
-    # template_name = 'registration/login.html'
-    # form_class = MyAuthForm
+    template_name = 'registration/login.html'
+    redirect_authenticated_user = True
+ 
+
+class MyUserCreationForm(UserCreationForm):
+
+    def __init__(self, *args, **kwargs):
+        super(MyUserCreationForm,self).__init__(*args, **kwargs)
+
+    error_messages = {
+        'password_mismatch': _('รหัสผ่านที่กรอกไม่เหมือนกัน'),
+    }
+    password1 = forms.CharField(
+        label=_("Password"),
+        strip=False,
+        widget=forms.PasswordInput(attrs={'autocomplete': 'new-password'}),
+        help_text=_("รหัสผ่านต้องยาวกว่า 8 ตัวอักษร และมีความซับซ้อนมากพอ"),
+    )
+    password2 = forms.CharField(
+        label=_("Password confirmation"),
+        widget=forms.PasswordInput(attrs={'autocomplete': 'new-password'}),
+        strip=False,
+        help_text=_("ใส่รหัสผ่านซ้ำอีกครั้ง ให้เหมือนครั้งแรก"),
+    )

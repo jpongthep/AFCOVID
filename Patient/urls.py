@@ -15,7 +15,7 @@ from Patient.viewsHD import (PatientAddNewView,
 
 from Patient.views import export_users_csv, export_Patient_csv
 
-app_name = 'Patient'
+app_name = "Patient"
 
 urlpatterns = [
    
