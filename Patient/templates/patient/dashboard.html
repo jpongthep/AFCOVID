@@ -1,0 +1,60 @@
+{% extends '_base.html' %}
+{% load thaidate %}
+
+{% block title %}COVID19 :: RTAF Report and Tracking COVID-19 Patient{% endblock %}
+
+{% block content %}
+    <div id="WeekChart"></div>
+
+{% endblock %}
+
+{% block script %}
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script type="text/javascript">
+// Load google charts
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+// Draw the chart and set the chart values
+function drawChart() {
+    var data = google.visualization.arrayToDataTable([        
+        ['Element', 'Density', { role: 'style' }],
+        {% for patient_count in PatientCount %}
+            [
+             '{{ patient_count.Date|thaidate:"D d"  }}', 
+             {{ patient_count.NumPatient }},
+             {% if patient_count.week_day == 1 %} 'red' {% endif %}
+             {% if patient_count.week_day == 2 %} 'yellow' {% endif %}
+             {% if patient_count.week_day == 3 %} 'pink' {% endif %}
+             {% if patient_count.week_day == 4 %} 'green' {% endif %}
+             {% if patient_count.week_day == 5 %} 'orange' {% endif %}
+             {% if patient_count.week_day == 6 %} 'blue' {% endif %}
+             {% if patient_count.week_day == 7 %} 'purple' {% endif %}
+            ],
+        {% endfor %}        
+    ]);
+
+    var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+  
+    var options = {
+            title: "จำนวนผู้ป่วยย้อนหลัง 7 วัน",
+            width: 500,
+            height: 400,
+            bar: {groupWidth: "60%"},
+            legend: { position: "left" },
+        };
+
+    var chart = new google.visualization.ColumnChart(document.getElementById("WeekChart"));
+    chart.draw(view, options);
+}
+</script>
+
+{% endblock %}

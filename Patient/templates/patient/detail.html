@@ -1,0 +1,243 @@
+{% extends '_base.html' %}
+{% load static %}
+{% load thaidate %}
+
+{% block title %}ข้อมูลผู้ป่วย{% endblock %}
+
+{% block content %}
+
+
+<style scoped>
+
+
+.section-title h2 {
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  position: relative;
+  color: #173b6c;
+}
+
+
+
+.section-title2 h3 {
+  font-size: 20px;
+  font-weight: bold;
+
+  padding-top: 10px;
+
+  position: relative;
+  color: #173b6c;
+}
+
+
+
+hr.line1 {
+  border-top: 5px solid "#a1a1a1";
+  border-radius: 5px;
+}
+
+/* Dashed red border */
+hr.new2 {
+  border-top: 1px dashed red;
+}
+
+/* Dotted red border */
+hr.new3 {
+  border-top: 1px dotted red;
+}
+
+/* Thick red border */
+hr.new4 {
+  border: 1px solid red;
+}
+
+/* Large rounded green border */
+hr.new5 {
+  border: 5px solid green;
+  border-radius: 5px;
+}
+
+
+</style>
+<div class="container">
+<div class="section-title">
+  <h2>{{ Patient.FullName }}</h2>
+  <hr class = "line1">  
+</div>
+
+
+  <div class="section-title2">   
+    <h3>1. ข้อมูลพื้นฐานทั่วไป</h3>
+  </div>
+  <div class="row">
+    <div class="col">
+      
+      <ul>              
+        <li><i class="d-flex"></i> <strong>ผู้บันทึก : </strong> <span>{{ Patient.DataUser.FullName }} <strong>เมื่อวันที่</strong> {{ Patient.Date|thaidate:"d-m-y" }}</span></li>
+        <li><i class="d-flex"></i> <strong>เพศ  :</strong> <span>{{ Patient.get_Gender_display }}</span></li>
+        <li><i class="d-flex"></i> <strong>เลขบัตรประชาชน : </strong> <span>{{ Patient.PersonID }}</span></li>
+        <li><i class="d-flex"></i> <strong>หมายเหตุ : </strong> <span> {{ Patient.Comment }}<br></span></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <li>
+          <i class="bi bi-chevron-right"></i> 
+          <strong>วันเกิด : </strong> 
+          <span>{{ Patient.BirthDay|thaidate:"d-m-y" }} ({{ Patient.Age }})</span>
+        </li>
+        <li><i class="bi bi-chevron-right"></i> 
+            {% if Patient.IsAirforce %} 
+                <strong>เป็นข้าราชการกองทัพอากาศ : </strong> <span>{{ Patient.Office }}</span></li>
+            {% else %}
+                <strong>ไม่เป็นข้าราชการกองทัพอากาศ : </strong> <span>{{ Patient.Office }}</span></li>
+            {% endif %}
+        <li><i class="bi bi-chevron-right"></i> <strong>ที่อยู่ปัจจุบัน : </strong> <span>{{ Patient.Address }}</span></li>
+        <li><i class="bi bi-chevron-right"></i> <strong>เบอร์มือถือ : </strong> <span>{{ Patient.Mobile }}</span> <strong>เบอร์ฉุกเฉิน : </strong> <span>{{ Patient.EmergencyMobile }}</span></li>
+      </ul>
+    </div>    
+     
+  </div>
+  <hr class = "line1"> 
+</div>
+
+<div class="container"> 
+  <div class="section-title2">
+    <h3>2. ข้อมูลการติดเชื้อและสอบสวนโรค</h3>
+  </div>
+  <div class="row">
+    <div class="col">
+      <ul>              
+        <li><i class="d-flex"></i> <strong> ชื่อคนแพร่เชื้อ : </strong>{{ Patient.InfectiousName }}</li>
+        <li><i class="d-flex"></i> 
+          <strong>DetectedResult :</strong>
+            {% if Patient.DetectedResult %}
+              <a href = "{% get_media_prefix %}{{ Patient.DetectedResult }}" target = "_blank" class="btn  btn-sm btn-primary">openfile </a>
+            {% else %}
+              -
+            {% endif %}
+        </li>
+        <li><i class="d-flex"></i>  <strong>CRC ผู้สอบสวนโรค : </strong> {{ Patient.ConfirmUser }}<br></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <li><i class="bi bi-chevron-right"></i> <strong> วันที่ตรวจพบเชื้อ : </strong> {{ Patient.DatePositive|thaidate:"d-m-y" }}</li>
+        <li><i class="bi bi-chevron-right"></i> 
+          <strong>Corona3 : </strong>
+            {% if Patient.Corona3 %}
+              <a href = "{% get_media_prefix %}{{ Patient.Corona3 }}" target = "_blank" class="btn  btn-sm btn-primary">openfile </a>
+            {% else %}
+              -
+            {% endif %}
+      </ul>
+    </div>    
+  </div>  
+  <hr class = "line1"> 
+</div>
+
+
+
+
+<div class = "container">
+  <div class="section-title2">
+    <h3>3. ข้อมูลสถานะและการรักษา</h3>
+  </div>
+  <div class="col">
+    <form method = 'POST'>
+        {% csrf_token %}
+        <div class = "row">      
+          <div class = "col-6">
+            <b>สถานะผู้ป่วย</b> <br>
+            <table  class="table table-sm">
+                <thead>
+                  <tr>
+                    <th scope="col">วันที่</th>
+                    <th scope="col">ผู้บันทึก</th>
+                    <th scope="col">สถานะ</th>
+                    <th scope="col">หมายเหตุ</th>
+                  </tr>
+                </thead>
+              <tbody>
+              {% for status in StatusList %}              
+                <tr>              
+                  <td>{{status.Date|thaidate:"d-m-y" }} </td>
+                  <td>{{status.RecorderUser}}</td>
+                  <td>{{status.get_Status_display}}</td>
+                  <td>{{status.Comment}}</td>
+                  <td>
+                    <i class="fas fa-edit"></i>
+                    <a 
+                      href = '{% url 'Patient:DelStatus' Patient.id  status.id %}' 
+                      onclick = "return confirm('ยืนยันการลบข้อมูลการรักษาของ{{ Patient.FullName }} วันที่ {{status.Date|thaidate:"d-m-y" }}');"
+                    ><i class="fas fa-minus-circle"></i></a>  
+                  </td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+            <div class = "col-6">
+          <b>การรักษาผู้ป่วย</b> <br>
+
+          <table  class="table table-sm table-striped ">
+              <thead>
+                <tr>
+                  <th scope="col">วันที่</th>
+                  <th scope="col">ผู้บันทึก</th>
+                  <th scope="col">การรักษา</th>
+                  <th scope="col">หมายเหตุ</th>
+                </tr>
+              </thead>
+            <tbody>
+            {% for treatment in TreatmentList %}              
+              <tr>              
+                <td>{{treatment.Date|thaidate:"d-m-y" }} </td>
+                <td>{{treatment.RecorderUser}}</td>
+                <td>{{treatment.get_Treatment_display}}</td>
+                <td>{{treatment.Comment}}</td>
+                  <td>
+                    <i class="fas fa-edit"></i>
+                    
+                    <a 
+                      href = '{% url 'Patient:DelTreatment' Patient.id  treatment.id %}' 
+                      onclick = "return confirm('ยืนยันการลบข้อมูลการรักษาของ{{ Patient.FullName }} วันที่ {{treatment.Date|thaidate:"d-m-y" }}');"
+                    ><i class="fas fa-minus-circle"></i></a>  
+                  </td>
+              </tr>
+            {% endfor %}
+            </tbody>
+            </table>
+          </div>
+
+        </div>
+  </div>
+
+  <div class="col">
+    <form method = 'POST'>
+        {% csrf_token %}
+        <div class = "row">      
+          <div class = "col-6">
+            <b>เพิ่มสถานะผู้ป่วย</b>
+            <table  class="table table-sm ">
+            {{ status_log_form.as_table }}
+            </table>
+          </div>
+          <div class = "col-6">
+            <b>เพิ่มข้อมูลการรักษาผู้ป่วย</b>
+            <table  class="table table-sm table-striped ">
+            {{ treatment_log_form.as_table }}
+            </table>
+          </div>
+        </div>
+      <input class="btn btn-primary" type="submit" value="Submit">
+    </form>
+  </div>  
+
+</div>
+
+
+{% endblock %}
+
