@@ -31,9 +31,6 @@ urlpatterns = [
     
     path('export/csv/', export_users_csv, name='export_users_csv'),
     path('exportp/csv/', export_Patient_csv, name='export_Patient_csv'),
-    # path('', views.AllListView.as_view(), name = 'List'),    
-    # 
-    # path('<str:pk>/delete/', views.PatientDeleteView.as_view(), name = 'delete'),
-
+  
 ]
 

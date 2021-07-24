@@ -9,17 +9,15 @@ from django.contrib.auth.decorators import login_required
 from UserData.forms import MyLoginView
 from django.shortcuts import render
 
-@login_required
-def TestPage(request):
-    return render(request,"_milk.html")
+
 
 urlpatterns = [
     path('admin/', admin.site.urls, name = 'admin'),
     path('login/', MyLoginView.as_view(), name = 'login'),
     path('logout/', authviews.LogoutView.as_view(), name = 'logout'),
    
+    path('CRN3/', include('Corona3.urls')),
     path('', include('Patient.urls')),
-    path('tp', TestPage),
 
 ]
 

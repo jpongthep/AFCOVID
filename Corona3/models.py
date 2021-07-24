@@ -13,12 +13,21 @@ from Patient.models import Patient
 
 class Corona3(models.Model):
     class Meta:
-        verbose_name_plural = "ข้อมูลทั่วไป"
-# <--------ข้อมูลทั่วไป------->
+        verbose_name_plural = "แบบฟอร์ม Corana3"
+
     Patient = models.ForeignKey(
                                 Patient,
                                 on_delete = models.DO_NOTHING,
-                                related_name = 'Patient_colona3')
+                                related_name = 'Patient_colona3',
+                                blank = True, 
+                                null = True,)
+    PersonID = models.CharField(
+                                max_length = 13,
+                                unique = True,
+                                blank = True, 
+                                null = True,
+                                verbose_name = 'เลขบัตรประชาชน/พาสปอร์ต')
+
     FullName = models.CharField(
                                 max_length = 255,
                                 default = "-", 
@@ -37,11 +46,12 @@ class Corona3(models.Model):
                                 null = True,
                                 blank = True,
                                 verbose_name = 'เพศ')
-    AgePaient = models.IntegerField(
-                                    default = 0,
-                                    blank = True,
-                                    null = True,
-                                    verbose_name = 'อายุ')
+
+    BirthDay  = models.DateField(
+                                blank = True, 
+                                null = True,
+                                verbose_name = 'วันเกิด')                                
+
     CHOICE_Nationority = (
         ( '0' ,  'ไม่ระบุ' ) ,
         ( '1' ,  'ไทย' ) ,
@@ -107,7 +117,7 @@ class Corona3(models.Model):
                                 default = '-', 
                                 null = True,
                                 blank = True,
-                                verbose_name = 'หมู่')
+                                verbose_name = 'หมู่ที่')
     SubDistrict = models.CharField(
                                 max_length = 50,
                                 default = None, 
@@ -151,9 +161,7 @@ class Corona3(models.Model):
                                     null = True,
                                     blank = True,
                                     verbose_name = 'ระบุลักษะณะการพักอาศัย')
-    # class Meta:
-    #     verbose_name_plural = "ข้อมูลทางเทคนิค"
-    # <------ข้อมูลทางเทคนิค---------->
+
     DatePatient = models.DateField(
                             default=datetime.date.today, 
                             verbose_name = 'วันที่เริ่มป่วย')
@@ -223,11 +231,7 @@ class Corona3(models.Model):
                                 null = True,
                                 blank = True,
                                 verbose_name = 'กรณีเพศหญิง')
-    # class Meta:
-    #     verbose_name_plural = "ผลการตรวจที่ยืนยันว่าเป็น SARS-CoV-2"
-    # <---------ผลการตรวจที่ยืนยันว่าเป็น SARS-CoV-2----------------->
-    # class Meta:
-    #     verbose_name_plural = "วิธีการตรวจ RT-PCR"
+
 
     DateCheckRTPCR = models.DateField(
                             default=datetime.date.today, 
@@ -256,8 +260,7 @@ class Corona3(models.Model):
                                 null = True,
                                 blank = True,
                                 verbose_name = 'ผลการตรวจ RT PCR')
-    # class Meta:
-    #     verbose_name_plural = "วิธีการตรวจ Antigen"
+
 
     DateCheckAntigen = models.DateField(
                             default=datetime.date.today, 
@@ -283,8 +286,7 @@ class Corona3(models.Model):
                                 blank = True,
                                 verbose_name = 'ผลการตรวจ Antigen')
     
-    # class Meta:
-    #     verbose_name_plural = "วิธีการตรวจ Antibody ครั้งที่ 1"
+
 
     DateCheckAntibody1 = models.DateField(
                             default=datetime.date.today, 
@@ -318,8 +320,7 @@ class Corona3(models.Model):
                                     verbose_name= "มี",
                                     blank = True, 
                                     null = True,)
-    # class Meta:
-    #     verbose_name_plural = "วิธีการตรวจ Antibody ครั้งที่ 2"
+
 
     DateCheckAntibody2 = models.DateField(
                             default=datetime.date.today, 
@@ -354,9 +355,6 @@ class Corona3(models.Model):
                                     blank = True, 
                                     null = True,)
     
-    # class Meta:
-    #     verbose_name_plural = "ประวัติการได้รับวัคซีนป้องกันโรคติดเชื้อไวรัสโคโรนา 2019"
-
     ReceivedVaccine = BooleanField(
                                     default = False, 
                                     verbose_name= "เคย",
@@ -409,8 +407,6 @@ class Corona3(models.Model):
                                 null = True,
                                 blank = True,
                                 verbose_name = 'สถานที่ฉีด')
-    # class Meta:
-    #     verbose_name_plural = "ประวัติเสียงในช่วง 14 วัน ก่อนเริ่มป่วย (หรือ 14  วันก่่อนพบการติดเชื้อ)"
 
     LiveInCovid = BooleanField(
                                     default = False, 
@@ -491,9 +487,6 @@ class Corona3(models.Model):
                                 null = True,
                                 blank = True,
                                 verbose_name = 'ระบุประวัติเสี่ยงอื่น ๆ')
-    # class Meta:
-    #     verbose_name_plural = "การค้นหาผู้สัมผัส"
-
     ContactRisky = models.IntegerField(
                                     default = 0, 
                                     verbose_name = 'ผู้สัมผัสใหล้ชิดเสี่ยงสูงกี่คน', 
@@ -536,9 +529,6 @@ class Corona3(models.Model):
                                     verbose_name = 'สถานที่กักตัว(สถานที่กักตัว)กี่คน', 
                                     null = True,
                                     blank = True)
-      
-    # class Meta:
-    #         verbose_name_plural = "เจ้าหน้าที่รายงาน"
 
     UserReport = models.ForeignKey(
                                     User, 
@@ -551,12 +541,23 @@ class Corona3(models.Model):
                                 null = True,
                                 blank = True,
                                 verbose_name = 'หน่วยงาน')
-    Mobile = models.CharField(
+    Mobile2 = models.CharField(
                                 max_length = 10,
                                 default = '-', 
                                 null = True,
                                 blank = True,
-                                verbose_name = 'เบอร์โทรศัพท์')
+                                verbose_name = 'เบอร์โทรศัพท์ จนท.')
     DateReport = models.DateField(
                                 default=datetime.date.today, 
                                 verbose_name = 'วันที่')
+    
+    @property
+    def Age(self):
+        if self.BirthDay:
+            today = date.today()
+            return today.year - self.BirthDay.year
+        else:
+            return "-"
+
+    def __str__(self):
+        return self.FullName
