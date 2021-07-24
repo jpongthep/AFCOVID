@@ -53,7 +53,12 @@
                             </style>
 
                         </a></div>
-
+                    <li class="label">Main</li>
+                    <li>
+                        <a href="{% url 'Patient:Dashboard' %}">
+                            <i class="fa fa-signal" aria-hidden="true"></i> ภาพรวมผู้ป่วย 
+                        </a>
+                    </li>
                     <li>
                         <a href="{% url 'Patient:List' 0 %}">
                             <i class="fa fa-address-card" aria-hidden="true"></i> รายชื่อผู้ป่วยทั้งหมด
@@ -507,6 +512,8 @@
     <script src="{% static 'assets/js/lib/owl-carousel/owl.carousel-init.js' %}"></script>
     <!-- scripit init-->
     <script src="{% static 'assets/js/dashboard2.js' %}"></script>
+    {% block script %}
+    {% endblock %}
 </body>
 
 </html>

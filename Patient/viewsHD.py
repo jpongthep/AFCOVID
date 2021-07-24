@@ -1,7 +1,12 @@
+from datetime import timedelta
+
+from django.utils import timezone
 from django.shortcuts import render
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.db.models import Count, F
+
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponse
@@ -19,6 +24,23 @@ from Patient.forms import ( PatientCOVIDForm,
 from Patient.models import (Patient,
                             StatusLog,
                             TreatmentLog)
+
+@login_required
+def dashboard(request):
+    last7day = timezone.now().date() - timedelta(days=6)
+    yesterday = timezone.now().date() - timedelta(days=1)
+    today = timezone.now().date()
+    PatientCount = Patient.objects.filter(Date__range=(last7day,today)
+                                 ).values(
+                                     'Date',
+                                     week_day = F('Date__week_day')
+                                 ).annotate(NumPatient = Count('id'))
+    context = {'PatientCount' : PatientCount}
+    print('PatientCount : ',PatientCount)
+
+
+    return render(request, "Patient/dashboard.html",context)
+
 
 def get_form_class(user):
     IsAFCMO = user.has_perm('UserData.User_AF_CMO')
