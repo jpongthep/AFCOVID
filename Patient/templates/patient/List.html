@@ -36,6 +36,8 @@
         clear: both;
         display: table;
         }    
+
+
     </style>
 
 <div class="container">
@@ -83,24 +85,24 @@
             <td>{{ patient.DatePositive|thaidate:"d-m-y" }}</td>
             <td>
             
-              {{ patient.get_CurrentTreatment_display }}
+              {{ patient.TreatmentIcon|safe }}
             </td>
             <td> 
-              
+
               {% if patient.get_CurrentStatus_display == 'ผู้ป่วยสีเขียว'%}
-                  <i class="fas fa-first-aid fa-2x" style="color:rgb(50,205,50)"></i>
+                  <i class="fa fa-first-aid fa-lg" style="color:rgb(50,205,50)"></i>
               {%elif patient.get_CurrentStatus_display == 'ผู้ป่วยสีเหลืองอ่อน'%}
-                  <i class="fas fa-first-aid fa-2x" style="color:rgb(238,255,100)"></i>
+                  <i class="fa fa-first-aid fa-lg" style="color:rgb(255,255,0)"></i>
               {%elif patient.get_CurrentStatus_display == 'ผู้ป่วยสีเหลืองเข้ม'%}
-                  <i class="fas fa-first-aid fa-2x" style="color:rgb(238,255,10)"></i>
+                  <i class="fa fa-procedures fa-lg" style="color:rgb(246,199,0)"></i>
               {%elif patient.get_CurrentStatus_display == 'ผู้ป่วยสีแดง'%}
-                  <i class="fas fa-first-aid fa-2x" style="color:red"></i>
+                  <i class="fa fa-procedures fa-lg" style="color:red"></i>
               {%elif patient.get_CurrentStatus_display == 'หายป่วย'%}
-                  <i class="fas fa-walking fa-2x" style="color:blue"></i>
+                  <i class="fa fa-walking fa-lg" style="color:blue"></i>
               {%elif patient.get_CurrentStatus_display == 'เสียชีวิต'%}
-                  <i class="fas fa-bed fa-2x" style="color:black"></i>
+                  <i class="fa fa-bed fa-lg" style="color:black"></i>
               {%else%}
-                -
+                  <i class="fa fa-question-circle fa-lg" style="color:rgb(160,160,160)"></i>
               {% endif %}             
             </td>
             <td>{{ patient.Mobile }}</td>
