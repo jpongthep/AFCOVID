@@ -10,13 +10,7 @@
         </div>
     </div>
     <div class="row">
-    {% if Numday < 7%}                              
-        <div class="col-lg-6">
-    {% elif NumDay < 12 %}
-        <div class="col-lg-8">
-    {% else %}
         <div class="col-lg-12">
-    {% endif %}
             <div id="WeekChart"></div>
         </div>
     </div>
@@ -34,19 +28,30 @@ google.charts.setOnLoadCallback(drawChart);
 // Draw the chart and set the chart values
 function drawChart() {
     var data = google.visualization.arrayToDataTable([        
-        ['Element', 'Density', { role: 'style' }],
+        ['Element', 'Density', { role: 'style' }, { role: 'link' } ],
         {% for patient_count in PatientCount %}
             [
              '{{ patient_count.Date|thaidate:"D d"  }}', 
              {{ patient_count.NumPatient }},
-             {% if patient_count.week_day == 1 %} 'red' {% endif %}
-             {% if patient_count.week_day == 2 %} 'yellow' {% endif %}
-             {% if patient_count.week_day == 3 %} 'pink' {% endif %}
-             {% if patient_count.week_day == 4 %} 'green' {% endif %}
-             {% if patient_count.week_day == 5 %} 'orange' {% endif %}
-             {% if patient_count.week_day == 6 %} 'blue' {% endif %}
-             {% if patient_count.week_day == 7 %} 'purple' {% endif %}
+             {% if patient_count.week_day == 1 %} 
+                'red'
+             {% elif patient_count.week_day == 2 %} 
+                'yellow' 
+             {% elif patient_count.week_day == 3 %} 
+                'pink'
+             {% elif patient_count.week_day == 4 %} 
+                'green' 
+             {% elif patient_count.week_day == 5 %} 
+                'orange' 
+             {% elif patient_count.week_day == 6 %} 
+                'blue' 
+             {% elif patient_count.week_day == 7 %} 
+                'purple' 
+             {% endif %}
+             ,'/0/List?date={{ patient_count.Date|date:"Y-m-d"  }}'
+     
             ],
+
         {% endfor %}        
     ]);
 
@@ -69,8 +74,17 @@ function drawChart() {
     var chart = new google.visualization.ColumnChart(document.getElementById("WeekChart"));
     chart.draw(view, options);
 
+    google.visualization.events.addListener(chart, 'select', function (e) {
+            var selection = chart.getSelection();
+                if (selection.length) {
+                    var row = selection[0].row;
+                    let link =data.getValue(row, 3);
+                    location.href = link;
+                }
+        });
+
     var dataUnit = google.visualization.arrayToDataTable([        
-        ['Element', 'Density', { role: 'style' }],
+        ['Element', 'Density', { role: 'style' }, { role: 'link' }],
         {% for patient_count in UnitCount %}
             [
              '{{ patient_count.Office  }}', 
@@ -85,6 +99,7 @@ function drawChart() {
                 {% else %}  
                     'RGB(240, 5, 5)'          
                 {% endif %}
+                ,'/0/List?Office={{ patient_count.Office}}'
             ],
         {% endfor %}        
     ]);
@@ -108,6 +123,14 @@ function drawChart() {
     var chartUnit = new google.visualization.ColumnChart(document.getElementById("UnitChart"));
     chartUnit.draw(viewUnit, optionsUnit);
 
+    google.visualization.events.addListener(chartUnit, 'select', function (e) {
+            var selection = chartUnit.getSelection();
+                if (selection.length) {
+                    var row = selection[0].row;
+                    let link = dataUnit.getValue(row, 3);
+                    location.href = link;
+                }
+        });
 }
 </script>
 

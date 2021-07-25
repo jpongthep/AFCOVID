@@ -150,10 +150,18 @@ class PatientListView(LoginRequiredMixin,ListView):
             queryset = Patient.objects.filter(AirforceType = PatientType)            
 
         nameSearch = self.request.GET.get('textsearch')
-        print('nameSearch = ',nameSearch)
+        dateSearch = self.request.GET.get('date')
+        OfficeSearch = self.request.GET.get('Office')
+        # print('nameSearch = ',nameSearch)
 
         if nameSearch:
             queryset = queryset.filter(Q(FullName__icontains = nameSearch) | Q(PersonID = nameSearch))
+
+        if dateSearch:
+            queryset = queryset.filter(Date = dateSearch)
+
+        if OfficeSearch:
+            queryset = queryset.filter(Office = OfficeSearch)
         
         return queryset.order_by('-Date','-FullName')
        

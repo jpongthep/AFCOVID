@@ -94,15 +94,11 @@
               </abbr>
 
               {{ patient.FullName }} 
-              {{  patient.AirforceType }}
               {% if patient.Age > 0 %}
                 ({{ patient.Age }})
               {% endif %}            
             </td>            
             <td>
-                {% if patient.IsAirforce  %}
-                    (ทอ.) 
-                {% endif %}
                 {{ patient.Office}} 
             </td>
             <td>
