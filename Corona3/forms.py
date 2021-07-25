@@ -1,6 +1,5 @@
 from django import forms
 from django.forms import ModelForm
-
 from Corona3.models import Corona3
 
 class Corona3BasicDataForm(ModelForm):
@@ -106,6 +105,8 @@ class Corona3BasicDataForm(ModelForm):
                         'type': 'date'
                         })
         }
+
+
     #         'FullName': forms.TextInput(
     #                 attrs={'class': 'form-control', 
     #                     'placeholder': 'คำนำหน้า ชื่อ นามสกุล',

@@ -23,7 +23,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'thaidate',
-    
+    # 'SearchSelect',
     'UserData',
     'Patient',
     'Corona3'

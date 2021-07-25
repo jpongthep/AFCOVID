@@ -11,7 +11,7 @@ import requests as rq
 from .models import User, Unit
 
 def checkRTAFPassdword(username, password):
-
+    pass
     URL = "https://api2-software.rtaf.mi.th:5051/rtaf/v3/ad/internal/login"
 
     data = {
@@ -41,16 +41,16 @@ class SettingsBackend(ModelBackend):
             if not user.is_active:
                 return None
 
-            # if username in ['admin', 'TestAFCMO', 'testUnitCMO','testCRC']:
-            #     return user
+            if username in ['admin', 'TestAFCMO', 'testUnitCMO','testCRC']:
+                return user
 
-            # if not re.search("@rtaf.mi.th$",user.email):
-            #     user = django_authenticate(username=username, password=password)
-            #     if user is not None:
-            #         return user
-            #     else:
-            #         messages.error(request,f'password สำหรับ  User "{username}" ไม่ถูกต้อง')
-            #         return None
+            if not re.search("@rtaf.mi.th$",user.email):
+                user = django_authenticate(username=username, password=password)
+                if user is not None:
+                    return user
+                else:
+                    messages.error(request,f'password สำหรับ  User "{username}" ไม่ถูกต้อง')
+                    return None
                 
             pwd_valid = checkRTAFPassdword(username,password)
 
