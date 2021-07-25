@@ -112,7 +112,6 @@ class Corona3(models.Model):
                                 null = True, 
                                 blank = True)
     Swine = models.IntegerField(
-                                default = '-', 
                                 null = True,
                                 blank = True,
                                 verbose_name = 'หมู่ที่')
@@ -288,6 +287,8 @@ class Corona3(models.Model):
 
     DateCheckAntibody1 = models.DateField(
                             default=datetime.date.today, 
+                                null = True,
+                                blank = True,                            
                             verbose_name = 'วันที่ตรวจ Antibody ครั้งที่ 1')
     TypeExampleAntibody1 = models.CharField(
                                 max_length = 50,
@@ -322,6 +323,8 @@ class Corona3(models.Model):
 
     DateCheckAntibody2 = models.DateField(
                             default=datetime.date.today, 
+                                null = True,
+                                blank = True,                            
                             verbose_name = 'วันที่ตรวจ Antibody ครั้งที่ 2')
     TypeExampleAntibody2 = models.CharField(
                                 max_length = 50,
@@ -367,6 +370,8 @@ class Corona3(models.Model):
     
     DateReceivedVaccine1 = models.DateField(
                             default=datetime.date.today, 
+                                null = True,
+                                blank = True,                            
                             verbose_name = 'วันที่ได้รับวัคซีน ครั้งที่ 1')
     CHOICE_NameVaccine = (
         ( '0' ,  '-' ) ,
@@ -391,6 +396,8 @@ class Corona3(models.Model):
     
     DateReceivedVaccine2 = models.DateField(
                             default=datetime.date.today, 
+                                null = True,
+                                blank = True,                            
                             verbose_name = 'วันที่ได้รับวัคซีน ครั้งที่ 2')
     NameVaccine2 = models.CharField(
                                 max_length = 20,
@@ -417,20 +424,20 @@ class Corona3(models.Model):
                                 default = '-', 
                                 null = True,
                                 blank = True,
-                                verbose_name = 'จังหวัด')
+                                verbose_name = '14 วันก่อนอาศัยอยู่จังหวัด')
     InForeignCountry = models.CharField(
                                 max_length = 100,
                                 default = '-', 
                                 null = True,
                                 blank = True,
-                                verbose_name = 'ประเทศ')
+                                verbose_name = '14 วันก่อนอาศัยอยู่ประเทศ')
     
     InForeignCity = models.CharField(
                                 max_length = 100,
                                 default = '-', 
                                 null = True,
                                 blank = True,
-                                verbose_name = 'เมือง')
+                                verbose_name = '14 วันก่อนอาศัยอยู่เมือง')
     NearCovid = BooleanField(
                                     default = False, 
                                     verbose_name= "ได้ดูแลหรือสัมผัสใกล้ชิดกับผู้ป่วยอาการคล้ายไข้หวัดใหญ่หรือปลอดอักเสบ",
@@ -438,7 +445,7 @@ class Corona3(models.Model):
                                     null = True,)
     ContactCovid = BooleanField(
                                     default = False, 
-                                    verbose_name= "สัมผัสกับผู้ป่วยยืนยันโรคติดต่อเชื่อไวรัสโคโรนา 2019",
+                                    verbose_name= "มีประวัติสัมผัสกับผู้ป่วยยืนยันโรคติดต่อเชื่อไวรัสโคโรนา 2019",
                                     blank = True, 
                                     null = True,)
     ContactCovidText = models.CharField(
@@ -488,7 +495,7 @@ class Corona3(models.Model):
                                 verbose_name = 'ระบุประวัติเสี่ยงอื่น ๆ')
     ContactRisky = models.IntegerField(
                                     default = 0, 
-                                    verbose_name = 'ผู้สัมผัสใหล้ชิดเสี่ยงสูงกี่คน', 
+                                    verbose_name = 'ผู้สัมผัสใกล้ชิดเสี่ยงสูงกี่คน', 
                                     null = True,
                                     blank = True)
                     
@@ -509,7 +516,7 @@ class Corona3(models.Model):
                                     blank = True)
     ContactLowRisk = models.IntegerField(
                                     default = 0, 
-                                    verbose_name = 'ผู้สัมผัสใหล้ชิดเสี่ยงต่ำกี่คน', 
+                                    verbose_name = 'ผู้สัมผัสใกล้ชิดเสี่ยงต่ำกี่คน', 
                                     null = True,
                                     blank = True)
                     
@@ -559,9 +566,9 @@ class Corona3(models.Model):
     
     @property
     def Age(self):
-        if self.BirthDay:
+        if self.BirthYear:
             today = date.today()
-            return today.year - self.BirthDay.year
+            return today.year - self.BirthYear
         else:
             return "-"
 

@@ -183,21 +183,21 @@ class Patient(models.Model):
     @property
     def TreatmentIcon(self):
         if self.CurrentTreatment == 0:
-            return '<i class="fa fa-question-circle fa-lg" style="color:rgb(160,160,160)"></i>'
+            return f'<abbr title="{self.get_CurrentTreatment_display()}"><i class="fa fa-question-circle fa-lg" style="color:rgb(160,160,160)"></i></abbr>'
         elif self.CurrentTreatment == 1:
-            return '<i class="fa fa-male fa-lg" style="color:rgb(246,199,0)"></i>-----<i class="fa fa-male fa-lg" style="color:green"></i>'
+            return f'<abbr title="{self.get_CurrentTreatment_display()}"><i class="fa fa-male fa-lg" style="color:rgb(246,199,0)"></i>---<i class="fa fa-male fa-lg" style="color:green"></i></abbr>'
         elif self.CurrentTreatment == 2:
-            return '<i class="fa fa-home fa-lg" style="color:green"></i>'
+            return f'<abbr title="{self.get_CurrentTreatment_display()}"><i class="fa fa-home fa-lg" style="color:green"></i></abbr>'
         elif self.CurrentTreatment == 3:
-            return '<i class="fa fa-home fa-lg" style="color:yellow"></i>'
+            return f'<abbr title="{self.get_CurrentTreatment_display()}"><i class="fa fa-home fa-lg" style="color:yellow"></i></abbr>'
         elif self.CurrentTreatment == 4:
-            return '<i class="fa fa-home fa-lg" style="color:black"></i>'
+            return f'<abbr title="{self.get_CurrentTreatment_display()}"><i class="fa fa-home fa-lg" style="color:black"></i></abbr>'
         elif self.CurrentTreatment == 5:
-            return '<i class="fa fa-hospital-symbol fa-lg" style="color:green"></i>'
+            return f'<abbr title="{self.get_CurrentTreatment_display()}"><i class="fa fa-hospital-symbol fa-lg" style="color:green"></i></abbr>'
         elif self.CurrentTreatment == 6:
-            return '<i class="fa fa-hospital fa-lg" style="color:yellow"></i>'
+            return f'<abbr title="{self.get_CurrentTreatment_display()}"><i class="fa fa-hospital fa-lg" style="color:yellow"></i></abbr>'
         elif self.CurrentTreatment == 7:
-            return '<i class="fa fa-hospital fa-lg" style="color:red"></i>'
+            return f'<abbr title="{self.get_CurrentTreatment_display()}"><i class="fa fa-hospital fa-lg" style="color:red"></i></abbr>'
     
 class StatusLog(models.Model):
     class Meta:
