@@ -31,6 +31,7 @@ def dashboard(request):
     yesterday = timezone.now().date() - timedelta(days=1)
     today = timezone.now().date()
     PatientCount = Patient.objects.filter(Date__range=(last7day,today)
+                                 ).order_by('Date'
                                  ).values(
                                      'Date',
                                      week_day = F('Date__week_day')
@@ -74,7 +75,6 @@ class PatientAddNewView(LoginRequiredMixin,CreateView):
     # form_class = PatientForm
     template_name = 'Patient/AddNew.html'    
     
-
     def get_form_class(self):
         return get_form_class(self.request.user)
 
