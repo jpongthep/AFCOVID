@@ -50,9 +50,13 @@
     <div class="table-responsive">
       <table class="table table-striped table-bordered">
         <col width="80">
-        <col width="250">
-        <col width="60">
+        <col width="300">
+        <col width="150">
         <col width="40">
+        <col width="80">
+        <col width="100">
+        <col width="120">
+        <col width="80">
         <col width="80">
         <col width="80">
         <thead>
@@ -71,7 +75,23 @@
           {% for patient in object_list %}
           <tr>
             <td>{{ patient.Date|thaidate:"d-m-y" }}</td>
-            <td>{{ forloop.counter }}. {{ patient.FullName }} 
+            <td> 
+              <abbr title="{{ patient.get_AirforceType_display }}">
+                {% if patient.AirforceType == 0 %}
+                  <img src = "{% static 'assets/images/avatar/af_type0.png' %}" width = 25>
+                {% elif patient.AirforceType == 1 %}
+                  <img src = "{% static 'assets/images/avatar/af_type1.png' %}" width = 25>
+                {% elif patient.AirforceType == 2 %}
+                  <img src = "{% static 'assets/images/avatar/af_type2.png' %}" width = 25>
+                {% elif patient.AirforceType == 3 %}
+                  <img src = "{% static 'assets/images/avatar/af_type3.png' %}" width = 25>
+                {% elif patient.AirforceType == 4 %}
+                  <img src = "{% static 'assets/images/avatar/af_type4.png' %}" width = 25>
+                {% endif %}
+              </abbr>
+
+              {{ patient.FullName }} 
+              {{  patient.AirforceType }}
               {% if patient.Age > 0 %}
                 ({{ patient.Age }})
               {% endif %}            
@@ -153,11 +173,11 @@
         {% for i in paginator.page_range %} 
             {% if page_obj.number ==  i %}
               <li class="page-item"><a class="page-link active"><strong>{{ i }}</strong></a></li>
-            {% elif i <= 3 or i >= paginator.num_pages|add:"-3" %}
+            {% elif i <= 4 or i >= paginator.num_pages|add:"-3" %}
               <li class="page-item">
                 <a class="page-link" href="?page={{ i }}">{{ i }}</a>
               </li>
-            {% elif page_obj.number >=  i|add:"-2"  and page_obj.number <=  i|add:"2"%}
+            {% elif page_obj.number >=  i|add:"-3"  and page_obj.number <=  i|add:"3"%}
               <li class="page-item">
                 <a class="page-link" href="?page={{ i }}">{{ i }}</a>                
               </li>

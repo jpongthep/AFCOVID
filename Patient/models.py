@@ -193,6 +193,7 @@ class Patient(models.Model):
         else:
             return "-"
 
+    
     @property
     def TreatmentIcon(self):
         if self.CurrentTreatment == 0:

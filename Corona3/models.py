@@ -204,7 +204,7 @@ class Corona3(models.Model):
         ( '3' ,  'เสียชีวิต' ) ,
     )
     TypeViolence = models.CharField(
-                                max_length = 100,
+                                max_length = 20,
                                 choices = CHOICE_TypeViolence, 
                                 default = '-', 
                                 null = True,
@@ -222,7 +222,7 @@ class Corona3(models.Model):
         ( '2' ,  'ตั้งครรภ์' ) ,
     )
     CaseFemale = models.CharField(
-                                max_length = 50,
+                                max_length = 15,
                                 choices = CHOICE_CaseFemale, 
                                 default = '-', 
                                 null = True,
