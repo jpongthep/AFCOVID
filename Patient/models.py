@@ -6,6 +6,14 @@ from django.db.models.fields import BooleanField
 
 from UserData.models import User
 
+AIRFORCE_TYPE_CHOICE = (
+    ( 0 ,  'ไม่ระบุ' ) ,
+    ( 1 ,  'ทหารประจำการ' ) ,
+    ( 2 ,  'พลทหาร' ) ,
+    ( 3 ,  'ครอบครัว' ) ,
+    ( 4 ,  'บุคคลภายนอก' ) ,
+)
+
 RIGHT_MEDICAL_TREATMENT_CHOICE = (
     ( 0 ,  'ไม่ระบุ' ) ,
     ( 1 ,  'เบิกจ่ายตรง (กรมบัญชีกลาง)' ) ,
@@ -86,16 +94,22 @@ class Patient(models.Model):
                                 blank = True, 
                                 null = True,
                                 verbose_name = 'เลขบัตรประชาชน')
-    Office = models.TextField(
+    Office = models.CharField(
+                            max_length = 50,
                             default = None, 
                             verbose_name = 'ที่ทำงาน/สังกัด',
                             blank = True, 
                             null = True,)
+    AirforceType = models.IntegerField(
+                            choices = AIRFORCE_TYPE_CHOICE, 
+                            default = 0, 
+                            null=True,
+                            verbose_name = 'ประเภทข้าราชการ')                             
     IsAirforce = BooleanField(
-                                    default = False, 
-                                    verbose_name= "ขรก.ทอ.",
-                                    blank = True, 
-                                    null = True,)
+                            default = False, 
+                            verbose_name= "ขรก.ทอ.",
+                            blank = True, 
+                            null = True,)
     DatePositive  = models.DateField(
                                     blank = True, 
                                     null = True,
@@ -186,6 +200,26 @@ class Patient(models.Model):
             return today.year - self.BirthDay.year
         else:
             return "-"
+
+    
+    @property
+    def TreatmentIcon(self):
+        if self.CurrentTreatment == 0:
+            return f'<abbr title="{self.get_CurrentTreatment_display()}"><i class="fa fa-question-circle fa-lg" style="color:rgb(160,160,160)"></i></abbr>'
+        elif self.CurrentTreatment == 1:
+            return f'<abbr title="{self.get_CurrentTreatment_display()}"><i class="fa fa-male fa-lg" style="color:rgb(246,199,0)"></i>---<i class="fa fa-male fa-lg" style="color:green"></i></abbr>'
+        elif self.CurrentTreatment == 2:
+            return f'<abbr title="{self.get_CurrentTreatment_display()}"><i class="fa fa-home fa-lg" style="color:green"></i></abbr>'
+        elif self.CurrentTreatment == 3:
+            return f'<abbr title="{self.get_CurrentTreatment_display()}"><i class="fa fa-home fa-lg" style="color:yellow"></i></abbr>'
+        elif self.CurrentTreatment == 4:
+            return f'<abbr title="{self.get_CurrentTreatment_display()}"><i class="fa fa-home fa-lg" style="color:black"></i></abbr>'
+        elif self.CurrentTreatment == 5:
+            return f'<abbr title="{self.get_CurrentTreatment_display()}"><i class="fa fa-hospital-symbol fa-lg" style="color:green"></i></abbr>'
+        elif self.CurrentTreatment == 6:
+            return f'<abbr title="{self.get_CurrentTreatment_display()}"><i class="fa fa-hospital fa-lg" style="color:yellow"></i></abbr>'
+        elif self.CurrentTreatment == 7:
+            return f'<abbr title="{self.get_CurrentTreatment_display()}"><i class="fa fa-hospital fa-lg" style="color:red"></i></abbr>'
     
 class StatusLog(models.Model):
     class Meta:

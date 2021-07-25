@@ -4,8 +4,16 @@
 {% block title %}COVID19 :: RTAF Report and Tracking COVID-19 Patient{% endblock %}
 
 {% block content %}
-    <div id="WeekChart"></div>
-
+    <div class="row">                                    
+        <div class="col-lg-12">
+            <div id="UnitChart"></div>
+        </div>
+    </div>
+    <div class="row">                                    
+        <div class="col-lg-6">
+            <div id="WeekChart"></div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block script %}
@@ -47,13 +55,53 @@ function drawChart() {
     var options = {
             title: "จำนวนผู้ป่วยย้อนหลัง 7 วัน",
             width: 500,
-            height: 400,
+            height: 500,
             bar: {groupWidth: "60%"},
             legend: { position: "left" },
         };
 
     var chart = new google.visualization.ColumnChart(document.getElementById("WeekChart"));
     chart.draw(view, options);
+
+    var dataUnit = google.visualization.arrayToDataTable([        
+        ['Element', 'Density', { role: 'style' }],
+        {% for patient_count in UnitCount %}
+            [
+             '{{ patient_count.Office  }}', 
+             {{ patient_count.NumPatient }},   
+
+                {% if patient_count.NumPatient < 4 %}
+                   'RGB(254, 240, 1)'
+                {% elif  patient_count.NumPatient <  7 %}
+                    'RGB(253, 154, 1)'
+                {% elif   patient_count.NumPatient < 12 %}
+                    'RGB(253, 97, 4)'
+                {% else %}  
+                    'RGB(240, 5, 5)'          
+                {% endif %}
+            ],
+        {% endfor %}        
+    ]);
+
+    var viewUnit = new google.visualization.DataView(dataUnit);
+      viewUnit.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+  
+    var optionsUnit = {
+            title: "ขรก.ประจำการป่วย ย้อนหลัง 7 วัน",
+            width: '100%',
+            height: 500,
+            bar: {groupWidth: "60%"},
+            legend: { position: "left" },
+        };
+
+    var chartUnit = new google.visualization.ColumnChart(document.getElementById("UnitChart"));
+    chartUnit.draw(viewUnit, optionsUnit);
+
 }
 </script>
 

@@ -6,10 +6,10 @@ from Patient.models import ( Patient,
                              AMEDPatient)
 
 class PatientAdmin(admin.ModelAdmin):
-    list_display = ['Date','FullName','PersonID','CurrentStatus','CurrentTreatment']
+    list_display = ['Date','FullName','PersonID','AirforceType','Office']
     search_fields = ['FullName']
     list_filter = ['Date','CurrentStatus','CurrentTreatment']
-    # list_editable = ['Type','NumDay']
+    list_editable = ['AirforceType','Office']
     list_display_links = ['FullName',]
 
 
