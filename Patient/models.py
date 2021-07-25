@@ -93,7 +93,8 @@ class Patient(models.Model):
                                 blank = True, 
                                 null = True,
                                 verbose_name = 'เลขบัตรประชาชน')
-    Office = models.TextField(
+    Office = models.CharField(
+                            max_length = 50,
                             default = None, 
                             verbose_name = 'ที่ทำงาน/สังกัด',
                             blank = True, 

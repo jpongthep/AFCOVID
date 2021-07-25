@@ -36,7 +36,15 @@ def dashboard(request):
                                      'Date',
                                      week_day = F('Date__week_day')
                                  ).annotate(NumPatient = Count('id'))
-    context = {'PatientCount' : PatientCount}
+    
+    UnitCount = Patient.objects.filter(Date__range=(last7day,today)
+                                 ).filter(AirforceType = 1
+                                 ).order_by('Office'
+                                 ).values('Office'
+                                 ).annotate(NumPatient = Count('id'))
+
+    
+    context = {'PatientCount' : PatientCount, 'UnitCount' : UnitCount}
     print('PatientCount : ',PatientCount)
 
 

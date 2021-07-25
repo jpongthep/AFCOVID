@@ -4,7 +4,14 @@
 {% block title %}COVID19 :: RTAF Report and Tracking COVID-19 Patient{% endblock %}
 
 {% block content %}
-    <div id="WeekChart"></div>
+    <div class="row">                                    
+        <div class="col-lg-4 p-r-0 title-margin-right">
+            <div id="WeekChart"></div>
+        </div>
+        <div class="col-lg-8 p-r-0 title-margin-right">
+            <div id="UnitChart"></div>
+        </div>
+    </div>
 
 {% endblock %}
 
@@ -54,6 +61,37 @@ function drawChart() {
 
     var chart = new google.visualization.ColumnChart(document.getElementById("WeekChart"));
     chart.draw(view, options);
+
+    var dataUnit = google.visualization.arrayToDataTable([        
+        ['Element', 'Density', { role: 'style' }],
+        {% for patient_count in UnitCount %}
+            [
+             '{{ patient_count.Office  }}', 
+             {{ patient_count.NumPatient }},             
+             'purple'
+            ],
+        {% endfor %}        
+    ]);
+
+    var viewUnit = new google.visualization.DataView(dataUnit);
+      viewUnit.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+  
+    var optionsUnit = {
+            title: "จำนวนผู้ป่วยย้อนหลัง 7 วันแยกตามหน่วยงาน",
+            width: 800,
+            height: 400,
+            bar: {groupWidth: "60%"},
+            legend: { position: "left" },
+        };
+
+    var chartUnit = new google.visualization.ColumnChart(document.getElementById("UnitChart"));
+    chartUnit.draw(viewUnit, optionsUnit);
+
 }
 </script>
 
