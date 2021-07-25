@@ -20,7 +20,8 @@ app_name = 'Patient'
 urlpatterns = [
    
     path('AddNew', PatientAddNewView.as_view(), name = 'AddNew'),
-    path('',dashboard, name = 'Dashboard'),
+    path('',dashboard, name = 'Dashboard7'),
+    path('<int:num_day>/dashboard',dashboard, name = 'Dashboard'),
     path('<int:PatientType>/List',PatientListView.as_view(), name = 'List'),
     path('<int:pk>/detail', PatientDetail, name = 'Detail'),
     path('<int:pk>/update', PatientUpdateView.as_view(), name = 'Update'),

@@ -9,8 +9,14 @@
             <div id="UnitChart"></div>
         </div>
     </div>
-    <div class="row">                                    
+    <div class="row">
+    {% if Numday < 7%}                              
         <div class="col-lg-6">
+    {% elif NumDay < 12 %}
+        <div class="col-lg-8">
+    {% else %}
+        <div class="col-lg-12">
+    {% endif %}
             <div id="WeekChart"></div>
         </div>
     </div>
@@ -53,8 +59,8 @@ function drawChart() {
                        2]);
   
     var options = {
-            title: "จำนวนผู้ป่วยย้อนหลัง 7 วัน",
-            width: 500,
+            title: "จำนวนผู้ป่วยย้อนหลัง {{ NumDay }} วัน",
+            width: '100%',
             height: 500,
             bar: {groupWidth: "60%"},
             legend: { position: "left" },
@@ -92,7 +98,7 @@ function drawChart() {
                        2]);
   
     var optionsUnit = {
-            title: "ขรก.ประจำการป่วย ย้อนหลัง 7 วัน",
+            title: "ขรก.ประจำ ย้อนหลัง {{ NumDay }} วัน",
             width: '100%',
             height: 500,
             bar: {groupWidth: "60%"},

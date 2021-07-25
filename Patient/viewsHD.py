@@ -26,8 +26,8 @@ from Patient.models import (Patient,
                             TreatmentLog)
 
 @login_required
-def dashboard(request):
-    last7day = timezone.now().date() - timedelta(days=6)
+def dashboard(request,num_day = 7):
+    last7day = timezone.now().date() - timedelta(days=num_day)
     yesterday = timezone.now().date() - timedelta(days=1)
     today = timezone.now().date()
     PatientCount = Patient.objects.filter(Date__range=(last7day,today)
@@ -44,8 +44,12 @@ def dashboard(request):
                                  ).annotate(NumPatient = Count('id'))
 
     
-    context = {'PatientCount' : PatientCount, 'UnitCount' : UnitCount}
-    print('PatientCount : ',PatientCount)
+    context = {
+            'PatientCount' : PatientCount, 
+            'UnitCount' : UnitCount,
+            'NumDay' : num_day,
+            'ChartWidth' : 500 + (num_day - 7)* 50 if num_day > 7 else 500}
+    # print('PatientCount : ',PatientCount)
 
 
     return render(request, "Patient/dashboard.html",context)
@@ -140,14 +144,10 @@ class PatientListView(LoginRequiredMixin,ListView):
         print('PatientType',PatientType)
         if PatientType == 0:
             queryset = Patient.objects.all()   
-        elif PatientType == 1:
-            queryset = Patient.objects.filter(IsAMED = True)
-        elif PatientType == 2:
-            queryset = Patient.objects.filter(FullName__icontains="พลฯ")
-        elif PatientType == 3:
-            queryset = Patient.objects.exclude(FullName__icontains="พลฯ")     
         elif PatientType == 4:
-            queryset = Patient.objects.filter(IsAirforce = True)            
+            queryset = Patient.objects.filter(IsAMED = True)
+        else:
+            queryset = Patient.objects.filter(AirforceType = PatientType)            
 
         nameSearch = self.request.GET.get('textsearch')
         print('nameSearch = ',nameSearch)
