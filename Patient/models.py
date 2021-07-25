@@ -6,6 +6,14 @@ from django.db.models.fields import BooleanField
 
 from UserData.models import User
 
+AIRFORCE_TYPE_CHOICE = (
+    ( 0 ,  'ไม่ระบุ' ) ,
+    ( 1 ,  'ทหารประจำการ' ) ,
+    ( 2 ,  'พลทหาร' ) ,
+    ( 3 ,  'ครอบครัว' ) ,
+    ( 4 ,  'บุคคลภายนอก' ) ,
+)
+
 RIGHT_MEDICAL_TREATMENT_CHOICE = (
     ( 0 ,  'ไม่ระบุ' ) ,
     ( 1 ,  'เบิกจ่ายตรง (กรมบัญชีกลาง)' ) ,
@@ -90,11 +98,16 @@ class Patient(models.Model):
                             verbose_name = 'ที่ทำงาน/สังกัด',
                             blank = True, 
                             null = True,)
+    AirforceType = models.IntegerField(
+                            choices = AIRFORCE_TYPE_CHOICE, 
+                            default = 0, 
+                            null=True,
+                            verbose_name = 'ประเภทข้าราชการ')                             
     IsAirforce = BooleanField(
-                                    default = False, 
-                                    verbose_name= "ขรก.ทอ.",
-                                    blank = True, 
-                                    null = True,)
+                            default = False, 
+                            verbose_name= "ขรก.ทอ.",
+                            blank = True, 
+                            null = True,)
     DatePositive  = models.DateField(
                                     blank = True, 
                                     null = True,

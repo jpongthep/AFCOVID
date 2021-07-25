@@ -95,8 +95,6 @@ class PatientAddNewView(LoginRequiredMixin,CreateView):
         return redirect(reverse('Patient:List', kwargs={'PatientType': 0}))
 
  
-
-
 class PatientListView(LoginRequiredMixin,ListView):
     login_url = '/login'
     model = Patient
