@@ -19,7 +19,7 @@ class PatientBasicDataForm(ModelForm):
                     'BirthDay', 
                     'PersonID', 
                     'Office', 
-                    'IsAirforce',
+                    'AirforceType',
                     'Mobile', 
                     'Address', 
                     'EmergencyMobile', 
@@ -61,7 +61,9 @@ class PatientBasicDataForm(ModelForm):
                         'rows': 3,
                         'cols': 40
                         }),
-            'IsAirforce': forms.CheckboxInput(attrs={'class': 'form-control',}),                          
+            'AirforceType': forms.Select(
+                    attrs={'class': 'form-control', 
+                        }),  
     
             'Mobile': forms.TextInput(
                     attrs={'class': 'form-control', 
