@@ -292,13 +292,11 @@ class AMEDPatient(models.Model):
                                 verbose_name = 'เลขบัตรประชาชน')
     HNNumber = models.CharField(
                                 max_length = 20,
-                                unique = True,
                                 blank = True,
                                 null = True,
                                 verbose_name = 'เลขผู้ป่วยนอก')
     ANNumber = models.CharField(
                                 max_length = 20,
-                                unique = True,
                                 blank = True,
                                 null = True,
                                 verbose_name = 'เลขผู้ป่วยใน')
