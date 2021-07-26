@@ -309,8 +309,7 @@ class AMEDPatient(models.Model):
                                 blank = True, 
                                 null = True,
                                 verbose_name = 'ชื่อผู้ป่วย')
-    Mobile = models.CharField(
-                                max_length = 20,
+    Mobile = models.CharField(max_length = 20,
                                 blank = True, 
                                 null = True,
                                 verbose_name = 'เบอร์มือถือ')
@@ -324,8 +323,11 @@ class AMEDPatient(models.Model):
                                 choices = CHOICE_STATUSLEVEL, 
                                 default = 0, 
                                 null=True)
-    Comment  = models.TextField(default = None, 
-                                verbose_name = "คำอธิบาย",
+
+    Report  = models.TextField(verbose_name = "รายงานใน AMED",
+                                null=True,
+                                blank = True)                                
+    Comment  = models.TextField(verbose_name = "คำอธิบาย",
                                 null=True,
                                 blank = True)                                
 
