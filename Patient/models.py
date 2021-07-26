@@ -10,8 +10,11 @@ AIRFORCE_TYPE_CHOICE = (
     ( 0 ,  'ไม่ระบุ' ) ,
     ( 1 ,  'ทหารประจำการ' ) ,
     ( 2 ,  'พลทหาร' ) ,
-    ( 3 ,  'ครอบครัว' ) ,
-    ( 4 ,  'บุคคลภายนอก' ) ,
+    ( 3 ,  'พนง.ราชการ' ) ,
+    ( 4 ,  'ลูกจ้างประจำ' ) ,
+    ( 5 ,  'ลูกจ้างชั่วคราว' ) ,
+    ( 6 ,  'ครอบครัว ทอ.' ) ,
+    ( 7 ,  'บุคคลภายนอก' ) ,
 )
 
 RIGHT_MEDICAL_TREATMENT_CHOICE = (
@@ -311,10 +314,20 @@ class AMEDPatient(models.Model):
                                 blank = True, 
                                 null = True,
                                 verbose_name = 'เบอร์มือถือ')
+    RightMedicalTreatment = models.IntegerField(
+                            choices = RIGHT_MEDICAL_TREATMENT_CHOICE, 
+                            default = 0, 
+                            verbose_name = 'สิทธิ์การรักษาพยาบาล', 
+                            null = True,
+                            blank = True)                                
     Symtom = models.IntegerField(
                                 choices = CHOICE_STATUSLEVEL, 
                                 default = 0, 
                                 null=True)
+    Comment  = models.TextField(default = None, 
+                                verbose_name = "คำอธิบาย",
+                                null=True,
+                                blank = True)                                
 
     def __str__(self):
         return self.FullName
