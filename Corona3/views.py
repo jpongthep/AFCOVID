@@ -17,6 +17,11 @@ class Corona3BasicFormAddNewView(CreateView):
     def form_invalid(self, form):
         print(self.request, form.errors)
         return super().form_invalid(form)
+    
+    def post(self, request):
+        super(Corona3BasicFormAddNewView, self).post(request)
+        messages.success(request, 'ส่งข้อมูลเรียบร้อยแล้ว')
+        return redirect('/CRN3/BasicData/')
 
 
 
