@@ -175,11 +175,11 @@
               <li class="page-item"><a class="page-link active"><strong>{{ i }}</strong></a></li>
             {% elif i <= 4 or i >= paginator.num_pages|add:"-3" %}
               <li class="page-item">              
-                <a class="page-link" href="{% url_replace request 'page' i %}">{{ i }}</a>
+                <a class="page-link" href="?{% url_replace request 'page' i %}">{{ i }}</a>
               </li>
             {% elif page_obj.number >=  i|add:"-3"  and page_obj.number <=  i|add:"3"%}
               <li class="page-item">
-                <a class="page-link" href="{% url_replace request 'page' i %}">{{ i }}</a>                
+                <a class="page-link" href="?{% url_replace request 'page' i %}">{{ i }}</a>                
               </li>
             {% else %}
               <li class="page-item">
