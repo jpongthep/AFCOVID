@@ -6,8 +6,9 @@ from Patient.models import  Patient
 class Corona3Admin(admin.ModelAdmin):
     list_display = ['DateReport','FullName','PersonID','Age']
     list_display_links = ['FullName',]
-    # search_fields = ['FullName']
-    # list_filter = ['Date','CurrentStatus','CurrentTreatment']
+    date_hierarchy = 'DateReport'
+    search_fields = ['FullName']
+    list_filter = ['DateReport']
     # # list_editable = ['Type','NumDay']
     
 

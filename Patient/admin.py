@@ -8,9 +8,10 @@ from Patient.models import ( Patient,
 class PatientAdmin(admin.ModelAdmin):
     list_display = ['Date','FullName','PersonID','AirforceType','Office']
     search_fields = ['FullName']
-    list_filter = ['Date','CurrentStatus','CurrentTreatment']
+    list_filter = ['Date','Office','AirforceType']
     list_editable = ['AirforceType','Office']
     list_display_links = ['FullName',]
+    date_hierarchy = 'Date'
 
 
 class StatusLogAdmin(admin.ModelAdmin):
