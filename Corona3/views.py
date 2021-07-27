@@ -21,7 +21,11 @@ class Corona3BasicFormAddNewView(CreateView):
     
     def post(self, request):
         super(Corona3BasicFormAddNewView, self).post(request)
+<<<<<<< HEAD
         messages.success(request,"บันทึกข้อมูลเรียบร้อย")
+=======
+        messages.success(request, 'ส่งข้อมูลเรียบร้อยแล้ว')
+>>>>>>> d793dce885a21c7f4bf4c194a22846c1bb98f728
         return redirect('/CRN3/BasicData/')
 
 
