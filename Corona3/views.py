@@ -2,6 +2,7 @@
 from django.forms.forms import Form
 from django.views.generic import CreateView
 from django.contrib import messages
+from django.shortcuts import redirect
 
 from .models import Corona3
 from .forms import Corona3BasicDataForm
