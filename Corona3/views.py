@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.shortcuts import redirect
 
 from .models import Corona3
-from .forms import BasicDataForm
+from .forms import BasicDataForm, minDataForm
 
 
 class BasicFormAddNewView(CreateView):
@@ -27,18 +27,18 @@ class BasicFormAddNewView(CreateView):
 class minDataAddNewView(CreateView):
 
     model = Corona3
-    form_class = BasicDataForm
+    form_class = minDataForm
     template_name = 'Corona3/minData.html' 
-    success_url = '/CRN3/BasicData/'
+    success_url = '/CRN3/minData/'
     
     def form_invalid(self, form):
         print(self.request, form.errors)
         return super().form_invalid(form)
     
     def post(self, request):
-        super(BasicFormAddNewView, self).post(request)
+        super(minDataAddNewView, self).post(request)
         messages.success(request,"บันทึกข้อมูลเรียบร้อย")
-        return redirect('/CRN3/BasicData/')
+        return redirect('/CRN3/minData/')
 
 
 
