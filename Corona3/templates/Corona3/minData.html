@@ -1,0 +1,319 @@
+{% extends '_blank.html' %}
+{% load static %}
+{% load thaidate %}
+
+{% block title %}เพิ่มฟอร์ม Corona3{% endblock %}
+
+{% block BodyTitle %}
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">แบบฟอร์มกรอกข้อมูลผู้ป่วย COVID-19 ในพื้นที่ดอนเมือง สายไหม รังสิต</h4>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+
+<body>
+    <div class="container">
+
+        <label class="list-group-item bg-primary" >ข้อมูลพื้นฐาน</label>
+       
+        <form action="create.php" id="frm_ticket" method="post" autocomplete="off">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="basicInput">หมายเลขบัตรประจำตัวประชาชน <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" name="card_no" id="card_no"
+                        placeholder="" value="" maxlength="13"
+                    >
+                    <input type="text" class="form-control" name="card_no_p" id="card_no_p"
+                        placeholder="" value="" maxlength="20" style="display: none;">
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label for="basicInput">คำนำหน้า ชื่อ-นามสกุล </label> <span class="text-danger">*</span>
+                    <input type="text" class="form-control" name="name" id="name"
+                        placeholder="" value="">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label for="basicInput">ที่อยู่ ที่พักปัจจุบัน (สำหรับส่งยา-เวชภัณฑ์-อาหาร) </label> <span class="text-danger">*</span>
+                    <input type="text" class="form-control" name="addr_no" id="addr_no"
+                        placeholder="บ้านเลขที่ หมู่ ถนน ตำบล อำเภอ จังหวัด" value=""
+                    >
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="basicInput">Google Map Code Plus </label> วิธีหา
+                    <input type="text" class="form-control" name="addr_no" id="addr_no"
+                    >
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="basicInput">ปี พ.ศ.เกิด </label>
+                    <input type="text" class="form-control" name="tel" id="tel"
+                        placeholder="" value=""
+                    >
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="basicInput">สัญชาติ </label>
+                    <input type="text" class="form-control" name="tel_f" id="tel_f"
+                        placeholder="" value=""
+                    >
+                </div>
+            </div>                
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="basicInput">เพศ </label>
+                    <input type="text" class="form-control" name="tel_f" id="tel_f"
+                        placeholder="" value=""
+                    >
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="basicInput">การตั้งครรภ์ (เฉพาะเพศหญิง) </label>
+                    <select name="CaseFemale" class="form-control" id="id_CaseFemale">                            
+                        <option value="0" default>-</option>
+                        <option value="1">ไม่ตั้งครรภ์</option>
+                        <option value="2">ตั้งครรภ์</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="basicInput">ศาสนา</label>
+                    <input type="text" class="form-control" name="tel" id="tel"
+                        placeholder="" value=""
+                    >
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="basicInput">หมู่เลือด </label>
+                    <input type="text" class="form-control" name="tel_f" id="tel_f"
+                        placeholder="" value=""
+                    >
+                </div>
+            </div>                
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="basicInput">สิทธิ์การรักษาพยาบาล</label> <span class="text-danger">*</span>
+                    <select name="CaseFemale" class="form-control" id="id_CaseFemale">                            
+                        <option value="0" default>-</option>
+                        <option value="1">ไม่ตั้งครรภ์</option>
+                        <option value="2">ตั้งครรภ์</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="basicInput">ต้นสังกัดที่เบิกค่ารักษาพยาบาล </label>
+                    <input type="text" class="form-control" name="tel_f" id="tel_f"
+                        placeholder="" value=""
+                    >
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="basicInput">อาชีพ</label>
+                    <input type="text" class="form-control" name="tel_f" id="tel_f"
+                        placeholder="" value=""
+                    >
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="basicInput">ประเภทบุคลากร ทอ.</label>
+                    <select name="AirforceType" class="form-control" id="id_AirforceType">
+                        <option value="0" selected>ไม่ระบุ</option>
+                        <option value="1">ทหารประจำการ</option>
+                        <option value="2">พลทหาร</option>
+                        <option value="3">พนง.ราชการ</option>
+                        <option value="4">ลูกจ้างประจำ</option>
+                        <option value="5">ลูกจ้างชั่วคราว</option>
+                        <option value="6">ครอบครัว ทอ.</option>
+                        <option value="7">ไม่ใช่บุคลากร ทอ.</option>
+                        </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="basicInput">สังกัด / หน่วยงาน</label>
+                    <input type="text" class="form-control" name="tel_f" id="tel_f"
+                        placeholder="" value=""
+                    >
+                </div>
+            </div>                
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="basicInput">e-mail</label>
+                    <input type="email" class="form-control" name="tel_f" id="tel_f"
+                        placeholder="" value=""
+                    >
+                </div>
+            </div>                
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="basicInput">เบอร์โทรผู้ป่วย </label> <span class="text-danger">*</span>
+                    <input type="text" class="form-control" name="tel" id="tel"
+                        placeholder="" value=""
+                    >
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="basicInput">เบอร์โทรญาติ </label>
+                    <input type="text" class="form-control" name="tel_f" id="tel_f"
+                        placeholder="" value=""
+                    >
+                </div>
+            </div>
+        </div>
+
+
+    <label class="list-group-item bg-warning" >ข้อมูลคลีนิค</label>
+    
+        <div class="row  mt-3">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="basicInput">วันที่เริ่มป่วย </label>
+                    <input type="date" name="DatePatient" value="2021-07-28" class="form-control" placeholder="Select a date" required="" id="id_DatePatient">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="basicInput">ระดับอาการ </label> (คำอธิบาย)
+                    <select name="CurrentStatus" class="form-control" id="id_CurrentStatus">
+                        <option value="0" selected="">ไม่ระบุ</option>
+                        <option value="1">สีเขียว - ไม่มีอาการ</option>
+                        <option value="2">สีเหลืองอ่อน - ไข้ต่ำ</option>
+                        <option value="3">สีเหลืองเข้ม - ไข้สูง</option>
+                        <option value="4">สีแดง - ไข้สูงมาก</option>                        
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="basicInput">ข้อมูลการรับวัคซีน COVID </label>
+                     <input type="email" class="form-control" name="tel_f" id="tel_f"
+                        placeholder="" value=""
+                    >
+                </div>
+            </div>  
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="basicInput">ผลตรวจ ATK </label> (คำอธิบาย) <span class="text-danger">*</span>
+                    <input type="file" name="Corona3" class="form-control" id="id_Corona3">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="basicInput">ผลตรวจ PCR </label> (คำอธิบาย) <span class="text-danger">*</span>
+                    <input type="file" name="Corona3" class="form-control" id="id_Corona3">
+                </div>
+            </div>            
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="basicInput">สามารถทำ Home Isolation </label>
+                    <select name="CurrentStatus" class="form-control" id="id_CurrentStatus">
+                        <option value="0" selected="">-</option>
+                        <option value="1">ได้</option>
+                        <option value="2">ไม่ได้</option>                        
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="basicInput">จำนวนผู้พักอาศัยร่วม </label>
+                     <input type="email" class="form-control" name="tel_f" id="tel_f"
+                        placeholder="" value=""
+                    >
+                </div>
+            </div>          
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="basicInput">โรคประจำตัว </label>
+                    <input type="email" class="form-control" name="tel_f" id="tel_f"
+                        placeholder="" value=""
+                    >
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="basicInput">ประวัติการแพ้ยา </label>
+                     <input type="email" class="form-control" name="tel_f" id="tel_f"
+                        placeholder="" value=""
+                    >
+                </div>
+            </div>          
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="basicInput">อาการ </label>
+                    <input type="email" class="form-control" name="tel_f" id="tel_f"
+                        placeholder="" value=""
+                    >
+                </div>
+            </div>          
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="basicInput">หมายเหตุ / บันทึกอื่น ๆ  </label>
+
+                    <textarea class="form-control" id="notice" name="notice"
+                    rows="3"></textarea>
+                </div>
+            </div>          
+        </div>
+
+        
+    </form>
+
+
+    </div>
+{% endblock %}

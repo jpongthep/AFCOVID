@@ -91,20 +91,19 @@
     <div class="content-wrap">
 
    
-            <div class="container-fluid">
-                
-                <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                  <strong>ข้อมูล Corona3</strong>  กรุณากรอกเท่าที่สามารถกรอกได้ โดยกรอก 1 ฟอร์มต่อผู้ป่วย (หรือผู้ใกล้ชิด)  1 คน
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-        <div class="main">
-                  
-                {% include "DisplayMessage.html" %}
-                
-                {% block content %}
+        <div class="container-fluid">                
+            {% block BodyTitle %}
+            <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                <strong>ข้อมูล Corona3</strong>  กรุณากรอกเท่าที่สามารถกรอกได้ โดยกรอก 1 ฟอร์มต่อผู้ป่วย (หรือผู้ใกล้ชิด)  1 คน
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endblock %}
 
+            <div class="main">                    
+                {% include "DisplayMessage.html" %}                
+                {% block content %}
                 {% endblock %}
             </div>
         </div>

@@ -3,7 +3,7 @@ from django.forms import ModelForm
 
 from Corona3.models import Corona3
 
-class Corona3BasicDataForm(ModelForm):
+class BasicDataForm(ModelForm):
     class Meta:
         model = Corona3
         fields = [  'PersonID',
