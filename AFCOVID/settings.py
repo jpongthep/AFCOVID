@@ -39,6 +39,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
 ROOT_URLCONF = 'AFCOVID.urls'
 
 TEMPLATES = [

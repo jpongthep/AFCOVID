@@ -38,6 +38,18 @@
         display: table;
         }    
 
+      .badge {
+          display: inline-block;
+          padding: .35em .65em;
+          font-size: .60em!important;
+          font-weight: 700;
+          line-height: 1;
+          color: #fff;
+          text-align: center;
+          white-space: nowrap;
+          vertical-align: baseline;
+          border-radius: 50rem;
+      }
 
     </style>
 
@@ -51,7 +63,9 @@
             <button type="submit"><i class="fa fa-search"></i></button>
         </form>
     </div>
+
     <div class="table-responsive">
+      <h4>List Page</h4>
       <table class="table table-striped table-bordered">
         <col width="80">
         <col width="330">
@@ -97,7 +111,11 @@
               {{ patient.FullName }} 
               {% if patient.Age > 0 %}
                 ({{ patient.Age }})
-              {% endif %}            
+              {% endif %}
+
+              {% if patient.IsAMED %}
+                <span class="badge rounded-pill bg-secondary">AMED</span>
+              {% endif %}
             </td>            
             <td>
                 {{ patient.Office}} 
