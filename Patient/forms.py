@@ -6,6 +6,7 @@ from Patient.models import (
                             Patient, 
                             StatusLog, 
                             TreatmentLog,
+                            AMEDPatient,
                             RIGHT_MEDICAL_TREATMENT_CHOICE)
 
 class PatientBasicDataForm(ModelForm):
@@ -195,3 +196,26 @@ class TreatmentLogForm(ModelForm):
                         'rows': 3,
                         }), 
         }
+
+
+class AMEDPatientBasicForm(ModelForm):
+    class Meta:
+        model = AMEDPatient
+        fields = ('PersonID','HNNumber','ANNumber','FullName','Mobile','RightMedicalTreatment','Symtom','Report','Comment')
+#         fields = ('PersonID','HNNumber','ANNumber','FullName','Mobile','Symtom','Report','Comment')
+# class AMEDPatientForm(AMEDPatientBasicForm):
+#         # exclude = ('HNNumber',)
+
+#     def __init__(self, *args, **kwargs):
+#         super(AMEDPatientBasicForm, self).__init__(*args, **kwargs)
+
+#         self.fields['RightMedicalTreatment'] = forms.ChoiceField(
+#                                                         widget  = forms.RadioSelect, 
+#                                                         choices = RIGHT_MEDICAL_TREATMENT_CHOICE)
+        
+                
+#     class Meta(AMEDPatientBasicForm.Meta):
+#         fields = AMEDPatientBasicForm.Meta.fields + [
+#                     'PersonID',
+#                     'RightMedicalTreatment',
+#                 ]
