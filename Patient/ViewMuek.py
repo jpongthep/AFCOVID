@@ -1,13 +1,12 @@
-import os
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
 from django.db.models import Q
 
 from django.shortcuts import get_object_or_404, redirect
 
-from Patient.models import AMEDPatient, Patient
+from Patient.models import AMEDPatient
 from django.shortcuts import render, redirect
-from Patient.forms import StatusLog, AMEDPatientBasicForm
+
 
 class AMEDPatientListView(LoginRequiredMixin,ListView):
     login_url = '/login'
