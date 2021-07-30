@@ -1,7 +1,10 @@
 from django.urls import path, include
+
+from Patient import ViewMuek
+from . import views
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-
+from Patient.ViewMuek import AMEDPatientListView, AmedPatientDetail
 from Patient.viewsHD import (PatientAddNewView,
                              PatientListView,
                              PatientUpdateView,
@@ -30,6 +33,9 @@ urlpatterns = [
     path('<int:PatientPk>/<int:statusPk>/DelStatus', DeletePatientStatusLog, name = 'DelStatus'),
     path('<int:pk>/updateFB', UpdatePatientData, name = 'UpdateFB'),
     
+    path('AMEDList/',AMEDPatientListView.as_view(), name = 'AMEDList'),
+    path('<int:pk>/Ameddetail', AmedPatientDetail, name = 'AmedDetail'),
+
     path('export/csv/', export_users_csv, name='export_users_csv'),
     path('exportp/csv/', export_Patient_csv, name='export_Patient_csv'),
   

@@ -90,6 +90,14 @@
                         </a>
                     </li>
 
+                    <li class="label">ข้อมูลผู้ป่วย AMED</li>
+                    
+                    <li>
+                        <a href="{% url 'Patient:AMEDList' %}">
+                            <i class="fa fa-hospital" aria-hidden="true"></i></i> รายชื่อผู้ป่วยใน AMED
+                        </a>
+                    </li>
+
                     {% comment %} 
                     <li>
                         <a href="{% url 'Patient:Detail' 1 %}">
@@ -468,21 +476,24 @@
                     </main>
 
                     <!-- /# row -->
-                    <div class="row">
+                    <div class="footer">
                         <div class="col-lg-12">
                             <div class="footer" style="text-align: center;">
                                 <img src="{% static 'assets/images/footer.png' %}" width="75px" height="auto">
                                 <span>SISD</span>
+                                {% block name %}<div>dddddd</div>                {% endblock %}
+
+
                             </div>
                         </div>
                     </div>
                 </section>
                 {% endblock %}
+                
             </div>
         </div>
         
     </div>
-
     
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <!-- jquery vendor -->

@@ -15,6 +15,7 @@ logger = logging.getLogger('LeaveLog.views')
 logger.debug("Logging is configured.")
 
 def checkRTAFPassdword(username, password):
+    pass
 
     URL = "https://api2-software.rtaf.mi.th:5051/rtaf/v3/ad/internal/login"
 
@@ -38,6 +39,7 @@ def checkRTAFPassdword(username, password):
 class SettingsBackend(ModelBackend):
 
     def authenticate(self, request, username=None, password=None):
+        pass
         # print('Username = ',username)
         try:
             user = User.objects.get(username=username)

@@ -16,6 +16,7 @@ urlpatterns = [
     path('login/', MyLoginView.as_view(), name = 'login'),
     path('logout/', authviews.LogoutView.as_view(), name = 'logout'),
    
+   
     path('CRN3/', include('Corona3.urls')),
     path('', include('Patient.urls')),
 
