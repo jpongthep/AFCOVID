@@ -1,4 +1,6 @@
 import pytest
+import json 
+
 from datetime import date
 # from django.contrib.auth.models import AnonymousUser, User
 from UserData.models import User
@@ -73,20 +75,42 @@ def test_input_patient(client):
         "Date" : date.today(),
         "AirforceType" : 1 
     }    
-    req = client.post(reverse("Patient:AddNew"), data = data)
+    response = client.post(
+                    reverse("Patient:AddNew"),
+                    data=json.dumps(data),
+                    headers={"Content-Type": "application/json"},
+            )
+    self.assertEqual(201, response.status_code)
+    self.assertEqual('Your message has been successfully saved', response.data)    
+    
+    # req = client.post(reverse("Patient:AddNew"), data = data)
 
-    print("new Patient" *5)
-    newPatient = Patient.objects.all()
-    for p in newPatient:
-        print(p)
-        assert 1 == 1
 
-    # assert 1 == 1
-    newPatient = Patient.objects.get(FullName = "NewPatient")
-    assert newPatient.PersonID == "1234567890123"
+    # newPatient = Patient.objects.get(FullName = "NewPatient")
+    # assert newPatient.PersonID == "1234567890123"
 
-    # response = client.get(reverse("Patient:List", kwargs={'PatientType':1}))
-    # assert "NewPatient" in str(response.content)
+
+# def test_post(client):
+#     assert False is Patient.objects.all().exists()
+#     LoginUser = login_user();
+#     client.force_login(LoginUser)
+      
+#     data = {
+#         "FullName" : "NewPatient",
+#         "PersonID" : "1234567890123",
+#         "DataUser" : LoginUser, 
+#         "Date" : date.today(),
+#         "AirforceType" : 1 
+#     } 
+#     req = RequestFactory().post(reverse("Patient:AddNew"), data=data)
+#     req.user = LoginUser
+#     resp = viewsHD.PatientAddNewView.as_view()(req)
+#     # assert resp.status_code == 302, "Should redirect to success url"
+#     # assert resp.url == reverse('Patient:List', kwargs={'PatientType': 0})
+#     assert Patient.objects.all().exists()
+#     assert Patient.objects.all()[0].FullName == "NewPatient"
+#     # response = client.get(reverse("Patient:List", kwargs={'PatientType':1}))
+#     # assert "NewPatient" in str(response.content)
 
 
 

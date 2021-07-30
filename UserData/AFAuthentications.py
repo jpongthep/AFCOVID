@@ -10,6 +10,10 @@ import requests as rq
 
 from .models import User, Unit
 
+import logging
+logger = logging.getLogger('LeaveLog.views')
+logger.debug("Logging is configured.")
+
 def checkRTAFPassdword(username, password):
 
     URL = "https://api2-software.rtaf.mi.th:5051/rtaf/v3/ad/internal/login"
@@ -41,8 +45,8 @@ class SettingsBackend(ModelBackend):
             if not user.is_active:
                 return None
 
-            if username in ['admin', 'TestAFCMO', 'testUnitCMO','testCRC']:
-                return user
+            # if username in ['admin', 'TestAFCMO', 'testUnitCMO','testCRC']:
+            #     return user
 
             # if not re.search("@rtaf.mi.th$",user.email):
             #     user = django_authenticate(username=username, password=password)
@@ -51,7 +55,7 @@ class SettingsBackend(ModelBackend):
             #     else:
             #         messages.error(request,f'password สำหรับ  User "{username}" ไม่ถูกต้อง')
             #         return None
-                
+
             pwd_valid = checkRTAFPassdword(username,password)
 
             if pwd_valid:
@@ -80,8 +84,9 @@ class SettingsBackend(ModelBackend):
 
                 messages.warning(request,f'ไม่มีผู้ใช้นี้ในระบบ ได้ทำการเพิ่ม "{username}" ให้แล้ว ติดต่อ Admin เพื่อเข้าใช้งาน')
             else:
+                logger.info(f'{username} พยายาม login เข้าระบบ')
                 messages.error(request,f'ไม่มีผู้ใช้ "{username}" ในระบบ')
-        
+
         return None
 
     def get_user(self, user_id):

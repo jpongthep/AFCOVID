@@ -93,7 +93,8 @@ class User(AbstractUser):
     Position  =  models.CharField(max_length=250, null = True, blank = True)
     OfficePhone =  models.CharField(max_length=10, null = True, blank = True)
     MobileTel =  models.CharField(max_length=20, null = True, blank = True)
-    Unit =  models.CharField(max_length=150, null = True, blank = True)    
+    Unit =  models.CharField(max_length=150, null = True, blank = True)
+    
 
     @property
     def FullName(self):
