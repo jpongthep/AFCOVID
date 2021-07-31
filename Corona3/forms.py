@@ -383,7 +383,6 @@ class minDataForm(ModelForm):
                     'Address',
                     'DatePatient',
                     'DiseasePatient',
-<<<<<<< HEAD
                     'CaseFemale',                   
                     'GoogleMap',
                     'Religion',
@@ -400,8 +399,7 @@ class minDataForm(ModelForm):
                     'LiveWith',
                     'DrugAllergyHistory',
                     'Symptom',
-                    'Note'
-=======
+                    'Note',
                     'CaseFemale',
                     'ReceivedVaccine',
                     'BookReceivedVaccine',
@@ -432,7 +430,6 @@ class minDataForm(ModelForm):
                     'PlaceConfineContactLowRisk1',
                     'PlaceConfineContactLowRisk2',                    
                     'DateReport'
->>>>>>> DevMuek
         ]
 
         widgets = {

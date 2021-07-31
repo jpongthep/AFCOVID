@@ -660,7 +660,6 @@ class Corona3(models.Model):
                                 blank = True,
                                 default=datetime.date.today, 
                                 verbose_name = 'วันที่')
-<<<<<<< HEAD
     GoogleMap = models.CharField(
                                 default = '-', 
                                 max_length = 100,
@@ -779,7 +778,6 @@ class Corona3(models.Model):
                                 blank = True, 
                                 null = True,
                                 verbose_name = 'หมายเหตุ')
-=======
 
 
 
@@ -790,7 +788,6 @@ class Corona3(models.Model):
         else:
             return False
             
->>>>>>> DevMuek
     @property
     def Age(self):
         if self.BirthYear:
