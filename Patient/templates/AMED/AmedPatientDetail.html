@@ -96,34 +96,50 @@ hr.new5 {
 
 <div class="container"> 
   <div class="section-title2">
-    <h3>2. ข้อมูลการติดต่อและสิทธิ์การรักษา</h3>
+    <h3>2. ข้อมูลสถานะและสิทธิ์การรักษา</h3>
   </div>
   <div class="row">
     <div class="col">
       <ul>              
-        <li><i class="bi bi-chevron-right"></i> <strong>สิทธิ์การรักษาพยาบาล : </strong> <span>{{ AMEDPatient.get_RightMedicalTreatment_display }}</span></li>
+        <li><i class="bi bi-chevron-right"></i> <strong>สิทธิ์การรักษาพยาบาล : </strong> <span>{{ AMEDPatient.get_RightMedicalTreatment_display }}
+          {{ AMEDPatient.RightMedicalTreatmentIcon | safe }}
+
+                    <abbr title="{{ AmedPatient.get_RightMedicalTreatment_display }}">
+                      {% if AMEDPatient.get_RightMedicalTreatment_display == 'เบิกจ่ายตรง(กรมบัญชีกลาง)'%}
+                          <i class="far fa-money-bill-alt" style="color:cadetblue"></i>
+                      {%elif AMEDPatient.get_RightMedicalTreatment_display == 'ประกันสังคม'%}
+                          <i class="far fa-money-bill-alt" style="color:blue"></i>
+                      {%elif AMEDPatient.get_RightMedicalTreatment_display == 'UC สปสช. '%}
+                          <i class="far fa-money-bill-alt" style="color:gold"></i>
+                      {%elif AMEDPatient.get_RightMedicalTreatment_display == 'เงินสด'%}
+                          <i class="far fa-money-bill-alt" style="color:red"></i>
+                      {% endif %}     
+                    </abbr>
+                  </span></li>
+
         <li><i class="bi bi-chevron-right"></i> <strong>สถานะการป่วย : </strong> <span>{{ AMEDPatient.get_Symtom_display }}
           {{ AMEDPatient.AmedSymtomIcon | safe }}
 
                   <abbr title="{{ AmedPatient.get_CurrentStatus_display }}">
                     {% if AMEDPatient.get_CurrentStatus_display == 'ผู้ป่วยสีเขียว'%}
-                        <i class="fa fa-first-aid fa-lg" style="color:green"></i>
+                        <i class="fas fa-address-book" style="color:green"></i>
                     {%elif AMEDPatient.get_CurrentStatus_display == 'ผู้ป่วยสีเหลืองอ่อน'%}
-                        <i class="fa fa-first-aid fa-lg" style="color:yellow"></i>
+                        <i class="fas fa-address-book" style="color:yellow"></i>
                     {%elif AMEDPatient.get_CurrentStatus_display == 'ผู้ป่วยสีเหลืองเข้ม'%}
-                        <i class="fa fa-procedures fa-lg" style="color:yellowgreen"></i>
+                        <i class="fas fa-address-book" style="color:gold"></i>
                     {%elif AMEDPatient.get_CurrentStatus_display == 'ผู้ป่วยสีแดง'%}
-                        <i class="fa fa-procedures fa-lg" style="color:red"></i>
+                        <i class="fas fa-address-book" style="color:red"></i>
                     {%elif AMEDPatient.get_CurrentStatus_display == 'หายป่วย'%}
-                        <i class="fa fa-walking fa-lg" style="color:blue"></i>
+                        <i class="fa fa-child fa-lg" style="color:blue"></i>
                     {%elif AMEDPatient.get_CurrentStatus_display == 'เสียชีวิต'%}
-                        <i class="fa fa-bed fa-lg" style="color:black"></i>
+                    <i class="fas fa-user-alt-slash" style="color:black"></i>
+                    {%elif AMEDPatient.get_CurrentStatus_display == 'ผู้ใกล้ชิดเสี่ยงสูง'%}
+                        <i class="fa fa-bed fa-lg" style="color:blue"></i>
                     {%elif AMEDPatient.get_CurrentStatus_display == 'ผู้ใกล้ชิดปลอดเชื้อ'%}
-                        <i class="fa fa-bed fa-lg" style="color:pink"></i>
+                    <i class="fas fa-address-book" style="color:blue"></i>
                     {%elif AMEDPatient.get_CurrentStatus_display == 'ผู้ใกล้ชิดติดเชื้อ'%}
-                        <i class="fa fa-bed fa-lg" style="color:violet"></i>
-                    {%else%}
-                         <i class="fa fa-question-circle fa-lg" style="color:rgb(160,160,160)"></i>
+                    <i class="fas fa-address-book" style="color:blue"></i>
+                    
                     {% endif %}     
                   <abbr>        
         </span></li>

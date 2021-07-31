@@ -339,35 +339,40 @@ class AMEDPatient(models.Model):
         if self.Symtom == 0:
             return f'<abbr title="{self.get_Symtom_display()}"><i class="fa fa-question-circle fa-lg" style="color:rgb(160,160,160)"></i></abbr>'
         elif self.Symtom == 1:
-            return f'<abbr title="{self.get_Symtom_display()}"><i class="fa fa-male fa-lg" style="color:rgb(246,199,0)"></i>---<i class="fa fa-male fa-lg" style="color:green"></i></abbr>'
+            return f'<abbr title="{self.get_Symtom_display()}"><i class="fas fa-address-book" style="color:green"></i></abbr>'
         elif self.Symtom == 2:
-            return f'<abbr title="{self.get_Symtom_display()}"><i class="fa fa-home fa-lg" style="color:yellow"></i></abbr>'
+            return f'<abbr title="{self.get_Symtom_display()}"><i class="fas fa-address-book" style="color:yellow"></i></abbr>'
         elif self.Symtom == 3:
-            return f'<abbr title="{self.get_Symtom_display()}"><i class="fa fa-home fa-lg" style="color:yellowgreen"></i></abbr>'
+            return f'<abbr title="{self.get_Symtom_display()}"><i class="fas fa-address-book" style="color:gold"></i></abbr>'
         elif self.Symtom == 4:
-            return f'<abbr title="{self.get_Symtom_display()}"><i class="fa fa-home fa-lg" style="color:black"></i></abbr>'
+            return f'<abbr title="{self.get_Symtom_display()}"><i class="fas fa-address-book" style="color:red"></i></abbr>'
         elif self.Symtom == 5:
-            return f'<abbr title="{self.get_Symtom_display()}"><i class="fa fa-hospital-symbol fa-lg" style="color:green"></i></abbr>'
+            return f'<abbr title="{self.get_Symtom_display()}"><i class="fa fa-child fa-lg" style="color:blue"></i></abbr>'
         elif self.Symtom == 6:
-            return f'<abbr title="{self.get_Symtom_display()}"><i class="fa fa-hospital fa-lg" style="color:yellow"></i></abbr>'
+            return f'<abbr title="{self.get_Symtom_display()}"><i class="fas fa-user-alt-slash" style="color:black"></i></abbr>'
         elif self.Symtom == 7:
-            return f'<abbr title="{self.get_Symtom_display()}"><i class="fa fa-hospital fa-lg" style="color:red"></i></abbr>'
+            return f'<abbr title="{self.get_Symtom_display()}"><i class="fas fa-address-book" style="color:blue"></i></abbr>---<i class="fa fa-male fa-lg" style="color:gold"></i></abbr>'
    
         elif self.Symtom == 8:
-            return f'<abbr title="{self.get_Symtom_display()}"><i class="fa fa-hospital fa-lg" style="color:pink"></i></abbr>'
+            return f'<abbr title="{self.get_Symtom_display()}"><i class="fas fa-address-book" style="color:blue"></i></abbr>---<i class="fa fa-male fa-lg" style="color:blue"></i></abbr>'
    
         elif self.Symtom == 9:
-            return f'<abbr title="{self.get_Symtom_display()}"><i class="fa fa-hospital fa-lg" style="color:violet"></i></abbr>'
+            return f'<abbr title="{self.get_Symtom_display()}"><i class="fas fa-address-book" style="color:blue"></i></abbr>---<i class="fa fa-male fa-lg" style="color:red"></i></abbr>'
    
-    # @property
-    # def RightMedicalTreatmentDetail(self):
-    #     if self.CurrentTreatment == 0:
-    #         return f'<abbr title="{self.get_RightMedicalTreatment_display()}"><i class="fa fa-question-circle fa-lg" style="color:rgb(160,160,160)"></i></abbr>'
-    #     elif self.CurrentTreatment == 1:
-    #         return f'<abbr title="{self.get_RightMedicalTreatment_display()}"><i class="fa fa-male fa-lg" style="color:rgb(246,199,0)"></i>---<i class="fa fa-male fa-lg" style="color:green"></i></abbr>'
-    #     elif self.CurrentTreatment == 2:
-    #         return f'<abbr title="{self.get_RightMedicalTreatment_display()}"><i class="fa fa-home fa-lg" style="color:green"></i></abbr>'
-    #     elif self.CurrentTreatment == 3:
-    #         return f'<abbr title="{self.get_RightMedicalTreatment_display()}"><i class="fa fa-home fa-lg" style="color:yellow"></i></abbr>'
-    #     elif self.CurrentTreatment == 4:
-    #         return f'<abbr title="{self.get_RightMedicalTreatment_display()}"><i class="fa fa-home fa-lg" style="color:black"></i></abbr>'
+    @property
+    def RightMedicalTreatmentIcon(self):
+        if self.RightMedicalTreatment == 0:
+            return f'<abbr title="{self.get_RightMedicalTreatment_display()}"><i class="fa fa-question-circle fa-lg" style="color:rgb(160,160,160)"></i></abbr>'
+        elif self.RightMedicalTreatment == 1:
+            return f'<abbr title="{self.get_RightMedicalTreatment_display()}"><i class="far fa-money-bill-alt" style="color:green"></i></abbr>---><i class="fas fa-school" style="color:blue"></i></abbr>'
+        
+        elif self.RightMedicalTreatment == 2:
+            return f'<abbr title="{self.get_RightMedicalTreatment_display()}"><i class="far fa-money-bill-alt" style="color:blue"></i></abbr>'
+        elif self.RightMedicalTreatment == 3:
+            return f'<abbr title="{self.get_RightMedicalTreatment_display()}"><i class="far fa-money-bill-alt" style="color:yellow"></i></abbr>---><i class="fas fa-school" style="color:gold"></i></abbr>'
+   
+        elif self.RightMedicalTreatment == 4:
+            return f'<abbr title="{self.get_RightMedicalTreatment_display()}"><i class="far fa-money-bill-alt" style="color:red"></i></abbr>'
+            
+
+

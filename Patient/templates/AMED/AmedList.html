@@ -91,21 +91,24 @@
                 <span class="float-right">
                   <abbr title="{{ AmedPatient.get_CurrentStatus_display }}">
                     {% if AmedPatient.get_CurrentStatus_display == 'ผู้ป่วยสีเขียว'%}
-                        <i class="fa fa-first-aid fa-lg" style="color:rgb(50,205,50)"></i>
+                        <i class="fas fa-address-book" style="color:green"></i>
                     {%elif AmedPatient.get_CurrentStatus_display == 'ผู้ป่วยสีเหลืองอ่อน'%}
-                        <i class="fa fa-first-aid fa-lg" style="color:rgb(255,255,0)"></i>
+                        <i class="fas fa-address-book" style="color:yellow"></i>
                     {%elif AmedPatient.get_CurrentStatus_display == 'ผู้ป่วยสีเหลืองเข้ม'%}
-                        <i class="fa fa-procedures fa-lg" style="color:rgb(246,199,0)"></i>
+                        <i class="fas fa-address-book" style="color:gold"></i>
                     {%elif AmedPatient.get_CurrentStatus_display == 'ผู้ป่วยสีแดง'%}
-                        <i class="fa fa-procedures fa-lg" style="color:red"></i>
+                        <i class="fas fa-address-book" style="color:red"></i>
                     {%elif AmedPatient.get_CurrentStatus_display == 'หายป่วย'%}
-                        <i class="fa fa-walking fa-lg" style="color:blue"></i>
+                        <i class="fa fa-child fa-lg" style="color:blue"></i>
                     {%elif AmedPatient.get_CurrentStatus_display == 'เสียชีวิต'%}
-                        <i class="fa fa-bed fa-lg" style="color:black"></i>
-                    {%elif AmedPatient.get_CurrentStatus_display == 'ผู้ใกล้ชิดปลอดเชื้อ'%}
-                        <i class="fa fa-bed fa-lg" style="color:pink"></i>
-                    {%elif AmedPatient.get_CurrentStatus_display == 'ผู้ใกล้ชิดติดเชื้อ'%}
-                        <i class="fa fa-bed fa-lg" style="color:violet"></i>
+                        <i class="fas fa-user-alt-slash" style="color:black"></i>
+                    {%elif AMEDPatient.get_CurrentStatus_display == 'ผู้ใกล้ชิดเสี่ยงสูง'%}
+                        <i class="fas fa-address-book" style="color:blue"></i>
+                    {%elif AMEDPatient.get_CurrentStatus_display == 'ผู้ใกล้ชิดปลอดเชื้อ'%}
+                        <i class="fas fa-address-book" style="color:blue"></i>
+                    {%elif AMEDPatient.get_CurrentStatus_display == 'ผู้ใกล้ชิดติดเชื้อ'%}
+                        <i class="fas fa-address-book" style="color:blue"></i>
+                    
                     
                     {% endif %}     
                   <abbr>        
