@@ -60,7 +60,9 @@ class Patient(models.Model):
     DataUser = models.ForeignKey(
                                 User, 
                                 on_delete=models.DO_NOTHING, 
-                                related_name='DataUser', 
+                                related_name='DataUser',
+                                blank = True, 
+                                null = True, 
                                 verbose_name = 'ผู้บันทึก')
     FullName = models.CharField(                                
                                 max_length = 255,

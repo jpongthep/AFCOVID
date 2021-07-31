@@ -80,12 +80,13 @@ def get_template_name(user):
     else:
         return 'Patient/List.html' #'Patient/ListAFCMO.html'
 
-class PatientAddNewView(LoginRequiredMixin,CreateView):
+class PatientAddNewView(CreateView):
     login_url = '/login'
     model = Patient
     # fields = '__all__'
-    # form_class = PatientForm
-    template_name = 'Patient/AddNew.html'    
+    form_class = PatientForm
+    template_name = 'Patient/AddNew.html'   
+    success_url = '/0/List' 
     
     def get_form_class(self):
         return get_form_class(self.request.user)
