@@ -48,13 +48,13 @@
     </div>
     <div class = "float-right">
       <form class="example" action="" style="margin:auto;max-width:400px">
-          <input type="text" placeholder="Search ANNumber" name="ANNumber">
+          <input type="text" placeholder="Search ผู้ป่วยนอก" name="ANNumber">
           <button type="submit"><i class="fa fa-search"></i></button>
       </form>
   </div>
     <div class = "float-right">
       <form class="example" action="" style="margin:auto;max-width:400px">
-          <input type="text" placeholder="Search HNNumber" name="HNNumber">
+          <input type="text" placeholder="Search ผู้ป่วยใน" name="HNNumber">
           <button type="submit"><i class="fa fa-search"></i></button>
       </form>
     </div>
@@ -106,8 +106,7 @@
                         <i class="fa fa-bed fa-lg" style="color:pink"></i>
                     {%elif AmedPatient.get_CurrentStatus_display == 'ผู้ใกล้ชิดติดเชื้อ'%}
                         <i class="fa fa-bed fa-lg" style="color:violet"></i>
-                    {%else%}
-                         <i class="fa fa-question-circle fa-lg" style="color:rgb(160,160,160)"></i>
+                    
                     {% endif %}     
                   <abbr>        
                 </span>

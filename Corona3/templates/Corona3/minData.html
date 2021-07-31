@@ -22,7 +22,7 @@
 
         <label class="list-group-item bg-primary" >ข้อมูลพื้นฐาน</label>
        
-        <form action="create.php" id="frm_ticket" method="post" autocomplete="off">
+        <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="row">
             <div class="col-md-4">
@@ -48,9 +48,8 @@
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="basicInput">Google Map Code Plus </label> วิธีหา <span class="text-danger">New</span>
-                    <input type="text" class="form-control" name="addr_no" id="addr_no" placeholder=""
-                    >
+                    <label for="basicInput">Google Map Code Plus </label> วิธีหา
+                    {{ form.GoogleMap }}
                 </div>
             </div>
         </div>
@@ -77,12 +76,8 @@
 
             <div class="col-md-3">
                 <div class="form-group">
-                    <label for="basicInput">การตั้งครรภ์ (เฉพาะเพศหญิง) </label><span class="text-danger">New</span>
-                    <select name="CaseFemale" class="form-control" id="id_CaseFemale">                            
-                        <option value="0" default>-</option>
-                        <option value="1">ไม่ตั้งครรภ์</option>
-                        <option value="2">ตั้งครรภ์</option>
-                    </select>
+                    <label for="basicInput">การตั้งครรภ์ (เฉพาะเพศหญิง) </label>
+                    {{ form.CaseFemale }}
                 </div>
             </div>
         </div>
@@ -91,38 +86,27 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="form-group">
-                    <label for="basicInput">ศาสนา</label> <span class="text-danger">New</span>
-                    <input type="text" class="form-control" name="tel" id="tel"
-                        placeholder="" value=""
-                    >
+                    <label for="basicInput">ศาสนา</label> 
+                    {{ form.Religion }}
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
-                    <label for="basicInput">หมู่เลือด </label> <span class="text-danger">New</span>
-                    <input type="text" class="form-control" name="tel_f" id="tel_f"
-                        placeholder="" value=""
-                    >
+                    <label for="basicInput">หมู่เลือด </label>
+                    {{form.BloodType }}
                 </div>
             </div>                
 
             <div class="col-md-3">
                 <div class="form-group">
-                    <label for="basicInput">สิทธิ์การรักษาพยาบาล</label> <span class="text-danger">* New</span>
-                    <select name="CaseFemale" class="form-control" id="id_CaseFemale">                            
-                        <option value="0" default>-</option>
-                        <option value="1">สวัสดิการของข้าราชการ</option>
-                        <option value="2">ประกันสังคม</option>
-                        <option value="3">หลักประกันสุขภาพ 30 บาท</option>
-                    </select>
+                    <label for="basicInput">สิทธิ์การรักษาพยาบาล</label>
+                    {{ form.RightMedicalTreatment }}
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
-                    <label for="basicInput">ต้นสังกัดที่เบิกค่ารักษาพยาบาล </label> <span class="text-danger">New</span>
-                    <input type="text" class="form-control" name="tel_f" id="tel_f"
-                        placeholder="" value=""
-                    >
+                    <label for="basicInput">ต้นสังกัดที่เบิกค่ารักษาพยาบาล </label>
+                    {{ form.TreatPlaceWork }}
                 </div>
             </div>
         </div>
@@ -135,17 +119,8 @@
             </div>
             <div class="col-md-3">
                 <div class="form-group">
-                    <label for="basicInput">ประเภทบุคลากร ทอ.</label> <span class="text-danger">New</span>
-                    <select name="AirforceType" class="form-control" id="id_AirforceType">
-                        <option value="0" selected>ไม่ระบุ</option>
-                        <option value="1">ทหารประจำการ</option>
-                        <option value="2">พลทหาร</option>
-                        <option value="3">พนง.ราชการ</option>
-                        <option value="4">ลูกจ้างประจำ</option>
-                        <option value="5">ลูกจ้างชั่วคราว</option>
-                        <option value="6">ครอบครัว ทอ.</option>
-                        <option value="7">ไม่ใช่บุคลากร ทอ.</option>
-                        </select>
+                    <label for="basicInput">ประเภทบุคลากร ทอ.</label> 
+                    {{form.AirforceType }}
                 </div>
             </div>
             <div class="col-md-3">
@@ -156,10 +131,8 @@
             </div>                
             <div class="col-md-3">
                 <div class="form-group">
-                    <label for="basicInput">e-mail</label> <span class="text-danger">New</span>
-                    <input type="email" class="form-control" name="tel_f" id="tel_f"
-                        placeholder="" value=""
-                    >
+                    <label for="basicInput">e-mail</label>
+                    {{ form.Email }}
                 </div>
             </div>                
 
@@ -174,10 +147,8 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="basicInput">เบอร์โทรญาติ </label> <span class="text-danger">New</span>
-                    <input type="text" class="form-control" name="tel_f" id="tel_f"
-                        placeholder="" value=""
-                    >
+                    <label for="basicInput">เบอร์โทรญาติ </label>
+                    {{ form.MobileRelative }}
                 </div>
             </div>
         </div>
@@ -194,14 +165,8 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="basicInput">ระดับอาการ </label> (คำอธิบาย) <span class="text-danger">New</span>
-                    <select name="CurrentStatus" class="form-control" id="id_CurrentStatus">
-                        <option value="0" selected="">ไม่ระบุ</option>
-                        <option value="1">สีเขียว - ไม่มีอาการ</option>
-                        <option value="2">สีเหลืองอ่อน - ไข้ต่ำ</option>
-                        <option value="3">สีเหลืองเข้ม - ไข้สูง</option>
-                        <option value="4">สีแดง - ไข้สูงมาก</option>                        
-                    </select>
+                    <label for="basicInput">ระดับอาการ </label> (คำอธิบาย)
+                    {{form.CurrentStatus }}
                 </div>
             </div>
         </div>
@@ -209,24 +174,22 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
-                    <label for="basicInput">ข้อมูลการรับวัคซีน COVID </label> <span class="text-danger">New</span>
-                     <input type="email" class="form-control" name="tel_f" id="tel_f"
-                        placeholder="" value=""
-                    >
+                    <label for="basicInput">ข้อมูลการรับวัคซีน COVID </label>
+                    {{ form.VaccineDetail }}
                 </div>
             </div>  
         </div>
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="basicInput"> ผลตรวจ ATK </label> (คำอธิบาย) <span class="text-danger">* New</span>
-                    <input type="file" name="Corona3" class="form-control" id="id_Corona3">
+                    <label for="basicInput"> ผลตรวจ ATK </label> (คำอธิบาย) 
+                    {{ form.ATK }}
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="basicInput"> ผลตรวจ PCR </label> (คำอธิบาย) <span class="text-danger">* New</span>
-                    <input type="file" name="Corona3" class="form-control" id="id_Corona3">
+                    <label for="basicInput"> ผลตรวจ PCR </label> (คำอธิบาย)
+                    {{ form.PCR }}
                 </div>
             </div>            
         </div>
@@ -234,20 +197,14 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="basicInput">สามารถทำ Home Isolation </label> <span class="text-danger">New</span>
-                    <select name="CurrentStatus" class="form-control" id="id_CurrentStatus">
-                        <option value="0" selected="">-</option>
-                        <option value="1">ได้</option>
-                        <option value="2">ไม่ได้</option>                        
-                    </select>
+                    <label for="basicInput">สามารถทำ Home Isolation </label>
+                    {{form.HomeIsolation }}
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="basicInput">จำนวนผู้พักอาศัยร่วม </label> <span class="text-danger">New</span>
-                     <input type="email" class="form-control" name="tel_f" id="tel_f"
-                        placeholder="" value=""
-                    >
+                    <label for="basicInput">จำนวนผู้พักอาศัยร่วม </label>
+                    {{ form.LiveWith }}
                 </div>
             </div>          
         </div>
@@ -261,10 +218,8 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="basicInput">ประวัติการแพ้ยา </label> <span class="text-danger">New</span>
-                     <input type="email" class="form-control" name="tel_f" id="tel_f"
-                        placeholder="" value=""
-                    >
+                    <label for="basicInput">ประวัติการแพ้ยา </label>
+                    {{ form.DrugAllergyHistory }}
                 </div>
             </div>          
         </div>
@@ -273,10 +228,8 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
-                    <label for="basicInput">อาการ </label>  <span class="text-danger">New</span>
-                    <input type="email" class="form-control" name="tel_f" id="tel_f"
-                        placeholder="" value=""
-                    >
+                    <label for="basicInput">อาการ </label>
+                        {{ form.Symptom }}
                 </div>
             </div>          
         </div>
@@ -284,10 +237,9 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
-                    <label for="basicInput">หมายเหตุ / บันทึกอื่น ๆ  </label> <span class="text-danger">New</span>
+                    <label for="basicInput">หมายเหตุ / บันทึกอื่น ๆ  </label> 
 
-                    <textarea class="form-control" id="notice" name="notice"
-                    rows="3"></textarea>
+                    {{ form.Note }}
                 </div>
             </div>          
         </div>
