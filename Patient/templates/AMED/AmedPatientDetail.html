@@ -1,0 +1,160 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}ข้อมูลผู้ป่วย AMED{% endblock %}
+
+{% block content %}
+
+
+<style scoped>
+
+
+.section-title h2 {
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  position: relative;
+  color: #173b6c;
+}
+
+
+
+.section-title2 h3 {
+  font-size: 20px;
+  font-weight: bold;
+
+  padding-top: 10px;
+
+  position: relative;
+  color: #173b6c;
+}
+
+
+
+hr.line1 {
+  border-top: 5px solid "#a1a1a1";
+  border-radius: 5px;
+}
+
+/* Dashed red border */
+hr.new2 {
+  border-top: 1px dashed red;
+}
+
+/* Dotted red border */
+hr.new3 {
+  border-top: 1px dotted red;
+}
+
+/* Thick red border */
+hr.new4 {
+  border: 1px solid red;
+}
+
+/* Large rounded green border */
+hr.new5 {
+  border: 5px solid green;
+  border-radius: 5px;
+}
+
+
+</style>
+<div class="container">
+<div class="section-title">
+  <h2>{{ AMEDPatient.FullName }}</h2>
+</div>
+
+ <div class="section-title2">   
+  <hr class = "line1"> 
+    <h3>1.ข้อมูลผู้ป่วย AMED</h3>
+  </div>
+  <hr class = "line1"> 
+  <div class="row">
+    <div class="col">
+      
+      <ul>              
+        <li><i class="d-flex"></i> <strong>เลขบัตรประชาชน : </strong> <span>{{ AMEDPatient.PersonID }}</span></li>
+        <li><i class="d-flex"></i> <strong>เลขผู้ป่วยนอก : </strong> <span> {{ AMEDPatient.HNNumber }}<br></span></li>
+        <li><i class="bi bi-chevron-right"></i> <strong>เบอร์มือถือ : </strong> <span>{{ AMEDPatient.Mobile }}</span> </li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <li>
+          <i class="bi bi-chevron-right"></i> 
+          <li><i class="d-flex"></i><br></span></li>
+          <li><i class="d-flex"></i> <strong>เลขผู้ป่วยใน : </strong> <span> {{ AMEDPatient.ANNumber }}<br></span></li>
+        </li>
+        <li><i class="d-flex"></i> <strong>หมายเหตุ : </strong> <span> {{ AMEDPatient.Comment }}<br></span></li>
+      </ul>
+    </div>    
+     
+  </div>
+  <hr class = "line1"> 
+</div>
+
+<div class="container"> 
+  <div class="section-title2">
+    <h3>2. ข้อมูลสถานะและสิทธิ์การรักษา</h3>
+  </div>
+  <div class="row">
+    <div class="col">
+      <ul>              
+        <li><i class="bi bi-chevron-right"></i> <strong>สิทธิ์การรักษาพยาบาล : </strong> <span>{{ AMEDPatient.get_RightMedicalTreatment_display }}
+          {{ AMEDPatient.RightMedicalTreatmentIcon | safe }}
+
+                    <abbr title="{{ AmedPatient.get_RightMedicalTreatment_display }}">
+                      {% if AMEDPatient.get_RightMedicalTreatment_display == 'เบิกจ่ายตรง(กรมบัญชีกลาง)'%}
+                          <i class="far fa-money-bill-alt" style="color:cadetblue"></i>
+                      {%elif AMEDPatient.get_RightMedicalTreatment_display == 'ประกันสังคม'%}
+                          <i class="far fa-money-bill-alt" style="color:blue"></i>
+                      {%elif AMEDPatient.get_RightMedicalTreatment_display == 'UC สปสช. '%}
+                          <i class="far fa-money-bill-alt" style="color:gold"></i>
+                      {%elif AMEDPatient.get_RightMedicalTreatment_display == 'เงินสด'%}
+                          <i class="far fa-money-bill-alt" style="color:red"></i>
+                      {% endif %}     
+                    </abbr>
+                  </span></li>
+
+        <li><i class="bi bi-chevron-right"></i> <strong>สถานะการป่วย : </strong> <span>{{ AMEDPatient.get_Symtom_display }}
+          {{ AMEDPatient.AmedSymtomIcon | safe }}
+
+                  <abbr title="{{ AmedPatient.get_CurrentStatus_display }}">
+                    {% if AMEDPatient.get_CurrentStatus_display == 'ผู้ป่วยสีเขียว'%}
+                        <i class="fas fa-address-book" style="color:green"></i>
+                    {%elif AMEDPatient.get_CurrentStatus_display == 'ผู้ป่วยสีเหลืองอ่อน'%}
+                        <i class="fas fa-address-book" style="color:yellow"></i>
+                    {%elif AMEDPatient.get_CurrentStatus_display == 'ผู้ป่วยสีเหลืองเข้ม'%}
+                        <i class="fas fa-address-book" style="color:gold"></i>
+                    {%elif AMEDPatient.get_CurrentStatus_display == 'ผู้ป่วยสีแดง'%}
+                        <i class="fas fa-address-book" style="color:red"></i>
+                    {%elif AMEDPatient.get_CurrentStatus_display == 'หายป่วย'%}
+                        <i class="fa fa-child fa-lg" style="color:blue"></i>
+                    {%elif AMEDPatient.get_CurrentStatus_display == 'เสียชีวิต'%}
+                    <i class="fas fa-user-alt-slash" style="color:black"></i>
+                    {%elif AMEDPatient.get_CurrentStatus_display == 'ผู้ใกล้ชิดเสี่ยงสูง'%}
+                        <i class="fa fa-bed fa-lg" style="color:blue"></i>
+                    {%elif AMEDPatient.get_CurrentStatus_display == 'ผู้ใกล้ชิดปลอดเชื้อ'%}
+                    <i class="fas fa-address-book" style="color:blue"></i>
+                    {%elif AMEDPatient.get_CurrentStatus_display == 'ผู้ใกล้ชิดติดเชื้อ'%}
+                    <i class="fas fa-address-book" style="color:blue"></i>
+                    
+                    {% endif %}     
+                  <abbr>        
+        </span></li>
+        <li><i class="bi bi-chevron-right"></i> <strong>รายงาน AMED : </strong> <span>{{ AMEDPatient.Report }}</span></li>
+
+      </ul>
+    </div>    
+  </div>  
+  <hr class = "line1"> 
+</div>
+
+
+
+</div>
+
+
+{% endblock %}
+

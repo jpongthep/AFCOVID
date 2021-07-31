@@ -89,11 +89,7 @@ hr.new5 {
           <span>{{ Patient.BirthDay|thaidate:"d-m-y" }} ({{ Patient.Age }})</span>
         </li>
         <li><i class="bi bi-chevron-right"></i> 
-            {% if Patient.IsAirforce %} 
-                <strong>เป็นข้าราชการกองทัพอากาศ : </strong> <span>{{ Patient.Office }}</span></li>
-            {% else %}
-                <strong>ไม่เป็นข้าราชการกองทัพอากาศ : </strong> <span>{{ Patient.Office }}</span></li>
-            {% endif %}
+              <strong>ประเภทบุคลากร</strong> {{ Patient.get_AirforceType_display }} <strong>สังกัด</strong> <span>{{ Patient.Office }}</span></li>
         <li><i class="bi bi-chevron-right"></i> <strong>ที่อยู่ปัจจุบัน : </strong> <span>{{ Patient.Address }}</span></li>
         <li><i class="bi bi-chevron-right"></i> <strong>เบอร์มือถือ : </strong> <span>{{ Patient.Mobile }}</span> <strong>เบอร์ฉุกเฉิน : </strong> <span>{{ Patient.EmergencyMobile }}</span></li>
       </ul>

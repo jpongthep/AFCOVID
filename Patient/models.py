@@ -10,8 +10,11 @@ AIRFORCE_TYPE_CHOICE = (
     ( 0 ,  'ไม่ระบุ' ) ,
     ( 1 ,  'ทหารประจำการ' ) ,
     ( 2 ,  'พลทหาร' ) ,
-    ( 3 ,  'ครอบครัว' ) ,
-    ( 4 ,  'บุคคลภายนอก' ) ,
+    ( 3 ,  'พนง.ราชการ' ) ,
+    ( 4 ,  'ลูกจ้างประจำ' ) ,
+    ( 5 ,  'ลูกจ้างชั่วคราว' ) ,
+    ( 6 ,  'ครอบครัว ทอ.' ) ,
+    ( 7 ,  'บุคคลภายนอก' ) ,
 )
 
 RIGHT_MEDICAL_TREATMENT_CHOICE = (
@@ -299,13 +302,11 @@ class AMEDPatient(models.Model):
                                 verbose_name = 'เลขบัตรประชาชน')
     HNNumber = models.CharField(
                                 max_length = 20,
-                                unique = True,
                                 blank = True,
                                 null = True,
                                 verbose_name = 'เลขผู้ป่วยนอก')
     ANNumber = models.CharField(
                                 max_length = 20,
-                                unique = True,
                                 blank = True,
                                 null = True,
                                 verbose_name = 'เลขผู้ป่วยใน')
@@ -315,15 +316,75 @@ class AMEDPatient(models.Model):
                                 blank = True, 
                                 null = True,
                                 verbose_name = 'ชื่อผู้ป่วย')
+<<<<<<< HEAD
     Mobile = models.CharField(
                                 max_length = 10,
+=======
+    Mobile = models.CharField(max_length = 20,
+>>>>>>> origin/DevMuek
                                 blank = True, 
                                 null = True,
                                 verbose_name = 'เบอร์มือถือ')
+    RightMedicalTreatment = models.IntegerField(
+                            choices = RIGHT_MEDICAL_TREATMENT_CHOICE, 
+                            default = 0, 
+                            verbose_name = 'สิทธิ์การรักษาพยาบาล', 
+                            null = True,
+                            blank = True)                                
     Symtom = models.IntegerField(
                                 choices = CHOICE_STATUSLEVEL, 
                                 default = 0, 
                                 null=True)
 
+    Report  = models.TextField(verbose_name = "รายงานใน AMED",
+                                null=True,
+                                blank = True)                                
+    Comment  = models.TextField(verbose_name = "คำอธิบาย",
+                                null=True,
+                                blank = True)                                
+
     def __str__(self):
         return self.FullName
+
+    @property
+    def AmedSymtomIcon(self):
+        if self.Symtom == 0:
+            return f'<abbr title="{self.get_Symtom_display()}"><i class="fa fa-question-circle fa-lg" style="color:rgb(160,160,160)"></i></abbr>'
+        elif self.Symtom == 1:
+            return f'<abbr title="{self.get_Symtom_display()}"><i class="fas fa-address-book" style="color:green"></i></abbr>'
+        elif self.Symtom == 2:
+            return f'<abbr title="{self.get_Symtom_display()}"><i class="fas fa-address-book" style="color:yellow"></i></abbr>'
+        elif self.Symtom == 3:
+            return f'<abbr title="{self.get_Symtom_display()}"><i class="fas fa-address-book" style="color:gold"></i></abbr>'
+        elif self.Symtom == 4:
+            return f'<abbr title="{self.get_Symtom_display()}"><i class="fas fa-address-book" style="color:red"></i></abbr>'
+        elif self.Symtom == 5:
+            return f'<abbr title="{self.get_Symtom_display()}"><i class="fa fa-child fa-lg" style="color:blue"></i></abbr>'
+        elif self.Symtom == 6:
+            return f'<abbr title="{self.get_Symtom_display()}"><i class="fas fa-user-alt-slash" style="color:black"></i></abbr>'
+        elif self.Symtom == 7:
+            return f'<abbr title="{self.get_Symtom_display()}"><i class="fas fa-address-book" style="color:blue"></i></abbr>---<i class="fa fa-male fa-lg" style="color:gold"></i></abbr>'
+   
+        elif self.Symtom == 8:
+            return f'<abbr title="{self.get_Symtom_display()}"><i class="fas fa-address-book" style="color:blue"></i></abbr>---<i class="fa fa-male fa-lg" style="color:blue"></i></abbr>'
+   
+        elif self.Symtom == 9:
+            return f'<abbr title="{self.get_Symtom_display()}"><i class="fas fa-address-book" style="color:blue"></i></abbr>---<i class="fa fa-male fa-lg" style="color:red"></i></abbr>'
+   
+    @property
+    def RightMedicalTreatmentIcon(self):
+        if self.RightMedicalTreatment == 0:
+            return f'<abbr title="{self.get_RightMedicalTreatment_display()}"><i class="fa fa-question-circle fa-lg" style="color:rgb(160,160,160)"></i></abbr>'
+        elif self.RightMedicalTreatment == 1:
+            return f'<abbr title="{self.get_RightMedicalTreatment_display()}"><i class="far fa-money-bill-alt" style="color:green"></i></abbr>---><i class="fas fa-school" style="color:blue"></i></abbr>'
+        
+        elif self.RightMedicalTreatment == 2:
+            return f'<abbr title="{self.get_RightMedicalTreatment_display()}"><i class="far fa-money-bill-alt" style="color:blue"></i></abbr>'
+        elif self.RightMedicalTreatment == 3:
+            return f'<abbr title="{self.get_RightMedicalTreatment_display()}"><i class="far fa-money-bill-alt" style="color:yellow"></i></abbr>---><i class="fas fa-school" style="color:gold"></i></abbr>'
+   
+        elif self.RightMedicalTreatment == 4:
+            return f'<abbr title="{self.get_RightMedicalTreatment_display()}"><i class="far fa-money-bill-alt" style="color:red"></i></abbr>'
+            
+
+

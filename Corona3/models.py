@@ -666,7 +666,7 @@ class Corona3(models.Model):
     def Age(self):
         if self.BirthYear:
             today = date.today()
-            return today.year - self.BirthYear
+            return (today.year+543) - self.BirthYear
         else:
             return "-"
 
