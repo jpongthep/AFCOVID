@@ -1,4 +1,5 @@
 from django import forms
+from django.db.models.fields import BooleanField
 from django.forms import ModelForm
 from Corona3.models import Corona3
 
@@ -61,6 +62,7 @@ class BasicDataForm(ModelForm):
                     'DateReceivedVaccine2',
                     'NameVaccine2',
                     'PlaceReceivedVaccine2',
+                    'LiveInCovid',
                     'InThaiProvince',
                     'InForeignCountry',
                     'InForeignCity',
@@ -289,7 +291,9 @@ class BasicDataForm(ModelForm):
                         }),
             'PlaceReceivedVaccine2': forms.TextInput(
                     attrs={'class': 'form-control'
-                        }),                         
+                        }),
+            'LiveInCovid' : forms.CheckboxInput(
+                    attrs={'class': 'form-control',}),                 
             'InThaiProvince': forms.Select(
                     attrs={'class': 'form-control'
                         }),                         
@@ -309,9 +313,9 @@ class BasicDataForm(ModelForm):
             'ContactCovid': forms.Select(
                     attrs={'class': 'form-control', 
                         }),  
-            'NameVaccine2': forms.Select(
-                    attrs={'class': 'form-control', 
-                        }),  
+            # 'NameVaccine2': forms.Select(
+            #         attrs={'class': 'form-control', 
+            #             }),  
             'ContactCovidText': forms.TextInput(
                     attrs={'class': 'form-control'
                         }), 
@@ -409,6 +413,7 @@ class minDataForm(ModelForm):
                     'DateReceivedVaccine2',
                     'NameVaccine2',
                     'PlaceReceivedVaccine2',
+                    'LiveInCovid',
                     'InForeignCountry',
                     'InForeignCity',
                     'NearCovid',
@@ -542,5 +547,115 @@ class minDataForm(ModelForm):
                         }),         
             'CaseFemale': forms.Select(
                     attrs={'class': 'form-control', 
+<<<<<<< HEAD
+=======
+                        }),                                                    
+            'TypeLive': forms.Select(
+                    attrs={'class': 'form-control', 
+                        }),                             
+      
+            'ReceivedVaccine': forms.CheckboxInput(attrs={'class': 'form-control',}),                          
+            'BookReceivedVaccine': forms.CheckboxInput(
+                                        attrs={'class': 'form-control',}
+                                    ),                          
+                                                 
+                                           
+            'DateReceivedVaccine1': forms.DateInput(
+                    format=('%Y-%m-%d'),
+                    attrs={'class': 'form-control', 
+                        'placeholder': 'Select a date',
+                        'type': 'date'
+                        }),
+            'PlaceReceivedVaccine1': forms.TextInput(
+                    attrs={'class': 'form-control'
+                        }),                         
+            'NameVaccine1': forms.Select(
+                    attrs={'class': 'form-control', 
+                        }),  
+            'DateReceivedVaccine2': forms.DateInput(
+                    format=('%Y-%m-%d'),
+                    attrs={'class': 'form-control', 
+                        'placeholder': 'Select a date',
+                        'type': 'date'
+                        }),
+            'PlaceReceivedVaccine2': forms.TextInput(
+                    attrs={'class': 'form-control'
+                        }),
+            'LiveInCovid': forms.CheckboxInput(
+                    attrs={'class': 'form-control',}),                                              
+            'InThaiProvice': forms.TextInput(
+                    attrs={'class': 'form-control'
+                        }),                         
+            'InForeignCountry': forms.TextInput(
+                    attrs={'class': 'form-control'
+                        }),                         
+            'InForeignCity': forms.TextInput(
+                    attrs={'class': 'form-control'
+                        }),                         
+                        
+            'NameVaccine2': forms.Select(
+                    attrs={'class': 'form-control', 
+                        }),  
+            'NearCovid': forms.Select(
+                    attrs={'class': 'form-control', 
+                        }),  
+            'ContactCovid': forms.Select(
+                    attrs={'class': 'form-control', 
+                        }),  
+            'NameVaccine2': forms.Select(
+                    attrs={'class': 'form-control', 
+                        }),  
+            'ContactCovidText': forms.TextInput(
+                    attrs={'class': 'form-control'
+                        }), 
+            'CareerNearCovid': forms.CheckboxInput(attrs={'class': 'form-control',}),                          
+            'TravelInCovid': forms.CheckboxInput(
+                                        attrs={'class': 'form-control',}
+                                    ),                          
+            'TravelInCovidText': forms.TextInput(
+                    attrs={'class': 'form-control'
+                        }), 
+            'AuthoritiesMedical': forms.CheckboxInput(attrs={'class': 'form-control',}),                          
+            'AuthoritiesMedicalCarePatient': forms.CheckboxInput(
+                                        attrs={'class': 'form-control',}
+                                    ),                          
+                                        
+            'HistoryRisky': forms.CheckboxInput(
+                                        attrs={'class': 'form-control',}
+                                    ),                          
+            'HistoryRiskyText': forms.TextInput(
+                    attrs={'class': 'form-control'
+                        }),       
+            'ContactRisky': forms.NumberInput(
+                    attrs={'class': 'form-control'
+                        }),             
+            'ContactLowRisk': forms.NumberInput(
+                    attrs={'class': 'form-control'
+                        }),             
+            'ContactLowRiskTrace': forms.NumberInput(
+                    attrs={'class': 'form-control'
+                        }),             
+            'PlaceConfineContactRisky2': forms.NumberInput(
+                    attrs={'class': 'form-control'
+                        }),             
+            'PlaceConfineContactRisky1': forms.NumberInput(
+                    attrs={'class': 'form-control'
+                        }),             
+            'ContactRiskyTrace': forms.NumberInput(
+                    attrs={'class': 'form-control'
+                        }),             
+            'PlaceConfineContactLowRisk1': forms.NumberInput(
+                    attrs={'class': 'form-control'
+                        }),             
+            'PlaceConfineContactLowRisk2': forms.NumberInput(
+                    attrs={'class': 'form-control'
+                        }),             
+
+            'DateReport': forms.DateInput(
+                    format=('%Y-%m-%d'),
+                    attrs={'class': 'form-control', 
+                        'placeholder': 'Select a date',
+                        'type': 'date'
+>>>>>>> DevMuek
                         })
         }

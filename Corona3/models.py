@@ -402,8 +402,9 @@ class Corona3(models.Model):
                                 null = True,
                                 blank = True,
                                 verbose_name = 'Antibody ครั้งที่ 1 IgG')
-    CheckAntibody1Neg = BooleanField(
-                                    default = '-', 
+    CheckAntibody1Neg = models.CharField(
+                                    max_length = 10,
+                                    default='-',
                                     verbose_name= "Antibody ครั้งที่ 1 Neg",
                                     blank = True, 
                                     null = True,)
@@ -438,8 +439,9 @@ class Corona3(models.Model):
                                 null = True,
                                 blank = True,
                                 verbose_name = 'Antibody ครั้งที่ 2 IgG')
-    CheckAntibody2Neg = BooleanField(
-                                    default = '-', 
+    CheckAntibody2Neg = models.CharField(
+                                    max_length = 10,
+                                    default='-',
                                     verbose_name= "Anitibody ครั้งที่ 2 Neg",
                                     blank = True, 
                                     null = True,)
@@ -457,10 +459,10 @@ class Corona3(models.Model):
                                     null = True,)
     
     DateReceivedVaccine1 = models.DateField(
-                            default=datetime.date.today, 
+                                default=datetime.date.today, 
                                 null = True,
                                 blank = True,                            
-                            verbose_name = 'วันที่ได้รับวัคซีน ครั้งที่ 1')
+                                verbose_name = 'วันที่ได้รับวัคซีน ครั้งที่ 1')
     CHOICE_NameVaccine = (
         ( '0' ,  '-' ) ,
         ( '1' ,  'Sinovac' ) ,
@@ -503,7 +505,7 @@ class Corona3(models.Model):
 
     LiveInCovid = BooleanField(
                                     default = False, 
-                                    verbose_name= "ที่อาศัยมีการระบาด COVID",
+                                    verbose_name = "ที่อาศัยมีการระบาด COVID",
                                     blank = True, 
                                     null = True,)
                                        
