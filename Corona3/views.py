@@ -20,10 +20,11 @@ class Corona3BasicFormAddNewView(CreateView):
 
 
 
+
+
+
+
     
-    def form_invalid(self, form):
-        print(self.request, form.errors)
-        return super().form_invalid(form)
-    
+
 
     

@@ -12,7 +12,7 @@ from Patient.models import Patient
 class Corona3(models.Model):
     class Meta:
         verbose_name_plural = "แบบฟอร์ม Corona3"
-    CHOICE_Provice = (
+    CHOICE_Province = (
         ('1',' กรุงเทพมหานคร'),
         ('2',' กระบี่ '),
         ('3',' กาญจนบุรี '),
@@ -208,7 +208,7 @@ class Corona3(models.Model):
                                 blank = True)
     Province = models.CharField(
                                 max_length = 50,
-                                choices = CHOICE_Provice,
+                                choices = CHOICE_Province,
                                 default = None, 
                                 verbose_name = 'จังหวัด', 
                                 null = True, 
@@ -256,7 +256,7 @@ class Corona3(models.Model):
                                 blank = True)
     HospitalProvince = models.CharField(
                                 max_length = 50,
-                                choices = CHOICE_Provice,
+                                choices = CHOICE_Province,
                                 default = '-', 
                                 verbose_name = 'สถานพยาบาลอยู่ในจังหวัด', 
                                 null = True, 
@@ -397,8 +397,8 @@ class Corona3(models.Model):
                                 blank = True,
                                 verbose_name = 'Antibody ครั้งที่ 1 IgG')
     CheckAntibody1Neg = BooleanField(
-                                    default = False, 
-                                    verbose_name= "มี",
+                                    default = '-', 
+                                    verbose_name= "Antibody ครั้งที่ 1 Neg",
                                     blank = True, 
                                     null = True,)
 
@@ -433,8 +433,8 @@ class Corona3(models.Model):
                                 blank = True,
                                 verbose_name = 'Antibody ครั้งที่ 2 IgG')
     CheckAntibody2Neg = BooleanField(
-                                    default = False, 
-                                    verbose_name= "มี",
+                                    default = '-', 
+                                    verbose_name= "Anitibody ครั้งที่ 2 Neg",
                                     blank = True, 
                                     null = True,)
     
@@ -501,9 +501,9 @@ class Corona3(models.Model):
                                     blank = True, 
                                     null = True,)
                                        
-    InThaiProvice = models.CharField(
+    InThaiProvince = models.CharField(
                                 max_length = 16,
-                                choices = CHOICE_Provice, 
+                                choices = CHOICE_Province, 
                                 default = '-', 
                                 null = True,
                                 blank = True,
