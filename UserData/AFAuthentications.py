@@ -12,10 +12,6 @@ from .models import User, Unit
 
 def checkRTAFPassdword(username, password):
     pass
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/DevMuek
     URL = "https://api2-software.rtaf.mi.th:5051/rtaf/v3/ad/internal/login"
 
     data = {

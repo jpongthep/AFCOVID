@@ -1,4 +1,5 @@
 from django import forms
+from django.db.models.fields import BooleanField
 from django.forms import ModelForm
 from Corona3.models import Corona3
 
@@ -61,6 +62,7 @@ class BasicDataForm(ModelForm):
                     'DateReceivedVaccine2',
                     'NameVaccine2',
                     'PlaceReceivedVaccine2',
+                    'LiveInCovid',
                     'InThaiProvince',
                     'InForeignCountry',
                     'InForeignCity',
@@ -289,7 +291,9 @@ class BasicDataForm(ModelForm):
                         }),
             'PlaceReceivedVaccine2': forms.TextInput(
                     attrs={'class': 'form-control'
-                        }),                         
+                        }),
+            'LiveInCovid' : forms.CheckboxInput(
+                    attrs={'class': 'form-control',}),                 
             'InThaiProvince': forms.Select(
                     attrs={'class': 'form-control'
                         }),                         
@@ -309,9 +313,9 @@ class BasicDataForm(ModelForm):
             'ContactCovid': forms.Select(
                     attrs={'class': 'form-control', 
                         }),  
-            'NameVaccine2': forms.Select(
-                    attrs={'class': 'form-control', 
-                        }),  
+            # 'NameVaccine2': forms.Select(
+            #         attrs={'class': 'form-control', 
+            #             }),  
             'ContactCovidText': forms.TextInput(
                     attrs={'class': 'form-control'
                         }), 
@@ -400,6 +404,7 @@ class minDataForm(ModelForm):
                     'DateReceivedVaccine2',
                     'NameVaccine2',
                     'PlaceReceivedVaccine2',
+                    'LiveInCovid',
                     'InForeignCountry',
                     'InForeignCity',
                     'NearCovid',
@@ -526,7 +531,9 @@ class minDataForm(ModelForm):
                         }),
             'PlaceReceivedVaccine2': forms.TextInput(
                     attrs={'class': 'form-control'
-                        }),                         
+                        }),
+            'LiveInCovid': forms.CheckboxInput(
+                    attrs={'class': 'form-control',}),                                              
             'InThaiProvice': forms.TextInput(
                     attrs={'class': 'form-control'
                         }),                         
