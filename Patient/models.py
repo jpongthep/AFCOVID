@@ -316,12 +316,8 @@ class AMEDPatient(models.Model):
                                 blank = True, 
                                 null = True,
                                 verbose_name = 'ชื่อผู้ป่วย')
-<<<<<<< HEAD
     Mobile = models.CharField(
                                 max_length = 10,
-=======
-    Mobile = models.CharField(max_length = 20,
->>>>>>> origin/DevMuek
                                 blank = True, 
                                 null = True,
                                 verbose_name = 'เบอร์มือถือ')

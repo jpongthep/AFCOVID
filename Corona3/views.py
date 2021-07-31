@@ -7,12 +7,8 @@ from django.shortcuts import redirect
 from .models import Corona3
 from .forms import BasicDataForm, minDataForm
 
-<<<<<<< HEAD
-class Corona3BasicFormAddNewView(CreateView):
-=======
 
 class BasicFormAddNewView(CreateView):
->>>>>>> origin/DevMuek
 
     model = Corona3
     form_class = BasicDataForm

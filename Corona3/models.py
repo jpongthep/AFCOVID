@@ -502,12 +502,12 @@ class Corona3(models.Model):
                                     null = True,)
                                        
     InThaiProvince = models.CharField(
-                                max_length = 16,
-                                choices = CHOICE_Province, 
-                                default = '-', 
-                                null = True,
-                                blank = True,
-                                verbose_name = 'จังหวัด')
+                                        max_length = 100,
+                                        choices = CHOICE_Province, 
+                                        default = '-', 
+                                        null = True,
+                                        blank = True,
+                                        verbose_name = 'จังหวัด')
     # InThaiProvice = models.CharField(
     #                             max_length = 100,
     #                             default = '-', 

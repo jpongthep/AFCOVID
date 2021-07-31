@@ -366,8 +366,6 @@ class BasicDataForm(ModelForm):
                         })
         }
 
-<<<<<<< HEAD
-=======
     # def clean_PersonID(self):
     #     return self.cleaned_data['PersonID'] or None
 class minDataForm(ModelForm):
@@ -402,7 +400,6 @@ class minDataForm(ModelForm):
                     'DateReceivedVaccine2',
                     'NameVaccine2',
                     'PlaceReceivedVaccine2',
-                    'InThaiProvice',
                     'InForeignCountry',
                     'InForeignCity',
                     'NearCovid',
@@ -597,7 +594,6 @@ class minDataForm(ModelForm):
             'PlaceConfineContactLowRisk2': forms.NumberInput(
                     attrs={'class': 'form-control'
                         }),             
->>>>>>> origin/DevMuek
 
             'DateReport': forms.DateInput(
                     format=('%Y-%m-%d'),
