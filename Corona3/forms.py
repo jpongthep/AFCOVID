@@ -547,8 +547,6 @@ class minDataForm(ModelForm):
                         }),         
             'CaseFemale': forms.Select(
                     attrs={'class': 'form-control', 
-<<<<<<< HEAD
-=======
                         }),                                                    
             'TypeLive': forms.Select(
                     attrs={'class': 'form-control', 
@@ -656,6 +654,5 @@ class minDataForm(ModelForm):
                     attrs={'class': 'form-control', 
                         'placeholder': 'Select a date',
                         'type': 'date'
->>>>>>> DevMuek
                         })
         }
