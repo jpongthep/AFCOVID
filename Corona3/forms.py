@@ -1,6 +1,5 @@
 from django import forms
 from django.forms import ModelForm
-
 from Corona3.models import Corona3
 
 class BasicDataForm(ModelForm):
@@ -25,8 +24,35 @@ class BasicDataForm(ModelForm):
                     'TypeLive',
                     'TypeLive_Other',
                     'DatePatient',
+                    'DateFirstTreat',
+                    'DateDiagnose',
+                    'NameHospitalTreat',
+                    'HospitalProvince',
+                    'ShowSymptom',
+                    'ShowSymptom_O2',
+                    'TypeViolence',
                     'DiseasePatient',
                     'CaseFemale',
+                    'DateCheckRTPCR',
+                    'TypeExampleRTPCR',
+                    'PlaceCheckRTPCR',
+                    'ResultsCheckRTPCR',
+                    'DateCheckAntigen',
+                    'TypeExampleAntigen',
+                    'PlaceCheckAntigen',
+                    'ResultsCheckAntigen',
+                    'DateCheckAntibody1',
+                    'TypeExampleAntibody1',
+                    'PlaceCheckAntibody1',
+                    'CheckAntibody1IgM',
+                    'CheckAntibody1IgG',
+                    'CheckAntibody1Neg',
+                    'DateCheckAntibody2',
+                    'TypeExampleAntibody2',
+                    'PlaceCheckAntibody2',
+                    'CheckAntibody2IgM',
+                    'CheckAntibody2IgG',
+                    'CheckAntibody2Neg',
                     'ReceivedVaccine',
                     'BookReceivedVaccine',
                     'DateReceivedVaccine1',
@@ -35,7 +61,7 @@ class BasicDataForm(ModelForm):
                     'DateReceivedVaccine2',
                     'NameVaccine2',
                     'PlaceReceivedVaccine2',
-                    'InThaiProvice',
+                    'InThaiProvince',
                     'InForeignCountry',
                     'InForeignCity',
                     'NearCovid',
@@ -107,7 +133,7 @@ class BasicDataForm(ModelForm):
             'District': forms.TextInput(
                     attrs={'class': 'form-control'
                         }),                                                      
-            'Province': forms.TextInput(
+            'Province': forms.Select(
                     attrs={'class': 'form-control'
                         }),                                                      
             'ZipCode': forms.TextInput(
@@ -127,7 +153,109 @@ class BasicDataForm(ModelForm):
                         }),
             'DiseasePatient': forms.TextInput(
                     attrs={'class': 'form-control'
-                        }),         
+                        }),
+            'DateFirstTreat': forms.DateInput(
+                    format=('%Y-%m-%d'),
+                    attrs={'class': 'form-control', 
+                        'placeholder': 'Select a date',
+                        'type': 'date'
+                        }),
+            'DateDiagnose': forms.DateInput(
+                    format=('%Y-%m-%d'),
+                    attrs={'class': 'form-control', 
+                        'placeholder': 'Select a date',
+                        'type': 'date'
+                        }),
+            'NameHospitalTreat': forms.TextInput(
+                    attrs={'class': 'form-control'
+                        }),
+            'HospitalProvince':forms.Select(
+                    attrs={'class': 'form-control'
+                        }),  
+            'ShowSymptom': forms.TextInput(
+                    attrs={'class': 'form-control'
+                        }),
+            'ShowSymptom_O2': forms.TextInput(
+                    attrs={'class': 'form-control'
+                        }),
+            'TypeViolence': forms.TextInput(
+                    attrs={'class': 'form-control'
+                        }),
+            'DiseasePatient': forms.TextInput(
+                    attrs={'class': 'form-control'
+                        }),
+            'DateCheckRTPCR': forms.DateInput(
+                    format=('%Y-%m-%d'),
+                    attrs={'class': 'form-control', 
+                        'placeholder': 'Select a date',
+                        'type': 'date'
+                        }),
+            'TypeExampleRTPCR': forms.TextInput(
+                    attrs={'class': 'form-control'
+                        }),
+            'PlaceCheckRTPCR': forms.TextInput(
+                    attrs={'class': 'form-control'
+                        }),
+            'ResultsCheckRTPCR': forms.TextInput(
+                    attrs={'class': 'form-control'
+                        }),
+            'DateCheckAntigen': forms.DateInput(
+                    format=('%Y-%m-%d'),
+                    attrs={'class': 'form-control', 
+                        'placeholder': 'Select a date',
+                        'type': 'date'
+                        }),
+            'TypeExampleAntigen': forms.TextInput(
+                    attrs={'class': 'form-control'
+                        }),
+            'PlaceCheckAntigen': forms.TextInput(
+                    attrs={'class': 'form-control'
+                        }),
+            'ResultsCheckAntigen': forms.TextInput(
+                    attrs={'class': 'form-control'
+                        }),
+            'DateCheckAntibody1': forms.DateInput(
+                    format=('%Y-%m-%d'),
+                    attrs={'class': 'form-control', 
+                        'placeholder': 'Select a date',
+                        'type': 'date'
+                        }),
+            'TypeExampleAntibody1': forms.TextInput(
+                    attrs={'class': 'form-control'
+                        }),
+            'PlaceCheckAntibody1': forms.TextInput(
+                    attrs={'class': 'form-control'
+                        }),
+            'CheckAntibody1IgM': forms.TextInput(
+                    attrs={'class': 'form-control'
+                        }),
+            'CheckAntibody1IgG': forms.TextInput(
+                    attrs={'class': 'form-control'
+                        }),
+            'CheckAntibody1Neg': forms.TextInput(
+                    attrs={'class': 'form-control'
+                        }),
+            'DateCheckAntibody2': forms.DateInput(
+                    format=('%Y-%m-%d'),
+                    attrs={'class': 'form-control', 
+                        'placeholder': 'Select a date',
+                        'type': 'date'
+                        }),
+            'TypeExampleAntibody2': forms.TextInput(
+                    attrs={'class': 'form-control'
+                        }),
+            'PlaceCheckAntibody2': forms.TextInput(
+                    attrs={'class': 'form-control'
+                        }),
+            'CheckAntibody2IgM': forms.TextInput(
+                    attrs={'class': 'form-control'
+                        }),
+            'CheckAntibody2IgG': forms.TextInput(
+                    attrs={'class': 'form-control'
+                        }),
+            'CheckAntibody2Neg': forms.TextInput(
+                    attrs={'class': 'form-control'
+                        }),     
             'CaseFemale': forms.Select(
                     attrs={'class': 'form-control', 
                         }),                                                    
@@ -162,7 +290,7 @@ class BasicDataForm(ModelForm):
             'PlaceReceivedVaccine2': forms.TextInput(
                     attrs={'class': 'form-control'
                         }),                         
-            'InThaiProvice': forms.TextInput(
+            'InThaiProvince': forms.Select(
                     attrs={'class': 'form-control'
                         }),                         
             'InForeignCountry': forms.TextInput(
@@ -237,57 +365,6 @@ class BasicDataForm(ModelForm):
                         'type': 'date'
                         })
         }
-    #         'FullName': forms.TextInput(
-    #                 attrs={'class': 'form-control', 
-    #                     'placeholder': 'คำนำหน้า ชื่อ นามสกุล',
-    #                     })', 
-    #         'Gender': forms.Select(
-    #                 attrs={'class': 'form-control', 
-    #                     })',      
-    #         'BirthDay': forms.DateInput(
-    #                 format=('%Y-%m-%d')',
-    #                 attrs={'class': 'form-control', 
-    #                     'placeholder': 'Select a date',
-    #                     'type': 'date'
-    #                     })',   
-    #         'PersonID': forms.TextInput(
-    #                 attrs={'class': 'form-control', 
-    #                     'placeholder': 'เลขบัตรประชาชน',
-    #                     })',          
-    #         'Office': forms.Textarea(
-    #                 attrs={'class': 'form-control', 
-    #                     'rows': 3',
-    #                     'cols': 40
-    #                     })',
-    #         'IsAirforce': forms.CheckboxInput(attrs={'class': 'form-control',})',                          
-    
-    #         'Mobile': forms.TextInput(
-    #                 attrs={'class': 'form-control', 
-    #                     'placeholder': 'เบอร์มือถือ',
-    #                     })',   
-    #         'Address': forms.Textarea(
-    #                 attrs={'class': 'form-control', 
-    #                     'rows': 3',
-    #                     'cols': 40
-    #                     })',     
-    #         'EmergencyMobile': forms.TextInput(
-    #                 attrs={'class': 'form-control', 
-    #                     'placeholder': 'เบอร์มือถือ',
-    #                     })',                                                                                                                                          
-                                                                                                                
-    #         'Comment': forms.Textarea(
-    #                 attrs={'class': 'form-control', 
-    #                     'rows': 3',
-    #                     })',    
-    #         'IsAMED': forms.CheckboxInput(attrs={'class': 'form-control',})',                          
-                            
-    #         'CurrentStatus': forms.Select(
-    #                 attrs={'class': 'form-control', 
-    #                     })',   
-    #         'CurrentTreatment': forms.Select(
-    #                 attrs={'class': 'form-control', 
-    #                     })',                                                                                                                                                                     
-    #     }
 
     # def clean_PersonID(self):
     #     return self.cleaned_data['PersonID'] or None
@@ -306,6 +383,7 @@ class minDataForm(ModelForm):
                     'Address',
                     'DatePatient',
                     'DiseasePatient',
+<<<<<<< HEAD
                     'CaseFemale',                   
                     'GoogleMap',
                     'Religion',
@@ -323,6 +401,38 @@ class minDataForm(ModelForm):
                     'DrugAllergyHistory',
                     'Symptom',
                     'Note'
+=======
+                    'CaseFemale',
+                    'ReceivedVaccine',
+                    'BookReceivedVaccine',
+                    'DateReceivedVaccine1',
+                    'NameVaccine1',
+                    'PlaceReceivedVaccine1',
+                    'DateReceivedVaccine2',
+                    'NameVaccine2',
+                    'PlaceReceivedVaccine2',
+                    'InForeignCountry',
+                    'InForeignCity',
+                    'NearCovid',
+                    'ContactCovid',
+                    'ContactCovidText',
+                    'CareerNearCovid',
+                    'TravelInCovid',
+                    'TravelInCovidText',
+                    'AuthoritiesMedical',
+                    'AuthoritiesMedicalCarePatient',
+                    'HistoryRisky',
+                    'HistoryRiskyText',
+                    'ContactRisky',
+                    'ContactRiskyTrace',
+                    'PlaceConfineContactRisky1',
+                    'PlaceConfineContactRisky2',
+                    'ContactLowRisk',
+                    'ContactLowRiskTrace',
+                    'PlaceConfineContactLowRisk1',
+                    'PlaceConfineContactLowRisk2',                    
+                    'DateReport'
+>>>>>>> DevMuek
         ]
 
         widgets = {

@@ -16,7 +16,10 @@ logger.debug("Logging is configured.")
 
 def checkRTAFPassdword(username, password):
     pass
+<<<<<<< HEAD
+=======
 
+>>>>>>> origin/DevMuek
     URL = "https://api2-software.rtaf.mi.th:5051/rtaf/v3/ad/internal/login"
 
     data = {
@@ -50,6 +53,7 @@ class SettingsBackend(ModelBackend):
             # if username in ['admin', 'TestAFCMO', 'testUnitCMO','testCRC']:
             #     return user
 
+<<<<<<< HEAD
             # if not re.search("@rtaf.mi.th$",user.email):
             #     user = django_authenticate(username=username, password=password)
             #     if user is not None:
@@ -58,6 +62,16 @@ class SettingsBackend(ModelBackend):
             #         messages.error(request,f'password สำหรับ  User "{username}" ไม่ถูกต้อง')
             #         return None
 
+=======
+            if not re.search("@rtaf.mi.th$",user.email):
+                user = django_authenticate(username=username, password=password)
+                if user is not None:
+                    return user
+                else:
+                    messages.error(request,f'password สำหรับ  User "{username}" ไม่ถูกต้อง')
+                    return None
+                
+>>>>>>> DevMuek
             pwd_valid = checkRTAFPassdword(username,password)
 
             if pwd_valid:

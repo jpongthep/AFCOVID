@@ -1,7 +1,6 @@
 from datetime import date
 import datetime
 from re import T
-
 from django.db import models
 from django.db.models.fields import BooleanField
 
@@ -13,7 +12,86 @@ from Patient.models import Patient
 class Corona3(models.Model):
     class Meta:
         verbose_name_plural = "แบบฟอร์ม Corona3"
-
+    CHOICE_Province = (
+        ('1',' กรุงเทพมหานคร'),
+        ('2',' กระบี่ '),
+        ('3',' กาญจนบุรี '),
+        ('4',' กาฬสินธุ์ '),
+        ('5',' กำแพงเพชร '),
+        ('6',' ขอนแก่น '),
+        ('7',' จันทบุรี '),
+        ('8',' ฉะเชิงเทรา'),
+        ('9',' ชลบุรี '),
+        ('10',' ชัยนาท '),
+        ('11',' ชัยภูมิ '),
+        ('12',' ชุมพร '),
+        ('13',' เชียงราย '),
+        ('14',' เชียงใหม่ '),
+        ('15',' ตรัง '),
+        ('16',' ตราด '),
+        ('17',' ตาก '),
+        ('18',' นครนายก'),
+        ('19',' นครปฐม '),
+        ('20',' นครพนม '),
+        ('21',' นครราชสีมา '),
+        ('22',' นครศรีธรรมราช '),
+        ('23',' นครสวรรค์ '),
+        ('24',' นนทบุรี '),
+        ('25',' นราธิวาส '),
+        ('26',' น่าน '),
+        ('27',' บึงกาฬ '),
+        ('28',' บุรีรัมย์ '),
+        ('29',' ปทุมธานี '),
+        ('30',' ประจวบคีรีขันธ์ '),
+        ('31',' ปราจีนบุรี '),
+        ('32',' ปัตตานี '),
+        ('33',' พระนครศรีอยุธยา '),
+        ('34',' พังงา '),
+        ('35',' พัทลุง '),
+        ('36',' พิจิตร '),
+        ('37',' พิษณุโลก '),
+        ('38',' เพชรบุรี '),
+        ('39',' เพชรบูรณ์ '),
+        ('40',' แพร่ '),
+        ('41',' พะเยา '),
+        ('42',' ภูเก็ต '),
+        ('43',' มหาสารคาม '),
+        ('44',' มุกดาหาร '),
+        ('45',' แม่ฮ่องสอน '),
+        ('46',' ยะลา '),
+        ('47',' ยโสธร '),
+        ('48',' ร้อยเอ็ด '),
+        ('49',' ระนอง '),
+        ('50',' ระยอง '),
+        ('51',' ราชบุรี '),
+        ('52',' ลพบุรี '),
+        ('53',' ลำปาง '),
+        ('54',' ลำพูน '),
+        ('55',' เลย '),
+        ('56',' ศรีสะเกษ'),
+        ('57',' สกลนคร '),
+        ('58',' สงขลา '),
+        ('59',' สตูล '),
+        ('60',' สมุทรปราการ '),
+        ('61',' สมุทรสงคราม '),
+        ('62',' สมุทรสาคร '),
+        ('63',' สระแก้ว '),
+        ('64',' สระบุรี '),
+        ('65',' สิงห์บุรี '),
+        ('66',' สุโขทัย '),
+        ('67',' สุพรรณบุรี '),
+        ('68',' สุราษฎร์ธานี '),
+        ('69',' สุรินทร์ '),
+        ('70',' หนองคาย '),
+        ('71',' หนองบัวลำภู '),
+        ('72',' อ่างทอง '),
+        ('73',' อุดรธานี '),
+        ('74',' อุทัยธานี '),
+        ('75',' อุตรดิตถ์ '),
+        ('76',' อุบลราชธานี '),
+        ('77',' อำนาจเจริญ'),
+    )
+                                    
     Patient = models.ForeignKey(
                                 Patient,
                                 on_delete = models.DO_NOTHING,
@@ -78,6 +156,7 @@ class Corona3(models.Model):
     TypeCheck = models.CharField(
                                 max_length = 100,
                                 choices = CHOICE_TypeCheck, 
+
                                 default = '-', 
                                 null = True,
                                 blank = True,
@@ -85,7 +164,7 @@ class Corona3(models.Model):
     TypeCheck_Other = models.CharField(
                                     max_length = 200,
                                     default = '-', 
-                                    null = True,
+                                    null = False,
                                     blank = True,
                                     verbose_name = 'ระบุการตรวจพบจากกรณีอื่น ๆ')    
     CareerPatient = models.CharField(
@@ -135,6 +214,7 @@ class Corona3(models.Model):
                                 blank = True)
     Province = models.CharField(
                                 max_length = 50,
+                                choices = CHOICE_Province,
                                 default = None, 
                                 verbose_name = 'จังหวัด', 
                                 null = True, 
@@ -182,7 +262,8 @@ class Corona3(models.Model):
                                 blank = True)
     HospitalProvince = models.CharField(
                                 max_length = 50,
-                                default = None, 
+                                choices = CHOICE_Province,
+                                default = '-', 
                                 verbose_name = 'สถานพยาบาลอยู่ในจังหวัด', 
                                 null = True, 
                                 blank = True)
@@ -239,6 +320,7 @@ class Corona3(models.Model):
     DateCheckRTPCR = models.DateField(
                             default=datetime.date.today, 
                             verbose_name = 'วันที่ตรวจ RT PCR')
+
     TypeExampleRTPCR = models.CharField(
                                 max_length = 50,
                                 default = '-', 
@@ -321,8 +403,8 @@ class Corona3(models.Model):
                                 blank = True,
                                 verbose_name = 'Antibody ครั้งที่ 1 IgG')
     CheckAntibody1Neg = BooleanField(
-                                    default = False, 
-                                    verbose_name= "มี",
+                                    default = '-', 
+                                    verbose_name= "Antibody ครั้งที่ 1 Neg",
                                     blank = True, 
                                     null = True,)
 
@@ -357,8 +439,8 @@ class Corona3(models.Model):
                                 blank = True,
                                 verbose_name = 'Antibody ครั้งที่ 2 IgG')
     CheckAntibody2Neg = BooleanField(
-                                    default = False, 
-                                    verbose_name= "มี",
+                                    default = '-', 
+                                    verbose_name= "Anitibody ครั้งที่ 2 Neg",
                                     blank = True, 
                                     null = True,)
     
@@ -424,13 +506,20 @@ class Corona3(models.Model):
                                     verbose_name= "ที่อาศัยมีการระบาด COVID",
                                     blank = True, 
                                     null = True,)
-                                    
-    InThaiProvice = models.CharField(
-                                max_length = 100,
-                                default = '-', 
-                                null = True,
-                                blank = True,
-                                verbose_name = '14 วันก่อนอาศัยอยู่จังหวัด')
+                                       
+    InThaiProvince = models.CharField(
+                                        max_length = 100,
+                                        choices = CHOICE_Province, 
+                                        default = '-', 
+                                        null = True,
+                                        blank = True,
+                                        verbose_name = 'จังหวัด')
+    # InThaiProvice = models.CharField(
+    #                             max_length = 100,
+    #                             default = '-', 
+    #                             null = True,
+    #                             blank = True,
+    #                             verbose_name = 'จังหวัด')
     InForeignCountry = models.CharField(
                                 max_length = 100,
                                 default = '-', 
@@ -462,13 +551,13 @@ class Corona3(models.Model):
                                 verbose_name = 'สัมผัสกับผู้ป่วยชื่อ')
     CareerNearCovid = BooleanField(
                                     default = False, 
-                                    verbose_name= "ประกอบอาชีพที่สัมผัสใกล้ชิดกับนักท่องเทียวต่างชาติหรือแรงงานต่างชาติ",
+                                    verbose_name= "ประกอบอาชีพที่สัมผัสใกล้ชิด กับนักท่องเทียวต่างชาติ หรือแรงงานต่างชาติ",
                                     blank = True, 
                                     null = True,)
     
     TravelInCovid = BooleanField(
                                     default = False, 
-                                    verbose_name= "เดินทางไปในสถานที่หรือทำกิจกรรมที่มีคนหนาแน่นหรือพลุกพล่าน",
+                                    verbose_name= "เดินทางไปในสถานที่ หรือทำกิจกรรมที่มีคนหนาแน่นหรือ พลุกพล่าน",
                                     blank = True, 
                                     null = True,)
     TravelInCovidText = models.CharField(
@@ -571,6 +660,7 @@ class Corona3(models.Model):
                                 blank = True,
                                 default=datetime.date.today, 
                                 verbose_name = 'วันที่')
+<<<<<<< HEAD
     GoogleMap = models.CharField(
                                 default = '-', 
                                 max_length = 100,
@@ -689,6 +779,18 @@ class Corona3(models.Model):
                                 blank = True, 
                                 null = True,
                                 verbose_name = 'หมายเหตุ')
+=======
+
+
+
+    @property
+    def IsPersonID(self):
+        if self.PersonID:
+            return len(self.PersonID) == 13
+        else:
+            return False
+            
+>>>>>>> DevMuek
     @property
     def Age(self):
         if self.BirthYear:
@@ -696,6 +798,13 @@ class Corona3(models.Model):
             return (today.year+543) - self.BirthYear
         else:
             return "-"
+
+    @property
+    def TypeCheck5(self):
+        if self.TypeCheck == 5:
+            self.TypeCheck_Other.null = True
+            return self.TypeCheck_Other
+        
 
     def __str__(self):
         return self.FullName

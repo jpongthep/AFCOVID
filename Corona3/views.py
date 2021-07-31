@@ -43,4 +43,11 @@ class minDataAddNewView(CreateView):
 
 
 
+
+
+
+
+    
+
+
     
