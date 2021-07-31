@@ -37,7 +37,7 @@ class minDataAddNewView(CreateView):
     
     def post(self, request):
         super(minDataAddNewView, self).post(request)
-        messages.success(request,"บันทึกข้อมูลเรียบร้อย")
+        messages.success(request,"บันทึกข้อมูลเรียบร้อยแล้ว")
         return redirect('/CRN3/minData/')
 
 
