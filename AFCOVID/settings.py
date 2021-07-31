@@ -3,7 +3,7 @@ import os.path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-print('BASE_DIR = ',BASE_DIR)
+# print('BASE_DIR = ',BASE_DIR)
 
 SECRET_KEY = 'django-insecure-&!03@yxg9kr0^ty%y8=w#a5^t+^@m)($!_^ddf*iyf33za%)qz'
 

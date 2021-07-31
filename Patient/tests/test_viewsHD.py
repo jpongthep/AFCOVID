@@ -1,4 +1,6 @@
 import pytest
+import json 
+
 from datetime import date
 # from django.contrib.auth.models import AnonymousUser, User
 from UserData.models import User
@@ -25,21 +27,15 @@ def login_user():
     # user.user_permissions.add(perm)
     return logined_user
 
-def patient_add(DataUser):
-    for i in [0,1,2,3,4,5]:
-        patient = Patient(
-                    FullName = f"TestUser {i}",
-                    DataUser = DataUser, 
-                    Date = date.today(),
-                    AirforceType = i
-                )
-        patient.save()
+def patient_add(DataUser,AirforceType):
+    patient = Patient(
+                FullName = f"TestUser {AirforceType}",
+                DataUser = DataUser, 
+                Date = date.today(),
+                AirforceType = AirforceType
+            )
+    patient.save()
 
-# class TestListView:
-#     def test_ListView(self):
-#         req = RequestFactory().get(reverse("Patient:List", kwargs={'PatientType':0}))
-#         resp = viewsHD.PatientListView.as_view()(req)
-#         assert resp.status_code == 200
 
 def test_Corona3Form(client):
     response = client.get('/CRN3/BasicData/')
@@ -49,44 +45,69 @@ def test_minDataForm(client):
     response = client.get('/CRN3/minData/')
     assert "Corona3" in str(response.content)
 
-def test_ListPage(client):
 
-    LoginUser = login_user();
-    client.force_login(LoginUser)
-
-    patient_add(LoginUser)
-
-    for i in [0,1,2,3,4,5]:
-        response = client.get(reverse("Patient:List", kwargs={'PatientType':0}))
-        assert f"TestUser {i}" in str(response.content)
-
+@pytest.mark.parametrize("AirforceType",[0,1,2,3,4,5,6,7])
 @pytest.mark.django_db
-def test_input_patient(client):
+def test_ListPage(client,AirforceType):
 
     LoginUser = login_user();
     client.force_login(LoginUser)
 
-    data = {
-        "FullName" : "NewPatient",
-        "PersonID" : "1234567890123",
-        "DataUser" : LoginUser, 
-        "Date" : date.today(),
-        "AirforceType" : 1 
-    }    
-    req = client.post(reverse("Patient:AddNew"), data = data)
+    patient_add(LoginUser,AirforceType)
 
-    print("new Patient" *5)
-    newPatient = Patient.objects.all()
-    for p in newPatient:
-        print(p)
-        assert 1 == 1
+    response = client.get(reverse("Patient:List", kwargs={'PatientType':AirforceType}))
 
-    # assert 1 == 1
-    newPatient = Patient.objects.get(FullName = "NewPatient")
-    assert newPatient.PersonID == "1234567890123"
+    assert "TestUser " + str(AirforceType) in str(response.content)
 
-    # response = client.get(reverse("Patient:List", kwargs={'PatientType':1}))
-    # assert "NewPatient" in str(response.content)
+# @pytest.mark.django_db
+# def test_input_patient(client):
+
+#     LoginUser = login_user();
+#     client.force_login(LoginUser)
+
+#     data = {
+#         "FullName" : "NewPatient",
+#         "PersonID" : "1234567890123",
+#         "DataUser" : LoginUser, 
+#         "Date" : date.today(),
+#         "AirforceType" : 1 
+#     }    
+#     response = client.post(
+#                     reverse("Patient:AddNew"),
+#                     data=json.dumps(data),
+#                     headers={"Content-Type": "application/json"},
+#             )
+#     self.assertEqual(201, response.status_code)
+#     self.assertEqual('Your message has been successfully saved', response.data)    
+    
+    # req = client.post(reverse("Patient:AddNew"), data = data)
+
+
+    # newPatient = Patient.objects.get(FullName = "NewPatient")
+    # assert newPatient.PersonID == "1234567890123"
+
+
+# def test_post(client):
+#     assert False is Patient.objects.all().exists()
+#     LoginUser = login_user();
+#     client.force_login(LoginUser)
+      
+#     data = {
+#         "FullName" : "NewPatient",
+#         "PersonID" : "1234567890123",
+#         "DataUser" : LoginUser, 
+#         "Date" : date.today(),
+#         "AirforceType" : 1 
+#     } 
+#     req = RequestFactory().post(reverse("Patient:AddNew"), data=data)
+#     req.user = LoginUser
+#     resp = viewsHD.PatientAddNewView.as_view()(req)
+#     # assert resp.status_code == 302, "Should redirect to success url"
+#     # assert resp.url == reverse('Patient:List', kwargs={'AirforceType': 0})
+#     assert Patient.objects.all().exists()
+#     assert Patient.objects.all()[0].FullName == "NewPatient"
+#     # response = client.get(reverse("Patient:List", kwargs={'AirforceType':1}))
+#     # assert "NewPatient" in str(response.content)
 
 
 

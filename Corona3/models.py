@@ -100,6 +100,12 @@ class Corona3(models.Model):
                                 null = True,
                                 blank = True,
                                 verbose_name = 'สถานที่ทำงาน/สถานศึกษา')
+    TreatPlaceWork = models.CharField(
+                                max_length = 250,
+                                default = '-',
+                                null = True,
+                                blank = True,
+                                verbose_name = 'ต้นสังกัดที่เบิกค่ารักษาพยาบาล')
     Mobile  = models.CharField(
                                 max_length = 20,
                                 blank = False, 
@@ -561,9 +567,128 @@ class Corona3(models.Model):
                                 blank = True,
                                 verbose_name = 'เบอร์โทรศัพท์ จนท.')
     DateReport = models.DateField(
+                                null = True,
+                                blank = True,
                                 default=datetime.date.today, 
                                 verbose_name = 'วันที่')
-    
+    GoogleMap = models.CharField(
+                                default = '-', 
+                                max_length = 100,
+                                null = True,
+                                blank = True,
+                                verbose_name = 'Google Map Code')
+    Religion = models.CharField(
+                                default = '-', 
+                                max_length = 15,
+                                null = True,
+                                blank = True,
+                                verbose_name = 'ศาสนา')
+    BloodType = models.CharField(
+                                default = '-', 
+                                max_length = 3,
+                                null = True,
+                                blank = True,
+                                verbose_name = 'กรุปเลือด')
+    Email = models.CharField(
+                                default = '-', 
+                                max_length = 200,
+                                null = True,
+                                blank = True,
+                                verbose_name = 'กรุปเลือด')                                
+    RIGHT_MEDICAL_TREATMENT_CHOICE = (
+        ( 0 ,  'ไม่ระบุ' ) ,
+        ( 1 ,  'เบิกจ่ายตรง (กรมบัญชีกลาง)' ) ,
+        ( 2 ,  'ประกันสังคม' ) ,
+        ( 3 ,  'UC (สปสช.)' ) ,
+        ( 4 ,  'เงินสด' ) ,
+    )
+    RightMedicalTreatment = models.IntegerField(
+                            choices = RIGHT_MEDICAL_TREATMENT_CHOICE, 
+                            default = 0, 
+                            verbose_name = 'สิทธิ์การรักษาพยาบาล', 
+                            null = True,
+                            blank = True)
+    AIRFORCE_TYPE_CHOICE = (
+        ( 0 ,  'ไม่ระบุ' ) ,
+        ( 1 ,  'ทหารประจำการ' ) ,
+        ( 2 ,  'พลทหาร' ) ,
+        ( 3 ,  'พนง.ราชการ' ) ,
+        ( 4 ,  'ลูกจ้างประจำ' ) ,
+        ( 5 ,  'ลูกจ้างชั่วคราว' ) ,
+        ( 6 ,  'ครอบครัว ทอ.' ) ,
+        ( 7 ,  'บุคคลภายนอก' ) ,
+    )        
+    AirforceType = models.IntegerField(
+                            choices = AIRFORCE_TYPE_CHOICE, 
+                            default = 0, 
+                            null=True,
+                            verbose_name = 'ประเภทข้าราชการ')   
+    MobileRelative  = models.CharField(
+                                default = '-', 
+                                max_length = 20,
+                                blank = False, 
+                                null = True,
+                                verbose_name = 'เบอร์โทรญาติ')
+    CHOICE_STATUSLEVEL = (
+        ( 0 ,  'ไม่ระบุ' ) ,
+        ( 1 ,  'ผู้ป่วยสีเขียว - ไม่มีอาการ' ) ,
+        ( 2 ,  'ผู้ป่วยสีเหลืองอ่อน - ไข้ต่ำ' ) ,
+        ( 3 ,  'ผู้ป่วยสีเหลืองเข้ม - ไข้สูง' ) ,
+        ( 4 ,  'ผู้ป่วยสีแดง - ไข้สูงมาก' ) ,
+    )
+    CurrentStatus = models.IntegerField(
+                            choices = CHOICE_STATUSLEVEL, 
+                            default = 0, 
+                            null=True,
+                            verbose_name = 'สถานะผู้ป่วยปัจจุบัน')
+    ATK = models.FileField(
+                                upload_to='Corona3/', 
+                                null = True, 
+                                blank = True)
+    PCR  = models.FileField(
+                                    upload_to='Corona3/', 
+                                    null = True, 
+                                    blank = True)
+    VaccineDetail  = models.CharField(
+                                default = '-', 
+                                max_length = 200,
+                                blank = True, 
+                                null = True,
+                                verbose_name = 'ข้อมูลการรับวัคซีน')
+    CHOICE_HOMEISOLATION = (
+        ( 0 ,  'ไม่ระบุ' ) ,
+        ( 1 ,  'ได้' ) ,
+        ( 2 ,  'ไม่ได้' ) ,
+    )
+    HomeIsolation = models.IntegerField(
+                            choices = CHOICE_HOMEISOLATION, 
+                            default = 0, 
+                            null=True,
+                            verbose_name = 'สามารถทำ Home Isolation')
+    LiveWith  = models.CharField(
+                                default = '-', 
+                                max_length = 5,
+                                blank = True, 
+                                null = True,
+                                verbose_name = 'จำนวนผู้พักอาศัยร่วม')
+    DrugAllergyHistory  = models.CharField(
+                                default = '-',
+                                max_length = 300,
+                                blank = True, 
+                                null = True,
+                                verbose_name = 'ประวัติการแพ้ยา')
+    Symptom  = models.CharField(
+                                default = '-', 
+                                max_length = 300,
+                                blank = True, 
+                                null = True,
+                                verbose_name = 'อาการ')
+    Note  = models.CharField(
+                                default = '-', 
+                                max_length = 300,
+                                blank = True, 
+                                null = True,
+                                verbose_name = 'หมายเหตุ')
     @property
     def Age(self):
         if self.BirthYear:
