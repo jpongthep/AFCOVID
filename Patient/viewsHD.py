@@ -14,7 +14,6 @@ from django.shortcuts import get_object_or_404, redirect
 from django.forms import formset_factory
 from django.db.models import Q
 from django.contrib.auth.models import Group
-import requests
 
 from Patient.forms import ( PatientCOVIDForm,
                             PatientForm, 
