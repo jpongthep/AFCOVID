@@ -20,10 +20,12 @@ def patient_data(create_test_user):
     test_user = User.objects.get(username = 'user_name')
 
     return {
-            "id" : 1,
-            "FullName" : "NewPatient",
-            "PersonID" : "1234567890123", 
-            "DataUser" : test_user,
-            "Date" : date.today(),
-            "AirforceType" : 1 
-    } 
+                'FullName' : "NewPatient",
+                'PersonID' : "1234567890123",
+                'Date' : date.today(),
+                'AirforceType' : 1,
+                'RightMedicalTreatment' : 1,
+                'CurrentStatus' : 0,
+                'CurrentTreatment' : 0
+
+        }    

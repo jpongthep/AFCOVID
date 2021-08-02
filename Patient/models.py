@@ -109,6 +109,7 @@ class Patient(models.Model):
                             choices = AIRFORCE_TYPE_CHOICE, 
                             default = 0, 
                             null=True,
+                            blank = True, 
                             verbose_name = 'ประเภทข้าราชการ')                             
     IsAirforce = BooleanField(
                             default = False, 
@@ -122,12 +123,14 @@ class Patient(models.Model):
     CurrentStatus = models.IntegerField(
                             choices = CHOICE_STATUSLEVEL, 
                             default = 0, 
-                            null=True,
+                            null=True,    
+                            blank = True, 
                             verbose_name = 'สถานะผู้ป่วยปัจจุบัน')
     CurrentTreatment = models.IntegerField(
                                 choices = TREATMENTCHOICES, 
                                 default = 0, 
                                 null=True,
+                                blank = True, 
                                 verbose_name = 'การรักษาปัจจุบัน')                                                         
     Mobile  = models.CharField(
                                 max_length = 10,

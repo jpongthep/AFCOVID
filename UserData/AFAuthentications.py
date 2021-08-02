@@ -46,8 +46,8 @@ class SettingsBackend(ModelBackend):
             if not user.is_active:
                 return None
 
-            # if username in ['admin', 'TestAFCMO', 'testUnitCMO','testCRC']:
-            #     return user
+            if username in ['test_user',]:
+                return user
 
             # if not re.search("@rtaf.mi.th$",user.email):
             #     user = django_authenticate(username=username, password=password)

@@ -20,7 +20,7 @@ pytestmark = pytest.mark.django_db
 
 
 def login_user():
-    username = "user1"
+    username = "test_user"
     password = "bar"
     logined_user = User.objects.create_user(username=username, password=password)
     # perm = Permission.objects.get(codename='can_approve_requests')
@@ -37,16 +37,8 @@ def patient_add(DataUser,AirforceType):
     patient.save()
 
 
-def test_Corona3Form(client):
-    response = client.get('/CRN3/BasicData/')
-    assert "Corona3" in str(response.content)
 
-def test_minDataForm(client):
-    response = client.get('/CRN3/minData/')
-    assert "Corona3" in str(response.content)
-
-
-@pytest.mark.parametrize("AirforceType",[0,1,2,3,4,5,6,7])
+@pytest.mark.parametrize("AirforceType",[0,1,2,3,5,6,7])
 @pytest.mark.django_db
 def test_ListPage(client,AirforceType):
 
@@ -58,6 +50,8 @@ def test_ListPage(client,AirforceType):
     response = client.get(reverse("Patient:List", kwargs={'PatientType':AirforceType}))
 
     assert "TestUser " + str(AirforceType) in str(response.content)
+
+    
 
 # @pytest.mark.django_db
 # def test_input_patient(client):
