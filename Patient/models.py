@@ -133,7 +133,7 @@ class Patient(models.Model):
                                 blank = True, 
                                 verbose_name = 'การรักษาปัจจุบัน')                                                         
     Mobile  = models.CharField(
-                                max_length = 10,
+                                max_length = 20,
                                 blank = True, 
                                 null = True,
                                 verbose_name = 'เบอร์มือถือ')
@@ -157,7 +157,7 @@ class Patient(models.Model):
                                     null = True, 
                                     blank = True)
     EmergencyMobile  = models.CharField(
-                                            max_length = 10,
+                                            max_length = 20,
                                             blank = True, 
                                             null = True,
                                             verbose_name = 'เบอร์ฉุกเฉิน')
@@ -322,7 +322,7 @@ class AMEDPatient(models.Model):
                                 null = True,
                                 verbose_name = 'ชื่อผู้ป่วย')
     Mobile = models.CharField(
-                                max_length = 10,
+                                max_length = 20,
                                 blank = True, 
                                 null = True,
                                 verbose_name = 'เบอร์มือถือ')
