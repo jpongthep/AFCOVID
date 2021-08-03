@@ -464,11 +464,11 @@ class Corona3(models.Model):
                                 blank = True,                            
                                 verbose_name = 'วันที่ได้รับวัคซีน ครั้งที่ 1')
     CHOICE_NameVaccine = (
-        ( '0' ,  '-' ) ,
+        ( '-' ,  '-' ) ,
         ( '1' ,  'Sinovac' ) ,
         ( '2' ,  'Astra Zeneca' ) ,
-        ( '2' ,  'Pfizer' ) ,
-        ( '2' ,  'Moderna' ) ,
+        ( '3' ,  'Pfizer' ) ,
+        ( '4' ,  'Moderna' ) ,
     )
     NameVaccine1 = models.CharField(
                                 max_length = 20,
