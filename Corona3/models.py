@@ -371,8 +371,6 @@ class Corona3(models.Model):
                                 blank = True,
                                 verbose_name = 'ผลการตรวจ Antigen')
     
-
-
     DateCheckAntibody1 = models.DateField(
                             default=datetime.date.today, 
                                 null = True,
@@ -660,7 +658,7 @@ class Corona3(models.Model):
     DateReport = models.DateField(
                                 null = True,
                                 blank = True,
-                                default=datetime.date.today, 
+                                default = datetime.date.today, 
                                 verbose_name = 'วันที่')
     GoogleMap = models.CharField(
                                 default = '-', 
@@ -679,13 +677,13 @@ class Corona3(models.Model):
                                 max_length = 3,
                                 null = True,
                                 blank = True,
-                                verbose_name = 'กรุปเลือด')
+                                verbose_name = 'หมู่เลือด')
     Email = models.CharField(
                                 default = '-', 
                                 max_length = 200,
                                 null = True,
                                 blank = True,
-                                verbose_name = 'กรุปเลือด')                                
+                                verbose_name = 'EMail')                                
     RIGHT_MEDICAL_TREATMENT_CHOICE = (
         ( 0 ,  'ไม่ระบุ' ) ,
         ( 1 ,  'เบิกจ่ายตรง (กรมบัญชีกลาง)' ) ,

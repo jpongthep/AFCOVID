@@ -409,7 +409,7 @@ class minDataForm(ModelForm):
         widgets = {
             'GoogleMap': forms.TextInput(
                     attrs={'class': 'form-control', 
-                        'placeholder': '',
+                        'placeholder': 'XXXX+XX',
                         }),  
             'Religion': forms.TextInput(
                     attrs={'class': 'form-control', 
