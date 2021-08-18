@@ -275,17 +275,18 @@ class Corona3(models.Model):
     ShowSymptom = models.CharField(
                                 max_length = 200,
                                 choices = CHOICE_ShowSymptom, 
-                                default = '-', 
+                                default = '1', 
                                 null = True,
                                 blank = True,
                                 verbose_name = 'อาการและอาการแสดง(ณ วันที่รายงาน)')
     ShowSymptom_O2 = models.CharField(
                                     max_length = 3,
-                                    default = '-', 
+                                    default = '1', 
                                     null = True,
                                     blank = True,
                                     verbose_name = 'ค่า O2 Sat %')
     CHOICE_TypeViolence = (
+        ( '0' ,  'ไม่ระบุ' ) ,
         ( '1' ,  'เป็นปอดอักเสบ' ) ,
         ( '2' ,  'ใส่เครื่องช่วยหายใจ' ) ,
         ( '3' ,  'เสียชีวิต' ) ,
@@ -293,13 +294,13 @@ class Corona3(models.Model):
     TypeViolence = models.CharField(
                                 max_length = 20,
                                 choices = CHOICE_TypeViolence, 
-                                default = '-', 
+                                default = '0', 
                                 null = True,
                                 blank = True,
                                 verbose_name = 'ความรุนแรงของอาการ')
     DiseasePatient = models.CharField(
                                 max_length = 100,
-                                default = '-', 
+                                default = '0', 
                                 null = True,
                                 blank = True,
                                 verbose_name = 'โรคประจำตัว')
@@ -311,7 +312,7 @@ class Corona3(models.Model):
     CaseFemale = models.CharField(
                                 max_length = 15,
                                 choices = CHOICE_CaseFemale, 
-                                default = '-', 
+                                default = '0', 
                                 null = True,
                                 blank = True,
                                 verbose_name = 'กรณีเพศหญิง')
@@ -341,7 +342,7 @@ class Corona3(models.Model):
     ResultsCheckRTPCR = models.CharField(
                                 max_length = 50,
                                 choices = CHOICE_ResultsCheck, 
-                                default = '-', 
+                                default = '0', 
                                 null = True,
                                 blank = True,
                                 verbose_name = 'ผลการตรวจ RT PCR')

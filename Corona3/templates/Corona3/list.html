@@ -1,0 +1,172 @@
+{% extends '_base.html' %}
+{% load static %}
+{% load thaidate %}
+{% load custom_tag %}
+
+{% block title %}{{ PageTitle }}{% endblock %}
+
+{% block content %}
+    <style>    
+        form.example input[type=text] {
+        padding: 5px;
+        font-size: 17px;
+        border: 1px solid grey;
+        float: left;
+        width: 80%;
+        background: #f1f1f1;
+        }
+
+        form.example button {
+        float: left;
+        width: 20%;
+        padding: 5px;
+        background: #2196F3;
+        color: white;
+        font-size: 17px;
+        border: 1px solid grey;
+        border-left: none;
+        cursor: pointer;
+        }
+
+        form.example button:hover {
+        background: #0b7dda;
+        }
+
+        form.example::after {
+        content: "";
+        clear: both;
+        display: table;
+        }    
+
+      .badge {
+          display: inline-block;
+          padding: .35em .65em;
+          font-size: .60em!important;
+          font-weight: 700;
+          line-height: 1;
+          color: #fff;
+          text-align: center;
+          white-space: nowrap;
+          vertical-align: baseline;
+          border-radius: 50rem;
+      }
+
+    </style>
+
+<div class="container">
+    <div class = "float-left">
+        <a href = "{% url 'Patient:AddNew' %}"class="btn   btn-success" role="button" >เพิ่มผู้ป่วย</a>
+    </div>
+    <div class = "float-right">
+        <form class="example" action="" style="margin:auto;max-width:400px">
+            <input type="text" placeholder="Search.." name="textsearch">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+
+    <div class="table-responsive">
+      <h4>List Page</h4>
+      <table class="table table-striped table-bordered">
+        <col width="100">
+        <col width="350">
+        <col width="100">
+        <col width="100">
+        <col width="300">
+
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>FullName (อายุ)</th>            
+            <th>PID</th>
+  
+            <th>มือถือ</th>     
+            <th colspan = 3>การจัดการ</th>     
+          </tr>
+        </thead>
+        <tbody>
+          {% for patient in object_list %}
+          <tr>
+            <td>{{ patient.DateReport|thaidate:"d-m-y" }}</td>
+            <td> 
+              {{ patient.FullName }} 
+              {% if patient.Age > 0 %}
+                ({{ patient.Age }})
+              {% endif %}
+
+              {% if patient.IsAMED %}
+                <span class="badge rounded-pill bg-secondary">AMED</span>
+              {% endif %}
+            </td>            
+            <td>
+              {% if patient.IsPersonID  %}
+                  <abbr title="{{ patient.PersonID }}"><i class="fas fa-check"></i></abbr>                  
+              {% endif %}
+            </td>
+            <td>{{ patient.Mobile }}</td>
+
+            <td>
+                <a  class = "btn  btn-sm btn-primary text-white"><i class="far fa-file-export"> </i> AMED</a>
+                <a href = "{% url 'Corona3:doc' patient.id %}" class = "btn  btn-sm btn-info text-white"><i class="far fa-file-word"> </i> Word</a>
+                <a href = "{% url 'Corona3:update' patient.id %}" class="btn  btn-sm btn-warning" role="button" >แก้ไข</a>                
+            </td>
+
+
+          </tr>
+          {% endfor %}
+          <tr>
+            <td colspan = 4></td>
+            <td ><a href = "{% url 'Corona3:BasicForm' %}"class="btn   btn-success" role="button" >เพิ่มผู้ป่วย</a></td>            
+          </tr>
+        </tbody>
+      </table>
+      <nav aria-label="Page navigation example">
+      {% if is_paginated %}
+      <ul class="pagination">
+        {% if page_obj.has_previous %}
+            <li class="page-item">
+            <a class="page-link" href="?page={{page_obj.previous_page_number}}"
+                >&laquo;</a
+            >
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+            <a class="page-link" href="#">&laquo;</a>
+            </li>
+        {% endif %} 
+        {% for i in paginator.page_range %} 
+            {% if page_obj.number ==  i %}
+              <li class="page-item"><a class="page-link active"><strong>{{ i }}</strong></a></li>
+            {% elif i <= 4 or i >= paginator.num_pages|add:"-3" %}
+              <li class="page-item">              
+                <a class="page-link" href="?{% url_replace request 'page' i %}">{{ i }}</a>
+              </li>
+            {% elif page_obj.number >=  i|add:"-3"  and page_obj.number <=  i|add:"3"%}
+              <li class="page-item">
+                <a class="page-link" href="?{% url_replace request 'page' i %}">{{ i }}</a>                
+              </li>
+            {% else %}
+              <li class="page-item">
+                &nbsp;
+              </li>
+            {% endif %}
+        {% endfor %} 
+        {% if page_obj.has_next %}
+        <li class="page-item">
+          <a href="?page={{page_obj.next_page_number}}" class="page-link"
+            >&raquo;</a
+          >
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+          <a class="page-link">&raquo;</a>
+        </li>
+        {% endif %}
+      </ul>
+      {% endif %}
+
+    </nav>
+    </div>
+</div>
+
+
+{% endblock %}

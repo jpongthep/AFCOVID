@@ -174,13 +174,13 @@ class BasicDataForm(ModelForm):
             'HospitalProvince':forms.Select(
                     attrs={'class': 'form-control'
                         }),  
-            'ShowSymptom': forms.TextInput(
+            'ShowSymptom': forms.Select(
                     attrs={'class': 'form-control'
                         }),
-            'ShowSymptom_O2': forms.TextInput(
+            'ShowSymptom_O2': forms.Select(
                     attrs={'class': 'form-control'
                         }),
-            'TypeViolence': forms.TextInput(
+            'TypeViolence': forms.Select(
                     attrs={'class': 'form-control'
                         }),
             'DiseasePatient': forms.TextInput(
@@ -198,7 +198,7 @@ class BasicDataForm(ModelForm):
             'PlaceCheckRTPCR': forms.TextInput(
                     attrs={'class': 'form-control'
                         }),
-            'ResultsCheckRTPCR': forms.TextInput(
+            'ResultsCheckRTPCR': forms.Select(
                     attrs={'class': 'form-control'
                         }),
             'DateCheckAntigen': forms.DateInput(
@@ -207,13 +207,13 @@ class BasicDataForm(ModelForm):
                         'placeholder': 'Select a date',
                         'type': 'date'
                         }),
-            'TypeExampleAntigen': forms.TextInput(
+            'TypeExampleAntigen': forms.Select(
                     attrs={'class': 'form-control'
                         }),
             'PlaceCheckAntigen': forms.TextInput(
                     attrs={'class': 'form-control'
                         }),
-            'ResultsCheckAntigen': forms.TextInput(
+            'ResultsCheckAntigen': forms.Select(
                     attrs={'class': 'form-control'
                         }),
             'DateCheckAntibody1': forms.DateInput(
