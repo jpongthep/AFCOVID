@@ -413,7 +413,6 @@ class minDataForm(ModelForm):
                     'DateReceivedVaccine2',
                     'NameVaccine2',
                     'PlaceReceivedVaccine2',
-                    'LiveInCovid',
                     'InForeignCountry',
                     'InForeignCity',
                     'NearCovid',
@@ -579,8 +578,7 @@ class minDataForm(ModelForm):
             'PlaceReceivedVaccine2': forms.TextInput(
                     attrs={'class': 'form-control'
                         }),
-            'LiveInCovid': forms.CheckboxInput(
-                    attrs={'class': 'form-control',}),                                              
+
             'InThaiProvice': forms.TextInput(
                     attrs={'class': 'form-control'
                         }),                         
