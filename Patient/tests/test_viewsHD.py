@@ -51,7 +51,6 @@ def test_ListPage(client,AirforceType):
 
     assert "TestUser " + str(AirforceType) in str(response.content)
 
-    
 
 # @pytest.mark.django_db
 # def test_input_patient(client):

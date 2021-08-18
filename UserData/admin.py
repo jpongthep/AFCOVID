@@ -23,6 +23,5 @@ class UserAdmin(BaseUserAdmin):
     ordering = ('Unit','username',)
     filter_horizontal = ('groups', 'user_permissions',)
 
-
 admin.site.register(User, UserAdmin)
 

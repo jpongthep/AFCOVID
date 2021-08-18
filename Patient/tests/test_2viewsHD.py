@@ -14,6 +14,7 @@ def login_user():
     # user.user_permissions.add(perm)
     return logined_user
 
+
 @pytest.mark.parametrize('param',[
     ('login'),
     ('Corona3:BasicForm'),
@@ -24,6 +25,7 @@ def test_anonymous_views(client,param):
     resp = client.get(temp_url)
     assert resp.status_code == 200
     assert "Corona3" in str(resp.content)
+
 
 @pytest.mark.django_db
 def test_add_patient(client, patient_data):
@@ -36,6 +38,7 @@ def test_add_patient(client, patient_data):
     
     assert patient.objects.get(PersonID = "1234567890123").FullName == "NewPatient"
     assert patient.objects.count() == 1 
+
 
 @pytest.mark.django_db
 def test_user_login(client,create_test_user,user_data):
