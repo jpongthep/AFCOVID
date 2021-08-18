@@ -174,13 +174,13 @@ class BasicDataForm(ModelForm):
             'HospitalProvince':forms.Select(
                     attrs={'class': 'form-control'
                         }),  
-            'ShowSymptom': forms.TextInput(
+            'ShowSymptom': forms.Select(
                     attrs={'class': 'form-control'
                         }),
-            'ShowSymptom_O2': forms.TextInput(
+            'ShowSymptom_O2': forms.Select(
                     attrs={'class': 'form-control'
                         }),
-            'TypeViolence': forms.TextInput(
+            'TypeViolence': forms.Select(
                     attrs={'class': 'form-control'
                         }),
             'DiseasePatient': forms.TextInput(
@@ -198,7 +198,7 @@ class BasicDataForm(ModelForm):
             'PlaceCheckRTPCR': forms.TextInput(
                     attrs={'class': 'form-control'
                         }),
-            'ResultsCheckRTPCR': forms.TextInput(
+            'ResultsCheckRTPCR': forms.Select(
                     attrs={'class': 'form-control'
                         }),
             'DateCheckAntigen': forms.DateInput(
@@ -207,13 +207,13 @@ class BasicDataForm(ModelForm):
                         'placeholder': 'Select a date',
                         'type': 'date'
                         }),
-            'TypeExampleAntigen': forms.TextInput(
+            'TypeExampleAntigen': forms.Select(
                     attrs={'class': 'form-control'
                         }),
             'PlaceCheckAntigen': forms.TextInput(
                     attrs={'class': 'form-control'
                         }),
-            'ResultsCheckAntigen': forms.TextInput(
+            'ResultsCheckAntigen': forms.Select(
                     attrs={'class': 'form-control'
                         }),
             'DateCheckAntibody1': forms.DateInput(
@@ -403,6 +403,7 @@ class minDataForm(ModelForm):
                     'LiveWith',
                     'DrugAllergyHistory',
                     'Symptom',
+<<<<<<< HEAD
                     'Note',
                     'CaseFemale',
                     'ReceivedVaccine',
@@ -434,12 +435,15 @@ class minDataForm(ModelForm):
                     'PlaceConfineContactLowRisk1',
                     'PlaceConfineContactLowRisk2',                    
                     'DateReport'
+=======
+                    'Note'
+>>>>>>> 102464afbf68142b4fc95d2422d8c5396d070093
         ]
 
         widgets = {
             'GoogleMap': forms.TextInput(
                     attrs={'class': 'form-control', 
-                        'placeholder': '',
+                        'placeholder': 'XXXX+XX',
                         }),  
             'Religion': forms.TextInput(
                     attrs={'class': 'form-control', 
@@ -546,6 +550,7 @@ class minDataForm(ModelForm):
                         }),         
             'CaseFemale': forms.Select(
                     attrs={'class': 'form-control', 
+<<<<<<< HEAD
                         }),                                                    
             'TypeLive': forms.Select(
                     attrs={'class': 'form-control', 
@@ -653,4 +658,7 @@ class minDataForm(ModelForm):
                         'placeholder': 'Select a date',
                         'type': 'date'
                         })
+=======
+                        })                                                                             
+>>>>>>> 102464afbf68142b4fc95d2422d8c5396d070093
         }

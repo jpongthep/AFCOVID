@@ -14,7 +14,6 @@ from django.shortcuts import get_object_or_404, redirect
 from django.forms import formset_factory
 from django.db.models import Q
 from django.contrib.auth.models import Group
-import requests
 
 from Patient.forms import ( PatientCOVIDForm,
                             PatientForm, 
@@ -42,6 +41,7 @@ def dashboard(request,num_day = 7):
                                  ).order_by('Office'
                                  ).values('Office'
                                  ).annotate(NumPatient = Count('id'))
+    print('Dashboard function : ')
 
     
     context = {
@@ -80,32 +80,45 @@ def get_template_name(user):
     else:
         return 'Patient/List.html' #'Patient/ListAFCMO.html'
 
-class PatientAddNewView(CreateView):
+class PatientAddNewView(LoginRequiredMixin,CreateView):
     login_url = '/login'
     model = Patient
     # fields = '__all__'
-    form_class = PatientForm
+    form_class = PatientCOVIDForm
     template_name = 'Patient/AddNew.html'   
     success_url = '/0/List' 
     
-    def get_form_class(self):
-        return get_form_class(self.request.user)
+    # def get_form_class(self):
+    #     return get_form_class(self.request.user)
+
+    # def post(self, request, **kwargs):
+    #         my_data = request.POST
+    #         print('Create : Post ',my_data)
+    #         # do something with your data
+    #         form = self.get_form()
+    #         print('CreateView:form_valid() =', form.is_valid())
+    #         print('CreateView:form.errors =', form.errors)
+    #         context = {}  #  set your context
+    #         return super(CreateView, self).post(request, **kwargs)
+
+    # def form_invalid(self, form):
+    #     print('Patient Add New : form_invalid')
+    #     return super(CreateView,self).form_invalid(form)
 
     def form_valid(self, form):
         print('Create Check Form - Valid start')
+        a = form.save(commit=False)
+        a.DataUser = self.request.user
         if self.request.user.has_perm("UserData.User_CRC"):
-            a = form.save(commit=False)
-            a.DataUser = self.request.user
             a.ConfirmUser = self.request.user
             a.ConfirmedByCRC = True
-            a.save()
-        else:
-            form.save()
+        a.save()
 
-        print('Create Check Form - Valid end')
-        messages.info(self.request,f'บันทึกข้อมูล {a.FullName} เรียบร้อย')
+        messages.info(self.request,f'บันทึกข้อมูล {form.cleaned_data.get("FullName")} เรียบร้อย')
 
         return redirect(reverse('Patient:List', kwargs={'PatientType': 0}))
+        # print('Patient Add New : form_valid')
+        # return super(CreateView,self).form_valid(form)
 
  
 class PatientListView(LoginRequiredMixin,ListView):

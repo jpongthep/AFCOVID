@@ -80,16 +80,23 @@
                                 </div>
                                 <div class="form-group">
                                     <label>
-                                        <a target = "_blank" href = "{% url 'Corona3:BasicForm' %}">ส่งข้อมูล Corona3</a> 
+                                        <a target = "_blank" href = "{% url 'Corona3:minForm' %}">ส่งข้อมูลแบบย่อ</a> 
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        <a target = "_blank" href = "{% url 'Corona3:BasicForm' %}">ส่งข้อมูล Corona3 เต็มรูปแบบ</a> 
                                     </label>
                                 </div>
                                 {% include "DisplayMessage.html" %}
-
-                                
-                                <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Sign in</button>
+                                <div class="form-group">
+                                    <label>
+                                        <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Sign in</button>
+                                    </label>
+                                </div>                                                                
                             </form>
                         </div>
-                        <div class="login-logo">
+                        <div class="login-logo mt-5">
                             <img class="pic" src="{% static 'assets/images/logoSWCCreate.png' %}" alt="">
                             <img class="pic" src="{% static 'assets/images/logoMedCreate.png' %}" alt="">
                         </div>

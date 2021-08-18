@@ -9,6 +9,7 @@ from UserData.models import User
 AIRFORCE_TYPE_CHOICE = (
     ( 0 ,  'ไม่ระบุ' ) ,
     ( 1 ,  'ทหารประจำการ' ) ,
+    ( 8 ,  'นักเรียนทหาร' ) ,
     ( 2 ,  'พลทหาร' ) ,
     ( 3 ,  'พนง.ราชการ' ) ,
     ( 4 ,  'ลูกจ้างประจำ' ) ,
@@ -109,6 +110,7 @@ class Patient(models.Model):
                             choices = AIRFORCE_TYPE_CHOICE, 
                             default = 0, 
                             null=True,
+                            blank = True, 
                             verbose_name = 'ประเภทข้าราชการ')                             
     IsAirforce = BooleanField(
                             default = False, 
@@ -122,15 +124,17 @@ class Patient(models.Model):
     CurrentStatus = models.IntegerField(
                             choices = CHOICE_STATUSLEVEL, 
                             default = 0, 
-                            null=True,
+                            null=True,    
+                            blank = True, 
                             verbose_name = 'สถานะผู้ป่วยปัจจุบัน')
     CurrentTreatment = models.IntegerField(
                                 choices = TREATMENTCHOICES, 
                                 default = 0, 
                                 null=True,
+                                blank = True, 
                                 verbose_name = 'การรักษาปัจจุบัน')                                                         
     Mobile  = models.CharField(
-                                max_length = 10,
+                                max_length = 20,
                                 blank = True, 
                                 null = True,
                                 verbose_name = 'เบอร์มือถือ')
@@ -154,7 +158,7 @@ class Patient(models.Model):
                                     null = True, 
                                     blank = True)
     EmergencyMobile  = models.CharField(
-                                            max_length = 10,
+                                            max_length = 20,
                                             blank = True, 
                                             null = True,
                                             verbose_name = 'เบอร์ฉุกเฉิน')
@@ -319,7 +323,7 @@ class AMEDPatient(models.Model):
                                 null = True,
                                 verbose_name = 'ชื่อผู้ป่วย')
     Mobile = models.CharField(
-                                max_length = 10,
+                                max_length = 20,
                                 blank = True, 
                                 null = True,
                                 verbose_name = 'เบอร์มือถือ')

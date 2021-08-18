@@ -16,8 +16,6 @@
 
 {% block content %}
 
-
-<body>
     <div class="container">
 
         <label class="list-group-item bg-primary" >ข้อมูลพื้นฐาน</label>
@@ -48,7 +46,7 @@
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="basicInput">Google Map Code Plus </label> วิธีหา
+                    <label for="basicInput">Google Map Code Plus </label> <a class = "font-weight-bold text-danger" href = "{% static 'assets/images/mapPatient.png'%}" target = "new">วิธีหา</a>
                     {{ form.GoogleMap }}
                 </div>
             </div>
@@ -57,7 +55,7 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="form-group">
-                    <label for="basicInput">ปี พ.ศ.เกิด </label>
+                    <label for="basicInput">ปี พ.ศ.เกิด </label> <span class="text-danger">*</span>
                     {{ form.BirthYear }}
                 </div>
             </div>

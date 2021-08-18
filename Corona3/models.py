@@ -275,17 +275,18 @@ class Corona3(models.Model):
     ShowSymptom = models.CharField(
                                 max_length = 200,
                                 choices = CHOICE_ShowSymptom, 
-                                default = '-', 
+                                default = '1', 
                                 null = True,
                                 blank = True,
                                 verbose_name = 'อาการและอาการแสดง(ณ วันที่รายงาน)')
     ShowSymptom_O2 = models.CharField(
                                     max_length = 3,
-                                    default = '-', 
+                                    default = '1', 
                                     null = True,
                                     blank = True,
                                     verbose_name = 'ค่า O2 Sat %')
     CHOICE_TypeViolence = (
+        ( '0' ,  'ไม่ระบุ' ) ,
         ( '1' ,  'เป็นปอดอักเสบ' ) ,
         ( '2' ,  'ใส่เครื่องช่วยหายใจ' ) ,
         ( '3' ,  'เสียชีวิต' ) ,
@@ -293,13 +294,13 @@ class Corona3(models.Model):
     TypeViolence = models.CharField(
                                 max_length = 20,
                                 choices = CHOICE_TypeViolence, 
-                                default = '-', 
+                                default = '0', 
                                 null = True,
                                 blank = True,
                                 verbose_name = 'ความรุนแรงของอาการ')
     DiseasePatient = models.CharField(
                                 max_length = 100,
-                                default = '-', 
+                                default = '0', 
                                 null = True,
                                 blank = True,
                                 verbose_name = 'โรคประจำตัว')
@@ -311,7 +312,7 @@ class Corona3(models.Model):
     CaseFemale = models.CharField(
                                 max_length = 15,
                                 choices = CHOICE_CaseFemale, 
-                                default = '-', 
+                                default = '0', 
                                 null = True,
                                 blank = True,
                                 verbose_name = 'กรณีเพศหญิง')
@@ -341,7 +342,7 @@ class Corona3(models.Model):
     ResultsCheckRTPCR = models.CharField(
                                 max_length = 50,
                                 choices = CHOICE_ResultsCheck, 
-                                default = '-', 
+                                default = '0', 
                                 null = True,
                                 blank = True,
                                 verbose_name = 'ผลการตรวจ RT PCR')
@@ -371,8 +372,6 @@ class Corona3(models.Model):
                                 blank = True,
                                 verbose_name = 'ผลการตรวจ Antigen')
     
-
-
     DateCheckAntibody1 = models.DateField(
                             default=datetime.date.today, 
                                 null = True,
@@ -464,11 +463,11 @@ class Corona3(models.Model):
                                 blank = True,                            
                                 verbose_name = 'วันที่ได้รับวัคซีน ครั้งที่ 1')
     CHOICE_NameVaccine = (
-        ( '0' ,  '-' ) ,
+        ( '-' ,  '-' ) ,
         ( '1' ,  'Sinovac' ) ,
         ( '2' ,  'Astra Zeneca' ) ,
-        ( '2' ,  'Pfizer' ) ,
-        ( '2' ,  'Moderna' ) ,
+        ( '3' ,  'Pfizer' ) ,
+        ( '4' ,  'Moderna' ) ,
     )
     NameVaccine1 = models.CharField(
                                 max_length = 20,
@@ -648,7 +647,7 @@ class Corona3(models.Model):
     DateReport = models.DateField(
                                 null = True,
                                 blank = True,
-                                default=datetime.date.today, 
+                                default = datetime.date.today, 
                                 verbose_name = 'วันที่')
     GoogleMap = models.CharField(
                                 default = '-', 
@@ -667,13 +666,13 @@ class Corona3(models.Model):
                                 max_length = 3,
                                 null = True,
                                 blank = True,
-                                verbose_name = 'กรุปเลือด')
+                                verbose_name = 'หมู่เลือด')
     Email = models.CharField(
                                 default = '-', 
                                 max_length = 200,
                                 null = True,
                                 blank = True,
-                                verbose_name = 'กรุปเลือด')                                
+                                verbose_name = 'EMail')                                
     RIGHT_MEDICAL_TREATMENT_CHOICE = (
         ( 0 ,  'ไม่ระบุ' ) ,
         ( 1 ,  'เบิกจ่ายตรง (กรมบัญชีกลาง)' ) ,
