@@ -6,6 +6,8 @@ from .views import (BasicFormAddNewView,
                     Corona3UpdateView,
                     corona3_Document)
 
+from .views_selenium import automate_addpatient
+
 app_name = 'Corona3'
 
 urlpatterns = [
@@ -14,5 +16,6 @@ urlpatterns = [
     path('list/',Corona3ListView.as_view() , name = 'list'),
     path('<pk>/up/',Corona3UpdateView.as_view() , name = 'update'),
     path('<pk>/doc/',corona3_Document , name = 'doc'),
+    path('<pk>/export/',automate_addpatient , name = 'export'),
 ]
 

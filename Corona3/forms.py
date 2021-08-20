@@ -177,7 +177,7 @@ class BasicDataForm(ModelForm):
             'ShowSymptom': forms.Select(
                     attrs={'class': 'form-control'
                         }),
-            'ShowSymptom_O2': forms.Select(
+            'ShowSymptom_O2': forms.TextInput(
                     attrs={'class': 'form-control'
                         }),
             'TypeViolence': forms.Select(
@@ -207,7 +207,7 @@ class BasicDataForm(ModelForm):
                         'placeholder': 'Select a date',
                         'type': 'date'
                         }),
-            'TypeExampleAntigen': forms.Select(
+            'TypeExampleAntigen': forms.TextInput(
                     attrs={'class': 'form-control'
                         }),
             'PlaceCheckAntigen': forms.TextInput(
@@ -307,10 +307,10 @@ class BasicDataForm(ModelForm):
             'NameVaccine2': forms.Select(
                     attrs={'class': 'form-control', 
                         }),  
-            'NearCovid': forms.Select(
+            'NearCovid': forms.CheckboxInput(
                     attrs={'class': 'form-control', 
                         }),  
-            'ContactCovid': forms.Select(
+            'ContactCovid': forms.CheckboxInput(
                     attrs={'class': 'form-control', 
                         }),  
             # 'NameVaccine2': forms.Select(
