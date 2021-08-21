@@ -515,12 +515,7 @@ class Corona3(models.Model):
                                         null = True,
                                         blank = True,
                                         verbose_name = 'จังหวัด')
-    # InThaiProvice = models.CharField(
-    #                             max_length = 100,
-    #                             default = '-', 
-    #                             null = True,
-    #                             blank = True,
-    #                             verbose_name = 'จังหวัด')
+    
     InForeignCountry = models.CharField(
                                 max_length = 100,
                                 default = '-', 
@@ -632,19 +627,12 @@ class Corona3(models.Model):
                                     null = True,
                                     blank = True)
 
-    # class Meta:
-    #         verbose_name_plural = "เจ้าหน้าที่รายงาน"
-
     UserReport = models.CharField(
                                 max_length = 100,
                                 default = '-', 
                                 null = True,
                                 blank = True,
                                 verbose_name = 'ผู้รายงาน')
-    # UserReport = models.ForeignKey(
-    #                                 on_delete=models.DO_NOTHING, 
-    #                                 related_name='Corona3_User', 
-    #                                 verbose_name = 'ผู้บันทึกข้อมูล')
     Unit = models.CharField(
                                 max_length = 100,
                                 null = True,
@@ -779,8 +767,6 @@ class Corona3(models.Model):
                                 blank = True, 
                                 null = True,
                                 verbose_name = 'หมายเหตุ')
-
-
 
     @property
     def IsPersonID(self):
