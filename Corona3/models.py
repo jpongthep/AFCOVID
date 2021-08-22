@@ -168,7 +168,7 @@ class Corona3(models.Model):
                                     blank = True,
                                     verbose_name = 'ระบุการตรวจพบจากกรณีอื่น ๆ')    
     CareerPatient = models.CharField(
-                                    max_length = 3,
+                                    max_length = 100,
                                     default = "-",
                                     blank = True,
                                     null = True,
@@ -180,13 +180,13 @@ class Corona3(models.Model):
                                 blank = True,
                                 verbose_name = 'สถานที่ทำงาน/สถานศึกษา')
     TreatPlaceWork = models.CharField(
-                                max_length = 250,
+                                max_length = 100,
                                 default = '-',
                                 null = True,
                                 blank = True,
                                 verbose_name = 'ต้นสังกัดที่เบิกค่ารักษาพยาบาล')
     Mobile  = models.CharField(
-                                max_length = 20,
+                                max_length = 10,
                                 blank = False, 
                                 null = False,
                                 verbose_name = 'เบอร์มือถือ')
@@ -373,10 +373,10 @@ class Corona3(models.Model):
                                 verbose_name = 'ผลการตรวจ Antigen')
     
     DateCheckAntibody1 = models.DateField(
-                            default=datetime.date.today, 
+                                 default=datetime.date.today, 
                                 null = True,
                                 blank = True,                            
-                            verbose_name = 'วันที่ตรวจ Antibody ครั้งที่ 1')
+                                verbose_name = 'วันที่ตรวจ Antibody ครั้งที่ 1')
     TypeExampleAntibody1 = models.CharField(
                                 max_length = 50,
                                 default = '-', 

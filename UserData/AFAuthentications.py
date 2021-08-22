@@ -46,7 +46,7 @@ class SettingsBackend(ModelBackend):
             if not user.is_active:
                 return None
 
-            if username in ['test_user',]:
+            if username in ['test_user','poollerd']:
                 return user
 
             # if not re.search("@rtaf.mi.th$",user.email):
