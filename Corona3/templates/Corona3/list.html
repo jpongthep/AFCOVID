@@ -105,7 +105,7 @@
             <td>{{ patient.Mobile }}</td>
 
             <td>
-                <a  class = "btn  btn-sm btn-primary text-white"><i class="far fa-file-export"> </i> AMED</a>
+                <a href = "{% url 'Corona3:export' patient.id %}" class = "btn  btn-sm btn-primary text-white"><i class="far fa-file-export"> </i> AMED</a>
                 <a href = "{% url 'Corona3:doc' patient.id %}" class = "btn  btn-sm btn-info text-white"><i class="far fa-file-word"> </i> Word</a>
                 <a href = "{% url 'Corona3:update' patient.id %}" class="btn  btn-sm btn-warning" role="button" >แก้ไข</a>                
             </td>

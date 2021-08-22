@@ -65,7 +65,8 @@ class Corona3UpdateView(LoginRequiredMixin,UpdateView):
 
 def corona3_Document(request,pk):
     # testdoc = static('documents/form_corona3.docx')
-    testdoc =  os.path.join(settings.TEMPLATES[0]['DIRS'][0],'documents/form_corona3.docx')
+    # testdoc =  os.path.join(settings.TEMPLATES[0]['DIRS'][0],'documents/form_corona3.docx')
+    testdoc =  "/home/sammy/afcovid/templates/documents/test1.docx"
 
     document = Document(testdoc)
 
