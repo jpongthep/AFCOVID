@@ -168,7 +168,7 @@ class Corona3(models.Model):
                                     blank = True,
                                     verbose_name = 'ระบุการตรวจพบจากกรณีอื่น ๆ')    
     CareerPatient = models.CharField(
-                                    max_length = 3,
+                                    max_length = 30,
                                     default = "-",
                                     blank = True,
                                     null = True,
@@ -243,7 +243,7 @@ class Corona3(models.Model):
                                     default = '-', 
                                     null = True,
                                     blank = True,
-                                    verbose_name = 'ระบุลักษะณะการพักอาศัย')
+                                    verbose_name = 'ระบุลักษณะการพักอาศัย')
 
     DatePatient = models.DateField(
                             default=datetime.date.today, 
@@ -531,7 +531,7 @@ class Corona3(models.Model):
                                 verbose_name = '14 วันก่อนอาศัยอยู่เมือง')
     NearCovid = BooleanField(
                                     default = False, 
-                                    verbose_name= "ได้ดูแลหรือสัมผัสใกล้ชิดกับผู้ป่วยอาการคล้ายไข้หวัดใหญ่หรือปลอดอักเสบ",
+                                    verbose_name= "ได้ดูแลหรือสัมผัสใกล้ชิดกับผู้ป่วยอาการคล้ายไข้หวัดใหญ่หรือปอดอักเสบ",
                                     blank = True, 
                                     null = True,)
     ContactCovid = BooleanField(

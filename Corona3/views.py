@@ -1,5 +1,6 @@
 import os
 from io import StringIO, BytesIO
+import datetime
 
 #django module
 from django.forms.forms import Form
@@ -65,8 +66,8 @@ class Corona3UpdateView(LoginRequiredMixin,UpdateView):
 
 def corona3_Document(request,pk):
     # testdoc = static('documents/form_corona3.docx')
-    # testdoc =  os.path.join(settings.TEMPLATES[0]['DIRS'][0],'documents/form_corona3.docx')
-    testdoc =  "/home/sammy/afcovid/templates/documents/test1.docx"
+    testdoc =  os.path.join(settings.TEMPLATES[0]['DIRS'][0],'documents/form_corona3.docx')
+    # testdoc =  "/home/sammy/afcovid/templates/documents/form_corona.docx"
 
     document = Document(testdoc)
 
@@ -79,78 +80,86 @@ def corona3_Document(request,pk):
 
     dic = {
             '#Fullname#':corona3.FullName,
-            '#PersonID#':corona3.PersonID,            
-            '#Gender#':corona3.get_Gender_display()          
-#             '#Age#':corona3.Age,            
-#             '#Nationority#':corona3.Nationority,            
-#             '#CareerPatient#':corona3.CareerPatient,            
-#             '#Mobile#':corona3.Mobile,            
-#             '#PlaceWork#':corona3.PlaceWork,            
-#             '#Address#':corona3.Address,            
-#             '#Swine#':corona3.Swine,            
-#             '#SubDistrict#':corona3.SubDistrict,            
-#             '#District#':corona3.District,            
-#             '#Province#':corona3.Province,            
-#             '#DatePatient#':corona3.DatePatient,            
-#             '#DateFirstTreat#':corona3.DateFirstTreat,
-#             '#DateDiagnose#':corona3.DateDiagnose,            
-#             '#CaseFemale#':corona3.CaseFemale,            
-#             '#DateCheckRTPCR#':corona3.DateCheckRTPCR,            
-#             '#TypeExampleRTPCR#':corona3.TypeExampleRTPCR,            
-#             '#PlaceCheckRTCR#':corona3.PlaceCheckRTCR,            
-#             '#ResultsCheckRTPCR#':corona3.ResultsCheckRTPCR,            
-#             '#DateCheckAntigen#':corona3.DateCheckAntigen,            
-#             '#TypeExampleAntigen#':corona3.TypeExampleAntigen,            
-#             '#PlaceCheckAntigen#':corona3.PlaceCheckAntigen,            
-#             '#ResultsCheckAntigen#':corona3.ResultsCheckAntigen,            
-#             '#DateCheckAntibody1#':corona3.DateCheckAntibody1,            
-#             '#TypeExampleAntibody1#':corona3.TypeExampleAntibody1,            
-#             '#DateCheckAntibody2#':corona3.DateCheckAntibody2,            
-#             '#TypeExampleAntibody2#':corona3.TypeExampleAntibody2,            
-#             '#PlaceCheckAntibody2#':corona3.PlaceCheckAntibody2,            
-#             '#ReceivedVaccine#':corona3.ReceivedVaccine,            
-#             '#BookReceivedVaccine#':corona3.BookReceivedVaccine,            
-#             '#DateReceivedVaccine1#':corona3.DateReceivedVaccine1,            
-#             '#NameVaccine1#':corona3.NameVaccine1,            
-#             '#PlaceReceivedVaccine1#':corona3.PlaceReceivedVaccine1,            
-#             '#DateReceivedVaccine2#':corona3.DateReceivedVaccine2,            
-#             '#NameVaccine2#':corona3.NameVaccine2,            
-#             '#PlaceReceivedVaccine2#':corona3.PlaceReceivedVaccine2,            
-#             '#LiveInCovid#':corona3.LiveInCovid,            
-#             '#InThaiProvince#':corona3.InThaiProvince,            
-#             '#InForeignCountry#':corona3.InForeignCountry,            
-#             '#InForeignCity#':corona3.InForeignCity,            
-#             '#NearCovid#':corona3.NearCovid,            
-#             '#ContactCovid#':corona3.ContactCovid,            
-#             '#ContactCovidText#':corona3.ContactCovidText,            
-#             '#CareerNearCovid#':corona3.CareerNearCovid,            
-#             '#TravelInCovid#':corona3.TravelInCovid,            
-#             '#TravelInCovidText#':corona3.TravelInCovidText,            
-#             '#AuthoritiesMedical#':corona3.AuthoritiesMedical,            
-#             '#HistoryRisky#':corona3.HistoryRisky,            
-#             '#HistoryRiskyText#':corona3.HistoryRiskyText,            
-#             '#ContactRisky#':corona3.ContactRisky,            
-#             '#ContactRiskyTrace#':corona3.ContactRiskyTrace,            
-#             '#PlaceConfineContactRisky1#':corona3.PlaceConfineContactRisky1,            
-#             '#PlaceConfineContactRisky2#':corona3.PlaceConfineContactRisky2,            
-#             '#ContactLowRisk#':corona3.ContactLowRisk,            
-#             '#ContactLowRiskTrace#':corona3.ContactLowRiskTrace,            
-#             '#PlaceConfineContactLowRisk1#':corona3.PlaceConfineContactLowRisk1,            
-#             '#UserReport#':corona3.UserReport,            
-#             '#Unit#':corona3.Unit,            
-#             '#Mobile2#':corona3.Mobile2,            
-#             '#DateReport#':corona3.DateReport,
+            '#PersonID#':corona3.PersonID,
+            '#Gender#':corona3.get_Gender_display(),
+            '#Age#':corona3.Age,
+            '#Nationority#':corona3.get_Nationality_display(),
+            '#CareerPatient#':corona3.CareerPatient,
+            '#Mobile#':corona3.Mobile,
+            '#PlaceWork#':corona3.PlaceWork,
+            '#Address#':corona3.Address,
+            '#Swine#':corona3.Swine,
+            '#SubDistrict#':corona3.SubDistrict,
+            '#District#':corona3.District,
+            '#Province#':corona3.get_Province_display(),  
+            '#DatePatient#':corona3.DatePatient,
+            '#DateFirstTreat#':corona3.DateFirstTreat,
+            '#DateDiagnose#':corona3.DateDiagnose,
+            '#CaseFemale#':corona3.CaseFemale,
+            '#DateCheckRTPCR#':corona3.DateCheckRTPCR,
+            '#TypeExampleRTPCR#':corona3.TypeExampleRTPCR,
+            '#PlaceCheckRTCR#':corona3.PlaceCheckRTPCR,
+            '#ResultsCheckRTPCR#':corona3.ResultsCheckRTPCR,
+            '#DateCheckAntigen#':corona3.DateCheckAntigen,
+            '#TypeExampleAntigen#':corona3.TypeExampleAntigen,
+            '#PlaceCheckAntigen#':corona3.PlaceCheckAntigen,
+            '#ResultsCheckAntigen#':corona3.ResultsCheckAntigen,
+            '#HospitalProvince#':corona3.get_HospitalProvince_display(),
+            '#NameHospitalTreat#':corona3.NameHospitalTreat,
+            '#DateCheckAntibody1#':corona3.DateCheckAntibody1,
+            '#PlaceCheckAntibody1#':corona3.PlaceCheckAntibody1,
+            '#TypeExampleAntibody1#':corona3.TypeExampleAntibody1,
+            '#DateCheckAntibody2#':corona3.DateCheckAntibody2,
+            '#TypeExampleAntibody2#':corona3.TypeExampleAntibody2,
+            '#PlaceCheckAntibody2#':corona3.PlaceCheckAntibody2,
+            '#ReceivedVaccine#':corona3.ReceivedVaccine,
+            '#BookReceivedVaccine#':corona3.BookReceivedVaccine,
+            '#DateReceivedVaccine1#':corona3.DateReceivedVaccine1,
+            '#NameVaccine1#':corona3.NameVaccine1,
+            '#PlaceReceivedVaccine1#':corona3.PlaceReceivedVaccine1,
+            '#DateReceivedVaccine2#':corona3.DateReceivedVaccine2,
+            '#NameVaccine2#':corona3.NameVaccine2,
+            '#PlaceReceivedVaccine2#':corona3.PlaceReceivedVaccine2,
+            '#LiveInCovid#':corona3.LiveInCovid,
+            '#InThaiProvince#':corona3.InThaiProvince,
+            '#InForeignCountry#':corona3.InForeignCountry,
+            '#InForeignCity#':corona3.InForeignCity,
+            '#NearCovid#':corona3.NearCovid,
+            '#ContactCovid#':corona3.ContactCovid,
+            '#ContactCovidText#':corona3.ContactCovidText,
+            '#CareerNearCovid#':corona3.CareerNearCovid,
+            '#TravelInCovid#':corona3.TravelInCovid,
+            '#TravelInCovidText#':corona3.TravelInCovidText,
+            '#AuthoritiesMedical#':corona3.AuthoritiesMedical,
+            '#HistoryRisky#':corona3.HistoryRisky,
+            '#DiseasePatient#':corona3.DiseasePatient,
+            '#HistoryRiskyText#':corona3.HistoryRiskyText,
+            '#ContactRisky#':corona3.ContactRisky,
+            '#ContactRiskyTrace#':corona3.ContactRiskyTrace,
+            '#PlaceConfineContactRisky1#':corona3.PlaceConfineContactRisky1,
+            '#PlaceConfineContactRisky2#':corona3.PlaceConfineContactRisky2,
+            '#ContactLowRisk#':corona3.ContactLowRisk,
+            '#ContactLowRiskTrace#':corona3.ContactLowRiskTrace,
+            '#PlaceConfineContactLowRisk1#':corona3.PlaceConfineContactLowRisk1,
+            '#PlaceConfineContactLowRisk2#':corona3.PlaceConfineContactLowRisk2,
+            '#UserReport#':corona3.UserReport,
+            '#Unit#':corona3.Unit,
+            '#Mobile2#':corona3.Mobile2,
+            '#DateReport#':corona3.DateReport
             }
-    print(dic)
+    # print(dic)
 
     for para in document.paragraphs:
         for key, value in dic.items():
+            replace_value = value if value != None else ' '
+            replace_value = replace_value.strftime("%d %b %Y") if isinstance(replace_value, datetime.date) else replace_value
+            replace_value = replace_value if type(replace_value) == str else str(replace_value)
             if key in para.text:
                 inline = para.runs
                 # Loop added to work with runs (strings with same style)
                 for i in range(len(inline)):
                     if key in inline[i].text:
-                        text = inline[i].text.replace(key, value)
+                        text = inline[i].text.replace(key, replace_value)
                         inline[i].text = text
 
     # Prepare document for download        
