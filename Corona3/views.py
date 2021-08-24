@@ -1,5 +1,6 @@
 import os
 from io import StringIO, BytesIO
+import datetime
 
 #django module
 from django.forms.forms import Form
@@ -66,6 +67,7 @@ class Corona3UpdateView(LoginRequiredMixin,UpdateView):
 def corona3_Document(request,pk):
     # testdoc = static('documents/form_corona3.docx')
     testdoc =  os.path.join(settings.TEMPLATES[0]['DIRS'][0],'documents/form_corona3.docx')
+    # testdoc =  "/home/sammy/afcovid/templates/documents/form_corona.docx"
 
     document = Document(testdoc)
 
@@ -146,15 +148,20 @@ def corona3_Document(request,pk):
             '#DateReport#':str(corona3.DateReport),
             }
     print(dic)
+    # print(dic)
+
 
     for para in document.paragraphs:
         for key, value in dic.items():
+            replace_value = value if value != None else ' '
+            replace_value = replace_value.strftime("%d %b %Y") if isinstance(replace_value, datetime.date) else replace_value
+            replace_value = replace_value if type(replace_value) == str else str(replace_value)
             if key in para.text:
                 inline = para.runs
                 # Loop added to work with runs (strings with same style)
                 for i in range(len(inline)):
                     if key in inline[i].text:
-                        text = inline[i].text.replace(key, value)
+                        text = inline[i].text.replace(key, replace_value)
                         inline[i].text = text
 
     # Prepare document for download        
