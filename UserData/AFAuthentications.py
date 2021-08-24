@@ -38,7 +38,7 @@ def checkRTAFPassdword(username, password):
 class SettingsBackend(ModelBackend):
 
     def authenticate(self, request, username=None, password=None):
-        pass
+        # pass
         # print('Username = ',username)
         try:
             user = User.objects.get(username=username)

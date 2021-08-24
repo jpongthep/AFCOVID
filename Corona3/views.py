@@ -149,6 +149,7 @@ def corona3_Document(request,pk):
             }
     # print(dic)
 
+
     for para in document.paragraphs:
         for key, value in dic.items():
             replace_value = value if value != None else ' '
